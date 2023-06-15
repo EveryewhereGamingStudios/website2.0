@@ -1,0 +1,56 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+@import "./sidebar.scss";
+@import "./main.scss";
+@import "./nav.scss";
+@import "./forms.scss";
+
+@import "./pages/home.scss";
+@import "./pages/waitlist.scss";
+@import "./pages/blog.scss";
+@import "./pages/get-nft.scss";
+
+@import "./admin/auth.scss";
+
+body {
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
+
+    font-family: $font-primary;
+    font-weight: $font-weight-light;
+
+    color: $color-white;
+
+    a {
+        text-decoration: none;
+        color: $color-white;
+    }
+}
+
+.fullview {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100hw;
+}
+
+.error {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid red;
+}
+
+@media (min-width: 1100px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+@media (max-width: 1100px) {
+    .desktop-only {
+        display: none;
+    }
+}

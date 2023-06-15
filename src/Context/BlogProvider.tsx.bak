@@ -1,0 +1,109 @@
+import { createContext, useState } from "react";
+// import blog from "../data/blog.json";
+
+interface Article {
+    id: string;
+    title: string;
+    content: string;
+    summary: string;
+    image: string;
+    tags: string[];
+    date: {
+        _seconds: number;
+    }
+}
+
+interface BlogContextProps {
+    articles: Article[];
+    article: Article | undefined;
+    loading: boolean;
+    error: string;
+    getArticleById: (id: string) => Promise<Article | undefined>;
+    getArticles: () => Promise<Article[]>;
+}
+
+export const BlogContext = createContext<BlogContextProps>({} as BlogContextProps);
+
+const BlogProvider = ({children}: any) => {
+    const [articles, setArticles] = useState<Article[]>([]);
+    const [article, setArticle] = useState<Article | undefined>(undefined);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+
+    const getArticleById = async (id: string) => {
+        setLoading(true);
+
+        try {
+            //fetch article by id from the /api/v1/blog/:id endpoint
+            const response = await fetch(`/api/v1/blog/${id}`);
+            const data = await response.json();
+
+            if (response.status === 200) {
+                if(!data) {
+                    setError("Unable to load article");
+                    return undefined;
+                }
+
+                setArticle(data);
+            }
+
+            if (response.status === 404) {
+                setError("Article not found");
+            }
+
+            if (response.status >= 500) {
+                setError("Server error");
+            }
+
+        } finally {
+            setLoading(false);
+        }
+
+        return undefined;
+    }
+
+    const getArticles = async () => {
+        setLoading(true);
+
+        try {
+            const response = await fetch("/api/v1/blog");
+            const data = await response.json();
+
+            if (response.status === 200) {
+                if(!data) {
+                    setError("Unable to load articles");
+                    return [];
+                }
+
+                setArticles(data);
+            }
+
+            if (response.status === 404) {
+                setError("Articles not found");
+            }
+
+            if (response.status >= 500) {
+                setError("Server error");
+            }
+        } finally {
+            setLoading(false);
+        }
+
+        return [];
+    }
+
+
+    return <BlogContext.Provider value={{
+        articles,
+        article,
+        loading,
+        error,
+        getArticleById,
+        getArticles
+    }}> {children} </BlogContext.Provider>
+}
+
+export default BlogProvider;
+        
+
+        
