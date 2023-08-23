@@ -9,10 +9,21 @@
     
     max-width: 800px;
 
+    @media only screen and (max-width: 720px) {
+        max-width: 100%;
+    }
+
     .image {
-        height: 400px;
+        @media only screen and (max-width: 720px) {
+            height: 70px;
+            border-radius: 10px;
+        }
+        height: 200px;
         background-color: $color-gray;
         margin-bottom: 10px;
         align-self: center;
+        resize: contain;
+        border-radius: 20px;
+        border: 2px solid #30D1FF;
     }
 }

@@ -13,33 +13,53 @@
         margin-bottom: 20px;
         background-color: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
-        padding: 10px;
         width: 300px;
-
+        border: 2px solid #30D1FF;
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: flex-start;
+        max-height: 298px;
+        contain: content;
         flex-wrap: wrap;
 
+        .card_article {
+            padding-inline: 10px;
+            border-top: 2px solid #30D1FF;
+            
+        }
+
+        .card-bottom {
+            justify-content: space-between;
+            flex-direction: row;
+            display: flex;
+            margin-top: -10px;
+        }
+
         .title {
-            font-size: 20px;
-            font-weight: $font-weight-bold;
-            margin-bottom: 10px;
+            font-size: 18px;
+            color: #30D1FF;
+            margin-bottom: -10px;
         }
 
         .content {
             font-size: 12px;
             font-weight: $font-weight-light;
-            margin-bottom: 10px;
             color: $color-gray;
         }
 
         .image {
             width: 100%;
-            height: 200px;
+            height: 150px;
             background-color: $color-gray;
-            margin-bottom: 10px;
+        }
+        .time {
+            color: #30D1FF;
+            font-size: 11px;
+        }
+        .date {
+            color: #30D1FF;
+            font-size: 11px;
+        }
+        .summary {
+            font-size: 13px;
         }
     }
 }
