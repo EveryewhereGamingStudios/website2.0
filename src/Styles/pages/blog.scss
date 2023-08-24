@@ -30,13 +30,13 @@
             justify-content: space-between;
             flex-direction: row;
             display: flex;
-            margin-top: -10px;
+            padding-bottom: 8px;
         }
 
         .title {
             font-size: 18px;
             color: #30D1FF;
-            margin-bottom: -10px;
+            margin-top: 8px;
         }
 
         .content {
@@ -60,6 +60,7 @@
         }
         .summary {
             font-size: 13px;
+            margin-bottom: 10px;
         }
     }
 }

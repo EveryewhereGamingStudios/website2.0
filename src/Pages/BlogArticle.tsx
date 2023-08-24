@@ -36,26 +36,26 @@ const BlogArticle = () => {
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Blog" />
       </Helmet>
-      <div className="blog-article">
-        {loading && <p className="loading">Loading...</p>}
-        {error && <p className="error">{error}</p>}
+      <div className="md:p-12 p-4 bg-opacity-10 rounded-lg items-start justify-start w-full self-center flex">
+        {loading && <p className="text-center loading">Loading...</p>}
+        {error && <p className="text-center error">{error}</p>}
         {article && (
-          <>
+          <div className="w-full self-center flex flex-col">
+            <h1 className="text-3xl font-semibold text-center">
+              {article.title}
+            </h1>
+            <span className="text-gray-500 text-center">3 minute read</span>
+            <span className="text-gray-500 mb-12 text-center">{date}</span>
             <img
               src={article.image || "/assets/images/spaceportal.png"}
               alt={article.title}
-              className="image"
+              className="border-[#30D1FF] border rounded-xl max-h-[300px] self-center"
             />
 
-            <h2 className="title">{article.title}</h2>
-            <div
-              className="content"
-              dangerouslySetInnerHTML={{
-                __html: sanitizeHtml(article.content),
-              }}
-            />
-            <p className="date">{date}</p>
-          </>
+            <div className="prose max-w-none self-center w-full text-center mt-12">
+              {article.content}
+            </div>
+          </div>
         )}
       </div>
     </>
