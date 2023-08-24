@@ -2,21 +2,25 @@ import { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { BlogContext } from "../Context/BlogProvider";
-import sanitizeHtml from "sanitize-html";
+// import sanitizeHtml from "sanitize-html";
+import { CardBlog } from "../Components/CardBlog";
 
 const BlogArticle = () => {
   const { id } = useParams<{ id: string }>();
-  const { article, loading, error, getArticleById } = useContext(BlogContext);
+  const { article, articles, loading, error, getArticleById, getArticles } =
+    useContext(BlogContext);
 
   useEffect(() => {
     if (!id) return;
-
+    getArticles();
     getArticleById(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const seconds = article?.date.seconds || 0;
   const date = new Date(seconds * 1000).toDateString();
+
+  console.log(articles, "<<<<<");
 
   return (
     <>
@@ -57,6 +61,17 @@ const BlogArticle = () => {
             </div>
           </div>
         )}
+      </div>
+      <div>
+        <h1 className="text-3xl font-semibold text-center">
+          It can be interesting too...
+        </h1>
+        <div className="mt-4 flex flex-wrap justify-around">
+          {articles?.map((article, index) => {
+            if (index > 2) return null;
+            if (article) return CardBlog(article);
+          })}
+        </div>
       </div>
     </>
   );
