@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { BlogContext } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
+import { Footer } from "../Components/Footer";
 
 const BlogArticle = () => {
   const { id } = useParams<{ id: string }>();
@@ -62,7 +63,7 @@ const BlogArticle = () => {
           </div>
         )}
       </div>
-      <div>
+      <div className="mb-20">
         <h1 className="text-3xl font-semibold text-center">
           It can be interesting too...
         </h1>
@@ -73,6 +74,7 @@ const BlogArticle = () => {
           })}
         </div>
       </div>
+      {Footer()}
     </>
   );
 };
