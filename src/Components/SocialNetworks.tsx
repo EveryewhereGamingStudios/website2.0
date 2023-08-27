@@ -23,7 +23,7 @@ export function SocialNetworks() {
   ];
 
   return (
-    <div className="flex w-full justify-center items-center flex-col py-12 absolute bottom-32">
+    <div className="h-[200px] flex w-full justify-center items-center flex-col py-12 mt-18">
       <h1 className="mb-16 text-3xl font-semibold text-center">
         Support us in social media
       </h1>

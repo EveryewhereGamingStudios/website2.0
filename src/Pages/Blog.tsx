@@ -12,14 +12,16 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="min-h-full justify-between flex flex-col">
-      <div className="flex flex-wrap justify-around ">
-        {loading && <p className="loading">Loading...</p>}
-        {error && <p className="error">{error}</p>}
-        {articles?.map((article) => article && CardBlog(article))}
+    <>
+      <div className="min-h-[500px] justify-between flex flex-col">
+        <div className="flex flex-wrap justify-around ">
+          {loading && <p className="loading">Loading...</p>}
+          {error && <p className="error">{error}</p>}
+          {articles?.map((article) => article && CardBlog(article))}
+        </div>
       </div>
-      {Footer()}
-    </div>
+      <div className="bottom-0 flex flex-col">{Footer()}</div>
+    </>
   );
 };
 
