@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { BlogContext } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
-import { Footer } from "../Components/Footer";
 
 const BlogArticle = () => {
   const { id } = useParams<{ id: string }>();
@@ -74,7 +73,6 @@ const BlogArticle = () => {
           })}
         </div>
       </div>
-      {Footer()}
     </>
   );
 };

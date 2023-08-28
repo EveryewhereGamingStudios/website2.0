@@ -10,6 +10,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import InGameActionsLayout from "./Layouts/InGameActionsLayout";
 import GetNFT from "./Pages/GetNFT";
 import Invest from "./Pages/Invest";
+import { Footer } from "./Components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/blog",
-        element: <Blog />,
+        element: (
+          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Blog />
+            <Footer />
+          </div>
+        ),
       },
       {
         path: "/blog/:id",
-        element: <BlogArticle />,
+        element: (
+          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <BlogArticle />
+            <Footer />
+          </div>
+        ),
       },
       {
         path: "/privacy-policy",
