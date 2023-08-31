@@ -1,8 +1,15 @@
-import { createContext, useCallback, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Analytics, getAnalytics } from "firebase/analytics";
 import {
   Auth,
+  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
@@ -22,7 +29,11 @@ interface FirebaseContextProps {
   provider: Partial<GoogleAuthProvider>;
   authenticate: any;
   loadingPost: boolean;
+  signedUp: boolean;
+  error: string;
+  loadingSignUp: boolean;
   postBlog: (data: IBlogPost) => Promise<void>;
+  signUpWithEmail: (email: string, password: string) => Promise<void>;
 }
 
 interface IBlogPost {
@@ -40,11 +51,15 @@ interface IContentOne {
   desctiption: string;
 }
 
-export const FirebaseContext = createContext<FirebaseContextProps>(
-  {} as FirebaseContextProps
+interface Props {
+  children: JSX.Element;
+}
+
+export const FirebaseContext = createContext<FirebaseContextProps | undefined>(
+  undefined
 );
 
-const FirebaseProvider = ({ children }: any) => {
+const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const [app] = useState(
     initializeApp({
       apiKey: process.env.REACT_APP_API_KEY,
@@ -59,10 +74,13 @@ const FirebaseProvider = ({ children }: any) => {
   const db = getFirestore(app);
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
+  const [signedUp, setSignedUp] = useState(false);
+  const [loadingPost, setLoadingPost] = useState(false);
+  const [loadingSignUp, setLoadingSignUp] = useState(false);
+  const [error, setError] = useState("");
   const googleAuthProvider = useMemo(() => {
     return new GoogleAuthProvider();
   }, []);
-  const [loadingPost, setLoadingPost] = useState(false);
 
   const authenticate = useCallback(async () => {
     googleAuthProvider.addScope("profile");
@@ -88,16 +106,39 @@ const FirebaseProvider = ({ children }: any) => {
     [db]
   );
 
-  const data = useMemo(() => {
+  const signUpWithEmail = useCallback(
+    async (email: string, password: string) => {
+      try {
+        setLoadingSignUp(true);
+
+        await createUserWithEmailAndPassword(auth, email, password)
+          .then((res) => {
+            setSignedUp(true);
+          })
+          .catch((err) => {
+            setError(err.message);
+          });
+      } finally {
+        setLoadingSignUp(false);
+      }
+    },
+    [auth]
+  );
+
+  const value = useMemo(() => {
     return {
       app,
       db,
       analytics,
       auth,
       provider: googleAuthProvider,
+      loadingPost,
+      signedUp,
+      error,
+      loadingSignUp,
       authenticate,
       postBlog,
-      loadingPost,
+      signUpWithEmail,
     };
   }, [
     app,
@@ -105,14 +146,30 @@ const FirebaseProvider = ({ children }: any) => {
     analytics,
     auth,
     googleAuthProvider,
+    loadingPost,
+    signedUp,
+    error,
+    loadingSignUp,
     authenticate,
     postBlog,
-    loadingPost,
+    signUpWithEmail,
   ]);
 
   return (
-    <FirebaseContext.Provider value={data}>{children}</FirebaseContext.Provider>
+    <FirebaseContext.Provider value={value} {...rest}>
+      {children}
+    </FirebaseContext.Provider>
   );
+};
+
+export const useFirebase = (): FirebaseContextProps => {
+  const context = useContext(FirebaseContext);
+
+  if (context === undefined) {
+    throw new Error("useFirebase must be used within an FirebaseProvider");
+  }
+
+  return context;
 };
 
 export default FirebaseProvider;

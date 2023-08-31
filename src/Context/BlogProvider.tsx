@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import { FirebaseContext } from "./FirebaseProvider";
+import { createContext, useState } from "react";
+import { useFirebase } from "./FirebaseProvider";
 import { collection, getDoc, getDocs, doc } from "firebase/firestore";
 // import blog from "../data/blog.json";
 
@@ -33,7 +33,7 @@ const BlogProvider = ({ children }: any) => {
   const [article, setArticle] = useState<Article | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const { db } = useContext(FirebaseContext);
+  const { db } = useFirebase();
   const blogRef = collection(db, "blog");
 
   const getArticleById = async (id: string) => {

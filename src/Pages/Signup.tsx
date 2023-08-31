@@ -1,31 +1,24 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import links from "../data/links.json";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { useFirebase } from "../Context/FirebaseProvider";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gdpr, setGdpr] = useState(false);
-  const [signedUp, setSignedUp] = useState(false);
-  const [error, setError] = useState("");
+
+  const { signUpWithEmail, error, signedUp } = useFirebase();
 
   const gdprRef = useRef<HTMLInputElement>(null);
 
-  const auth = getAuth();
-
-  const submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const submitForm = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (gdpr && email && password) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-          setSignedUp(true);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
+      try {
+        await signUpWithEmail(email, password);
+      } catch {}
     } else {
       // add class to gdpr label .error
       if (gdprRef.current) {

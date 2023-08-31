@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import { FirebaseContext } from "../../Context/FirebaseProvider";
+import { useFirebase } from "../../Context/FirebaseProvider";
 
 const AdminProfile = () => {
-    const { auth } = useContext(FirebaseContext);
+  const { auth } = useFirebase();
 
-    console.log(auth);
-    return <>
-    </>
+  console.log(auth);
+  return <></>;
 };
 
 export default AdminProfile;
