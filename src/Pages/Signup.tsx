@@ -1,12 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import links from "../data/links.json";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [gdpr, setGdpr] = useState(false);
   const [signedUp, setSignedUp] = useState(false);
   const [error, setError] = useState("");
@@ -14,6 +14,29 @@ const Signup = () => {
   const gdprRef = useRef<HTMLInputElement>(null);
 
   const auth = getAuth();
+  //   const db = getFirestore();
+
+  //   useEffect(() => {
+  //     try {
+  //       addDoc(collection(db, `blog`), {
+  //         _id: 0,
+  //         createdAt: "31/08/2023",
+  //         title: "title main",
+  //         content: [
+  //           {
+  //             title: "title1",
+  //             desctiption: "description1",
+  //           },
+  //           {
+  //             title: "title2",
+  //             desctiption: "description2",
+  //           },
+  //         ],
+  //       });
+  //     } catch (e) {
+  //       console.log(e, "<<<<<<");
+  //     }
+  //   }, [db]);
 
   const submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

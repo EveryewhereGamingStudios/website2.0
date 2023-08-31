@@ -34,10 +34,10 @@ const FirebaseProvider = ({ children }: any) => {
       measurementId: process.env.REACT_APP_MEASUREMENT_ID,
     })
   );
-  const [db] = useState(getFirestore(app));
-  const [analytics] = useState(getAnalytics(app));
-  const [auth] = useState(getAuth(app));
-  const [googleAuthProvider] = useState(new GoogleAuthProvider());
+  const db = getFirestore(app);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  const googleAuthProvider = new GoogleAuthProvider();
 
   const authenticate = async () => {
     googleAuthProvider.addScope("profile");
