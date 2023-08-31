@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -14,12 +15,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import {
-  Firestore,
-  addDoc,
-  collection,
-  getFirestore,
-} from "firebase/firestore";
+import { Firestore, getFirestore } from "firebase/firestore";
 
 interface FirebaseContextProps {
   app: FirebaseApp;
@@ -28,27 +24,10 @@ interface FirebaseContextProps {
   auth: Partial<Auth>;
   provider: Partial<GoogleAuthProvider>;
   authenticate: any;
-  loadingPost: boolean;
   signedUp: boolean;
   error: string;
   loadingSignUp: boolean;
-  postBlog: (data: IBlogPost) => Promise<void>;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
-}
-
-interface IBlogPost {
-  uuid: string;
-  createdAt: string;
-  title: string;
-  timeToRead: string;
-  image: string;
-  content: IContentOne[];
-}
-
-interface IContentOne {
-  uuid: string;
-  title: string;
-  desctiption: string;
 }
 
 interface Props {
@@ -75,7 +54,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
   const [signedUp, setSignedUp] = useState(false);
-  const [loadingPost, setLoadingPost] = useState(false);
+
   const [loadingSignUp, setLoadingSignUp] = useState(false);
   const [error, setError] = useState("");
   const googleAuthProvider = useMemo(() => {
@@ -91,20 +70,6 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       console.error(e);
     }
   }, [auth, googleAuthProvider]);
-
-  const postBlog = useCallback(
-    async (data: IBlogPost) => {
-      try {
-        setLoadingPost(true);
-        addDoc(collection(db, "blog"), data);
-      } catch (e) {
-        console.log(e, "Error in blog post!");
-      } finally {
-        setLoadingPost(false);
-      }
-    },
-    [db]
-  );
 
   const signUpWithEmail = useCallback(
     async (email: string, password: string) => {
@@ -132,12 +97,10 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       analytics,
       auth,
       provider: googleAuthProvider,
-      loadingPost,
       signedUp,
       error,
       loadingSignUp,
       authenticate,
-      postBlog,
       signUpWithEmail,
     };
   }, [
@@ -146,12 +109,10 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     analytics,
     auth,
     googleAuthProvider,
-    loadingPost,
     signedUp,
     error,
     loadingSignUp,
     authenticate,
-    postBlog,
     signUpWithEmail,
   ]);
 

@@ -1,6 +1,4 @@
-import { createContext, useCallback, useContext, useState } from "react";
-import { FirebaseContext } from "./FirebaseProvider";
-import { collection, getDoc, getDocs, doc } from "firebase/firestore";
+import { createContext, useState } from "react";
 
 interface APIContextProps {
   signWaitlist: (email: string) => Promise<boolean>;

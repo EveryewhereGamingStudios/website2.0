@@ -17,23 +17,20 @@ const BlogArticle = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const seconds = article?.date.seconds || 0;
-  const date = new Date(seconds * 1000).toDateString();
-
   return (
     <>
       <Helmet>
         <title>{article?.title || "Blog"}</title>
-        <meta name="description" content={article?.summary || "Blog"} />
-        <meta name="keywords" content={article?.tags.join(", ") || "Blog"} />
+        <meta name="description" content={article?.title || "Blog"} />
+        <meta name="keywords" content={article?.title || "Blog"} />
         <meta name="author" content={"Tom Couceiro"} />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
 
         <meta property="og:title" content={article?.title || "Blog"} />
-        <meta property="og:description" content={article?.summary || "Blog"} />
-        <meta property="og:image" content={article?.image || "Blog"} />
+        <meta property="og:description" content={article?.title || "Blog"} />
+        <meta property="og:image" content={article?.coverImage || "Blog"} />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Blog" />
@@ -47,15 +44,24 @@ const BlogArticle = () => {
               {article.title}
             </h1>
             <span className="text-gray-500 text-center">3 minute read</span>
-            <span className="text-gray-500 mb-12 text-center">{date}</span>
+            <span className="text-gray-500 mb-12 text-center">
+              {article?.createdAt.toString()}
+            </span>
             <img
-              src={article.image || "/assets/images/spaceportal.png"}
+              src={article.bannerImage || "/assets/images/spaceportal.png"}
               alt={article.title}
               className="border-[#30D1FF] border rounded-xl max-h-[300px] self-center"
             />
 
             <div className="prose max-w-none self-center w-full text-center mt-12">
-              {article.content}
+              {article.content.map((item) => {
+                return (
+                  <div>
+                    <span>{item.title}</span>
+                    <span>{item.desctiption}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
