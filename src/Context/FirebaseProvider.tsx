@@ -48,6 +48,7 @@ const FirebaseProvider = ({ children }: any) => {
       console.error(e);
     }
   };
+
   return (
     <FirebaseContext.Provider
       value={{

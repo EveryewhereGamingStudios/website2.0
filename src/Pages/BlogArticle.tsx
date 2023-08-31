@@ -20,8 +20,6 @@ const BlogArticle = () => {
   const seconds = article?.date.seconds || 0;
   const date = new Date(seconds * 1000).toDateString();
 
-  console.log(articles, "<<<<<");
-
   return (
     <>
       <Helmet>
