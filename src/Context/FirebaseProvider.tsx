@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useMemo, useState } from "react";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Analytics, getAnalytics } from "firebase/analytics";
 import {
@@ -7,7 +7,12 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { Firestore, getFirestore } from "firebase/firestore";
+import {
+  Firestore,
+  addDoc,
+  collection,
+  getFirestore,
+} from "firebase/firestore";
 
 interface FirebaseContextProps {
   app: FirebaseApp;
@@ -16,6 +21,23 @@ interface FirebaseContextProps {
   auth: Partial<Auth>;
   provider: Partial<GoogleAuthProvider>;
   authenticate: any;
+  loadingPost: boolean;
+  postBlog: (data: IBlogPost) => Promise<void>;
+}
+
+interface IBlogPost {
+  uuid: string;
+  createdAt: string;
+  title: string;
+  timeToRead: string;
+  image: string;
+  content: IContentOne[];
+}
+
+interface IContentOne {
+  uuid: string;
+  title: string;
+  desctiption: string;
 }
 
 export const FirebaseContext = createContext<FirebaseContextProps>(
@@ -37,9 +59,12 @@ const FirebaseProvider = ({ children }: any) => {
   const db = getFirestore(app);
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
-  const googleAuthProvider = new GoogleAuthProvider();
+  const googleAuthProvider = useMemo(() => {
+    return new GoogleAuthProvider();
+  }, []);
+  const [loadingPost, setLoadingPost] = useState(false);
 
-  const authenticate = async () => {
+  const authenticate = useCallback(async () => {
     googleAuthProvider.addScope("profile");
 
     try {
@@ -47,21 +72,46 @@ const FirebaseProvider = ({ children }: any) => {
     } catch (e) {
       console.error(e);
     }
-  };
+  }, [auth, googleAuthProvider]);
+
+  const postBlog = useCallback(
+    async (data: IBlogPost) => {
+      try {
+        setLoadingPost(true);
+        addDoc(collection(db, "blog"), data);
+      } catch (e) {
+        console.log(e, "Error in blog post!");
+      } finally {
+        setLoadingPost(false);
+      }
+    },
+    [db]
+  );
+
+  const data = useMemo(() => {
+    return {
+      app,
+      db,
+      analytics,
+      auth,
+      provider: googleAuthProvider,
+      authenticate,
+      postBlog,
+      loadingPost,
+    };
+  }, [
+    app,
+    db,
+    analytics,
+    auth,
+    googleAuthProvider,
+    authenticate,
+    postBlog,
+    loadingPost,
+  ]);
 
   return (
-    <FirebaseContext.Provider
-      value={{
-        app,
-        db,
-        analytics,
-        auth,
-        provider: googleAuthProvider,
-        authenticate,
-      }}
-    >
-      {children}
-    </FirebaseContext.Provider>
+    <FirebaseContext.Provider value={data}>{children}</FirebaseContext.Provider>
   );
 };
 

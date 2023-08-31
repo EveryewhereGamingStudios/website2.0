@@ -14,29 +14,6 @@ const Signup = () => {
   const gdprRef = useRef<HTMLInputElement>(null);
 
   const auth = getAuth();
-  //   const db = getFirestore();
-
-  //   useEffect(() => {
-  //     try {
-  //       addDoc(collection(db, `blog`), {
-  //         _id: 0,
-  //         createdAt: "31/08/2023",
-  //         title: "title main",
-  //         content: [
-  //           {
-  //             title: "title1",
-  //             desctiption: "description1",
-  //           },
-  //           {
-  //             title: "title2",
-  //             desctiption: "description2",
-  //           },
-  //         ],
-  //       });
-  //     } catch (e) {
-  //       console.log(e, "<<<<<<");
-  //     }
-  //   }, [db]);
 
   const submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
