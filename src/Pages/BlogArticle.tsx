@@ -43,9 +43,11 @@ const BlogArticle = () => {
             <h1 className="text-3xl font-semibold text-center">
               {article.title}
             </h1>
-            <span className="text-gray-500 text-center">3 minute read</span>
+            <span className="text-gray-500 text-center">
+              {article?.timeToRead}
+            </span>
             <span className="text-gray-500 mb-12 text-center">
-              {article?.createdAt.toString()}
+              {article?.createdAt}
             </span>
             <img
               src={article.bannerImage || "/assets/images/spaceportal.png"}
@@ -54,15 +56,26 @@ const BlogArticle = () => {
             />
 
             <div className="prose max-w-none self-center w-full text-center mt-12">
-              {article.content.map((item) => {
-                return (
-                  <div>
-                    <span>{item.title}</span>
-                    <span>{item.desctiption}</span>
-                  </div>
-                );
-              })}
+              {article &&
+                article?.content.map((item) => {
+                  return (
+                    <div className="flex flex-col text-start">
+                      <span className="font-bold text-xl mt-4 mb-2">
+                        {item.title}
+                      </span>
+                      <span className="text-sm">{item.desctiption}</span>
+                    </div>
+                  );
+                })}
             </div>
+            <a
+              href={article?.link}
+              target="_blank"
+              className="mt-6 font-bold"
+              rel="noreferrer"
+            >
+              {article?.link}
+            </a>
           </div>
         )}
       </div>

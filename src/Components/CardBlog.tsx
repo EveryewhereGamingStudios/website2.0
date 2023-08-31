@@ -16,9 +16,7 @@ export function CardBlog(article: IBlogPost) {
         </p>
         <div className="flex justify-between">
           <p className="text-xs text-[#30D1FF]">3 min</p>
-          <p className="text-xs text-[#30D1FF]">
-            {article.createdAt.toString()}
-          </p>
+          <p className="text-xs text-[#30D1FF]">{article.createdAt}</p>
         </div>
       </div>
     </div>
