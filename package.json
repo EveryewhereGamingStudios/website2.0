@@ -16,9 +16,11 @@
     "@types/react-dom": "^18.2.4",
     "@types/react-helmet": "^6.1.6",
     "@types/sanitize-html": "^2.9.0",
+    "browserify-zlib": "^0.2.0",
     "ethers": "^5.7.2",
     "firebase": "^9.22.0",
     "helmet": "^7.0.0",
+    "https-browserify": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -26,7 +28,9 @@
     "react-scripts": "5.0.1",
     "sanitize-html": "^2.10.0",
     "sass": "^1.62.1",
+    "stream-http": "^3.2.0",
     "typescript": "^4.9.5",
+    "url": "^0.11.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
