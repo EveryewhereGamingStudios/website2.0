@@ -11,6 +11,7 @@ import InGameActionsLayout from "./Layouts/InGameActionsLayout";
 import GetNFT from "./Pages/GetNFT";
 import Invest from "./Pages/Invest";
 import { Footer } from "./Components/Footer";
+import Deck from "./Pages/Deck";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,15 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/deck",
+        element: (
+          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Deck />
+            <Footer />
+          </div>
+        ),
       },
       {
         path: "/blog",
@@ -53,7 +63,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/invest",
-        element: <Invest />,
+        element: (
+          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Invest />
+            <Footer />
+          </div>
+        ),
       },
     ],
   },
