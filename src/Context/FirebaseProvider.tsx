@@ -35,6 +35,7 @@ interface FirebaseContextProps {
   loadingSignUp: boolean;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
   signWaitlist: (email: string) => Promise<boolean>;
+  signToOpenDeck: (email: string) => Promise<boolean>;
 }
 
 interface Props {
@@ -115,6 +116,24 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     [db]
   );
 
+  const signToOpenDeck = useCallback(
+    async (email: string) => {
+      const waitlistRef = collection(db, "deck");
+      try {
+        // Add a user to the open deck lisk
+        addDoc(waitlistRef, {
+          email: email,
+          timestamp: serverTimestamp(),
+        });
+
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [db]
+  );
+
   const value = useMemo(() => {
     return {
       app,
@@ -128,6 +147,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       authenticate,
       signUpWithEmail,
       signWaitlist,
+      signToOpenDeck,
     };
   }, [
     app,
@@ -141,6 +161,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     authenticate,
     signUpWithEmail,
     signWaitlist,
+    signToOpenDeck,
   ]);
 
   return (

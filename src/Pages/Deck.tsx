@@ -1,19 +1,30 @@
-import { useMemo, useState } from "react";
-import { Footer } from "../Components/Footer";
+import { useState } from "react";
+import { useFirebase } from "../Context/FirebaseProvider";
 
 const Deck = () => {
+  const { signToOpenDeck } = useFirebase();
   const [email, setEmail] = useState("");
-  const [signedUp, setSignedUp] = useState(false);
+  const [registered, setRegistered] = useState(false);
   const [error, setError] = useState("");
-  const ref = useMemo(() => {
-    return "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view";
-  }, []);
 
   const submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (email) {
-      // open deck
+      signToOpenDeck(email)
+        .then((res) => {
+          if (res === true) {
+            setRegistered(true);
+            window.open(
+              "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view"
+            );
+          } else {
+            setError("Error, try again!");
+          }
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
     } else {
       // add class to gdpr label .error
     }
@@ -61,7 +72,7 @@ const Deck = () => {
     <>
       <div className="waitlist">
         <h1>Cosmic Deck</h1>
-        {signedUp ? success : error ? failure : form}
+        {registered ? success : error ? failure : form}
       </div>
     </>
   );
