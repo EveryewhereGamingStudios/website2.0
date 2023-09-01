@@ -7,13 +7,21 @@ const Waitlist = () => {
   const [gdpr, setGdpr] = useState(false);
   const [registered, setRegistered] = useState(false);
   const [error, setError] = useState("");
-
   const gdprRef = useRef<HTMLInputElement>(null);
-
   const { signWaitlist } = useFirebase();
+
+  function isValidEmail(email: string) {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+    return emailRegex.test(email);
+  }
 
   const submitForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (!isValidEmail(email)) {
+      return alert(`${email} is not a valid email address.`);
+    }
 
     if (gdpr && email) {
       signWaitlist(email)
