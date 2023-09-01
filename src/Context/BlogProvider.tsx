@@ -154,7 +154,7 @@ export const useBlog = (): BlogContextProps => {
 export default BlogProvider;
 
 // const blogPost = {
-//   uuid: "fbd48d63-5a71-4d21-b050-10cec38304f1 ",
+//   uuid: "fbd48d63-5a71-4d21-b050-10cec38304f1",
 //   createdAt: moment().format("LL"),
 //   title: "Cosmic Exodus is back",
 //   timeToRead: "3 minutes",
@@ -207,41 +207,41 @@ export default BlogProvider;
 // const anotherBlogPost = {
 //   uuid: "b865dbac-8394-43d6-8c0b-1c82f4f10e11",
 //   createdAt: moment().format("LL"),
-//   title: "Discovering the Galactic Wonders",
+//   title: "Unraveling the Mysteries of the Universe",
 //   timeToRead: "5 minutes",
-//   coverImage: "https://picsum.photos/seed/space/500/500",
-//   bannerImage: "https://picsum.photos/seed/space/500/500",
-//   link: "https://galacticwonders.com",
+//   coverImage: "https://picsum.photos/seed/s/500/500",
+//   bannerImage: "https://picsum.photos/seed/s/500/500",
+//   link: "https://universemysteries.com",
 //   content: [
 //     {
 //       uuid: "deade04b-5632-4bf3-9a37-26c489652da1",
-//       title: "Embarking on a Celestial Expedition",
+//       title: "Embarking on an Interstellar Journey",
 //       desctiption:
-//         "Welcome, fellow stargazers! ✨ Join us on a cosmic journey beyond the horizons of our planet. The Galactic Wonders is your gateway to the awe-inspiring universe. Let's explore the mysteries of distant galaxies, cosmic phenomena, and the enigmatic beauty of the cosmos.",
+//         "Greetings, fellow cosmic travelers! 🚀 Join us on an interstellar voyage beyond the boundaries of our planet. Universe Mysteries is your gateway to the captivating cosmos. Let's delve into the enigmas of distant galaxies, cosmic phenomena, and the awe-inspiring beauty of the universe.",
 //     },
 //     {
 //       uuid: "3c62a5f5-ef61-4e6c-ae9b-821387c79e6d",
-//       title: "Unveiling the Celestial Tapestry",
+//       title: "Deciphering the Secrets of Space",
 //       desctiption:
-//         "Amidst the tapestry of stars, we decipher the secrets of celestial bodies. Delve into the realms of astronomy and astrophysics as we uncover the origins of galaxies, the birth of stars, and the captivating dance of planets. Prepare to be enchanted by the grandeur of the universe.",
+//         "Amidst the cosmic canvas, we decipher the secrets of celestial bodies. Dive into the realms of astronomy and astrophysics as we unveil the origins of galaxies, the birth of stars, and the mesmerizing choreography of planets. Prepare to be enchanted by the majesty of the universe.",
 //     },
 //     {
 //       uuid: "be0d97e4-132e-4e7e-b5e5-9323ea87cfad",
-//       title: "Sailing the Cosmic Seas",
+//       title: "Navigating the Celestial Oceans",
 //       desctiption:
-//         "Navigate the cosmic seas as we set sail through the Milky Way and beyond. From black holes to pulsars, we traverse the cosmic terrain that captivates astronomers and space enthusiasts alike. Join us in this celestial voyage and witness the wonders of deep space.",
+//         "Set sail across the celestial oceans as we journey through the Milky Way and beyond. From enigmatic black holes to radiant pulsars, we navigate the cosmic terrain that fascinates astronomers and space enthusiasts alike. Join us in this celestial expedition and witness the wonders of deep space.",
 //     },
 //     {
 //       uuid: "d37fba7c-cb81-4c76-b229-b08e82c841c1",
-//       title: "Embrace the Starlit Nights",
+//       title: "Embrace the Starry Night",
 //       desctiption:
-//         "Embrace the starlit nights and the serenity they bring. The Galactic Wonders invites you to step out and gaze upon the night sky. Learn about celestial events, meteor showers, and the constellations that have guided humanity for millennia. Rediscover the magic of stargazing.",
+//         "Embrace the starry nights and the tranquility they bring. Universe Mysteries invites you to step outside and gaze upon the night sky. Learn about celestial events, meteor showers, and the constellations that have guided humanity for millennia. Rediscover the magic of stargazing.",
 //     },
 //     {
 //       uuid: "ae74a95d-35a3-4d8c-bd5d-d2f11eb9a3c7",
-//       title: "Join the Cosmic Community",
+//       title: "Join Our Cosmic Fellowship",
 //       desctiption:
-//         "As we journey through the cosmos, we invite you to join our cosmic community. Visit our website at galacticwonders.com and connect with fellow space enthusiasts. Engage in discussions, share your own observations, and stay updated on celestial events. Together, let's celebrate the wonders of the universe.",
+//         "As we traverse the cosmos, we extend an invitation to join our cosmic fellowship. Visit our website at universemysteries.com and connect with fellow space enthusiasts. Engage in discussions, share your own cosmic insights, and stay updated on celestial events. Together, let's celebrate the marvels of the universe.",
 //     },
 //   ],
 // };
