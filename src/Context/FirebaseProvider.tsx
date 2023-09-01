@@ -15,7 +15,13 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { Firestore, getFirestore } from "firebase/firestore";
+import {
+  Firestore,
+  addDoc,
+  collection,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 
 interface FirebaseContextProps {
   app: FirebaseApp;
@@ -28,6 +34,7 @@ interface FirebaseContextProps {
   error: string;
   loadingSignUp: boolean;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
+  signWaitlist: (email: string) => Promise<boolean>;
 }
 
 interface Props {
@@ -90,6 +97,24 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     [auth]
   );
 
+  const signWaitlist = useCallback(
+    async (email: string) => {
+      const waitlistRef = collection(db, "waitlist");
+      try {
+        // Add a user to the waitlist
+        addDoc(waitlistRef, {
+          email: email,
+          timestamp: serverTimestamp(),
+        });
+
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [db]
+  );
+
   const value = useMemo(() => {
     return {
       app,
@@ -102,6 +127,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       loadingSignUp,
       authenticate,
       signUpWithEmail,
+      signWaitlist,
     };
   }, [
     app,
@@ -114,6 +140,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     loadingSignUp,
     authenticate,
     signUpWithEmail,
+    signWaitlist,
   ]);
 
   return (
