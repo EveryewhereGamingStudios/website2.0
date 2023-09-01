@@ -179,7 +179,7 @@ const PrivacyPolicy = () => {
         protection rights. Every user is entitled to the following:
       </p>
 
-      <ul>
+      <ul className="list-disc ml-6 mb-4">
         <li>
           The right to access – You have the right to request copies of your
           personal data. We may charge you a small fee for this service.

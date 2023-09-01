@@ -10,6 +10,7 @@ const Home = () => {
             width="720"
             height="405"
             src="https://www.youtube.com/embed/nMJ-gF2uW4E/?&autoplay=1&t=2"
+            title="ytplayer"
           />
         </div>
         <div className="caption">
@@ -26,7 +27,7 @@ const Home = () => {
               Subscribe to our waitlist
             </a>
           </div>
-          <div className="bottom">
+          <div className="bottom flex justify-between w-[98%]">
             <a href={links.saga}>
               <img src="/assets/images/saga.png" alt="Saga logo" />
             </a>
