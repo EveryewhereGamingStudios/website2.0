@@ -1,10 +1,9 @@
-import { useContext, useEffect } from "react";
-import { BlogContext } from "../Context/BlogProvider";
+import { useEffect } from "react";
+import { useBlog } from "../Context/BlogProvider";
 import { CardBlog } from "../Components/CardBlog";
-import { Footer } from "../Components/Footer";
 
 const Blog = () => {
-  const { articles, loading, error, getArticles } = useContext(BlogContext);
+  const { articles, loading, error, getArticles } = useBlog();
 
   useEffect(() => {
     getArticles();

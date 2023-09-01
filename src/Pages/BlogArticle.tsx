@@ -1,21 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
-import { BlogContext } from "../Context/BlogProvider";
+import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
 
 const BlogArticle = () => {
   const { id } = useParams<{ id: string }>();
-  const { article, articles, loading, error, getArticleById, getArticles } =
-    useContext(BlogContext);
+  const { articles, loading, error, getArticles } = useBlog();
 
   useEffect(() => {
-    if (!id) return;
     getArticles();
-    getArticleById(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
+
+  const article = useMemo(() => {
+    return articles.find((item) => item.uuid === id);
+  }, [articles, id]);
 
   return (
     <>
@@ -52,7 +53,7 @@ const BlogArticle = () => {
             <img
               src={article.bannerImage || "/assets/images/spaceportal.png"}
               alt={article.title}
-              className="border-[#30D1FF] border rounded-xl max-h-[300px] self-center"
+              className="border-[#30D1FF] border rounded-xl max-h-[300px] min-w-full self-center"
             />
 
             <div className="prose max-w-none self-center w-full text-center mt-12">
@@ -84,10 +85,11 @@ const BlogArticle = () => {
           It can be interesting too...
         </h1>
         <div className="mt-4 flex flex-wrap justify-around">
-          {articles?.map((article, index) => {
-            if (index > 2) return null;
-            if (article) return CardBlog(article);
-          })}
+          {articles &&
+            articles?.map((article, index) => {
+              if (index > 2) return null;
+              if (article) return CardBlog(article);
+            })}
         </div>
       </div>
     </>
