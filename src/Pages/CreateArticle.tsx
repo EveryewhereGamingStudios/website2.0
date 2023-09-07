@@ -1,11 +1,28 @@
 import React, { useState, useCallback } from "react";
+import { ref, uploadBytes, getDownloadURL, getStorage } from "firebase/storage";
+import { useFirebase } from "../Context/FirebaseProvider";
+
+interface ContentItem {
+  title: string;
+  description: string;
+}
+
+interface ArticleData {
+  articleTitle: string;
+  bannerImage: string;
+  link: string;
+  date: string;
+  timeToRead: string;
+  content: ContentItem[];
+}
 
 export default function CreateArticle() {
-  const [articleData, setArticleData] = useState({
+  const { app } = useFirebase();
+  const [articleData, setArticleData] = useState<ArticleData>({
     articleTitle: "",
     bannerImage: "",
     link: "",
-    date: new Date().getDate(),
+    date: "",
     timeToRead: "",
     content: [
       {
@@ -15,8 +32,23 @@ export default function CreateArticle() {
     ],
   });
 
+  async function uploadImageAndGetURL(file: File): Promise<string | null> {
+    const storage = getStorage(app);
+    const storageRef = ref(storage, "images/" + file.name);
+
+    try {
+      await uploadBytes(storageRef, file);
+
+      const url = await getDownloadURL(storageRef);
+      return url;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return null;
+    }
+  }
+
   const handleInputChange = useCallback(
-    (e: { target: { name: any; value: any } }) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
       setArticleData({ ...articleData, [name]: value });
     },
@@ -24,7 +56,10 @@ export default function CreateArticle() {
   );
 
   const handleContentChange = useCallback(
-    (index: any, e: any) => {
+    (
+      index: number,
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
       const { name, value } = e.target;
       const updatedContent = [...articleData.content];
       updatedContent[index] = { ...updatedContent[index], [name]: value };
@@ -49,15 +84,26 @@ export default function CreateArticle() {
     [articleData]
   );
 
-  const handleSubmit = useCallback((e: { preventDefault: () => void }) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const imageUrl = await uploadImageAndGetURL(file);
+      if (imageUrl) {
+        setArticleData({ ...articleData, bannerImage: imageUrl });
+      }
+    }
+  };
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
+      // Clear the form
       setArticleData({
         articleTitle: "",
         bannerImage: "",
         timeToRead: "",
-        date: new Date().getDate(),
+        date: "",
         link: "",
         content: [
           {
@@ -136,10 +182,25 @@ export default function CreateArticle() {
               className="border border-gray-300 p-2 w-full rounded"
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="bannerImage"
+              className="block text-sm font-semibold"
+            >
+              Banner Image:
+            </label>
+            <input
+              type="file"
+              id="bannerImage"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="border border-gray-300 p-2 w-full rounded"
+            />
+          </div>
         </div>
 
         {articleData.content.map((contentItem, index) => (
-          <div key={index} className="mb-4">
+          <div key={index}>
             <label
               htmlFor={`contentTitle-${index}`}
               className="block text-sm font-semibold"
@@ -154,12 +215,21 @@ export default function CreateArticle() {
               onChange={(e) => handleContentChange(index, e)}
               className="border border-gray-300 p-2 w-full rounded"
             />
-            <label
-              htmlFor={`contentDescription-${index}`}
-              className="block text-sm font-semibold mt-2"
-            >
-              Description:
-            </label>
+            <div className="w-full justify-between flex flex-row">
+              <label
+                htmlFor={`contentDescription-${index}`}
+                className="block text-sm font-semibold mt-2"
+              >
+                Description:
+              </label>
+              <button
+                type="button"
+                className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+                onClick={() => removeContentItem(index)}
+              >
+                Remove Content
+              </button>
+            </div>
             <textarea
               id={`contentDescription-${index}`}
               name="description"
@@ -167,13 +237,6 @@ export default function CreateArticle() {
               onChange={(e) => handleContentChange(index, e)}
               className="border border-gray-300 p-2 w-full rounded bg-sky-950"
             />
-            <button
-              type="button"
-              className="bg-red-500 text-white px-4 py-2 rounded mt-2"
-              onClick={() => removeContentItem(index)}
-            >
-              Remove Content
-            </button>
           </div>
         ))}
 
