@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { ref, uploadBytes, getDownloadURL, getStorage } from "firebase/storage";
 import { useFirebase } from "../Context/FirebaseProvider";
+import { useBlog } from "../Context/BlogProvider";
+import moment from "moment";
 
 interface ContentItem {
   title: string;
@@ -20,13 +22,14 @@ interface ArticleData {
 export default function CreateArticle() {
   const validPassword = process.env.REACT_APP_PASSWORD;
   const { app } = useFirebase();
+  const { postArticle } = useBlog();
   const [password, setPassword] = useState("");
   const [articleData, setArticleData] = useState<ArticleData>({
     articleTitle: "",
     bannerImage: "",
     coverImage: "",
     link: "",
-    date: "",
+    date: moment().format("LL"),
     timeToRead: "",
     content: [
       {
@@ -39,7 +42,12 @@ export default function CreateArticle() {
   const uploadImageAndGetURL = useCallback(
     async (file: File): Promise<string | null> => {
       const storage = getStorage(app);
-      const storageRef = ref(storage, "images/" + file.name);
+
+      const storageRef = ref(
+        storage,
+        // eslint-disable-next-line no-useless-concat
+        "images/" + `${file.name}-${moment().format("LLL")}`
+      );
 
       try {
         await uploadBytes(storageRef, file);
@@ -52,6 +60,19 @@ export default function CreateArticle() {
       }
     },
     [app]
+  );
+
+  const handleImageUpload = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const imageUrl = await uploadImageAndGetURL(file);
+        if (imageUrl) {
+          setArticleData({ ...articleData, bannerImage: imageUrl });
+        }
+      }
+    },
+    [articleData, uploadImageAndGetURL]
   );
 
   const handleCoverImageUpload = useCallback(
@@ -104,26 +125,15 @@ export default function CreateArticle() {
     [articleData]
   );
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = await uploadImageAndGetURL(file);
-      if (imageUrl) {
-        setArticleData({ ...articleData, bannerImage: imageUrl });
-      }
-    }
-  };
-
   const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-
+    async (e: ArticleData) => {
       if (password !== validPassword) {
         alert("Incorrect password. Access denied.");
         return;
       }
 
       try {
+        await postArticle(e);
         setArticleData({
           articleTitle: "",
           bannerImage: "",
@@ -138,11 +148,13 @@ export default function CreateArticle() {
             },
           ],
         });
+        alert("Article saved with success!");
       } catch (error) {
         console.error("Error saving article:", error);
+        alert("Error saving article!");
       }
     },
-    [password, validPassword]
+    [password, postArticle, validPassword]
   );
 
   if (password !== validPassword) {
@@ -166,7 +178,7 @@ export default function CreateArticle() {
   return (
     <div className="w-screen h-full min-h-screen mx-auto px-32 pt-8 p-4 bg-[#080b1c]">
       <h1 className="text-2xl font-bold mb-4">Create a New Article</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="flex flex-row justify-between w-full flex-wrap">
           <div className="mb-4">
             <label
@@ -294,7 +306,7 @@ export default function CreateArticle() {
         <button
           type="button"
           className="bg-blue-600 text-white px-4 py-2 rounded ml-4"
-          onClick={handleSubmit}
+          onClick={() => handleSubmit(articleData)}
         >
           Create Article
         </button>

@@ -2,14 +2,11 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
 import { useFirebase } from "./FirebaseProvider";
 import { collection, getDoc, getDocs, doc, addDoc } from "firebase/firestore";
-import moment from "moment";
-// import blog from "../data/blog.json";
 
 export interface IBlogPost {
   uuid: string;
@@ -28,6 +25,21 @@ interface IContentOne {
   desctiption: string;
 }
 
+interface ContentItem {
+  title: string;
+  description: string;
+}
+
+interface ArticleData {
+  articleTitle: string;
+  bannerImage: string;
+  coverImage: string;
+  link: string;
+  date: string;
+  timeToRead: string;
+  content: ContentItem[];
+}
+
 interface BlogContextProps {
   articles: IBlogPost[];
   article: IBlogPost | undefined;
@@ -36,7 +48,7 @@ interface BlogContextProps {
   loadingPost: boolean;
   getArticleById: (id: string) => Promise<IBlogPost | undefined>;
   getArticles: () => Promise<IBlogPost[]>;
-  postBlog: (data: IBlogPost) => Promise<void>;
+  postArticle: (data: ArticleData) => Promise<void>;
 }
 
 interface Props {
@@ -77,11 +89,11 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
     [db]
   );
 
-  const postBlog = useCallback(
-    async (data: IBlogPost) => {
+  const postArticle = useCallback(
+    async (data: ArticleData) => {
       try {
         setLoadingPost(true);
-        addDoc(collection(db, "blog"), data);
+        addDoc(collection(db, "articles"), data);
       } catch (e) {
         console.log(e, "Error in blog post!");
       } finally {
@@ -90,10 +102,6 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
     },
     [db]
   );
-
-  // useEffect(() => {
-  //   postBlog(anotherBlogPost);
-  // }, []);
 
   const getArticles = useCallback(async () => {
     setLoading(true);
@@ -122,7 +130,7 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
       loadingPost,
       getArticleById,
       getArticles,
-      postBlog,
+      postArticle,
     };
   }, [
     articles,
@@ -132,7 +140,7 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
     loadingPost,
     getArticleById,
     getArticles,
-    postBlog,
+    postArticle,
   ]);
   return (
     <BlogContext.Provider value={value} {...rest}>
