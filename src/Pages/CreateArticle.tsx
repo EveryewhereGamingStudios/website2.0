@@ -1,52 +1,84 @@
 import React, { useState } from "react";
-// import { useBlog } from "../Context/BlogProvider";
 
 export default function CreateArticle() {
-  // const { addArticle } = useBlog();
   const [articleData, setArticleData] = useState({
-    title: "",
-    content: "",
+    mainTitle: "",
     bannerImage: "",
     link: "",
+    content: [
+      {
+        title: "",
+        description: "",
+      },
+    ],
   });
 
-  const handleInputChange = (e: {
-    target: { name: string; value: string };
-  }) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setArticleData({ ...articleData, [name]: value });
   };
 
-  const handleSubmit = () => {
-    // Call the addArticle function from your context to save the new article
-    // addArticle(articleData);
-    // Optionally, you can redirect the user to the article detail page or another page
-    // after successfully creating the article.
+  const handleContentChange = (
+    index: number,
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    const updatedContent = [...articleData.content];
+    updatedContent[index] = { ...updatedContent[index], [name]: value };
+    setArticleData({ ...articleData, content: updatedContent });
+  };
+
+  const addContentItem = () => {
+    setArticleData({
+      ...articleData,
+      content: [...articleData.content, { title: "", description: "" }],
+    });
+  };
+
+  const removeContentItem = (index: number) => {
+    const updatedContent = [...articleData.content];
+    updatedContent.splice(index, 1);
+    setArticleData({ ...articleData, content: updatedContent });
+  };
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    // Call the function to save the new article with articleData
+    // For example: addArticle(articleData);
+    try {
+      setArticleData({
+        mainTitle: "",
+        bannerImage: "",
+        link: "",
+        content: [
+          {
+            title: "",
+            description: "",
+          },
+        ],
+      });
+    } catch {}
   };
 
   return (
-    <div className="w-screen h-screen mx-auto px-32 pt-8 p-4 bg-sky-950">
+    <div className="w-screen h-full min-h-screen mx-auto px-32 pt-8 p-4 bg-sky-950">
       <h1 className="text-2xl font-bold mb-4">Create a New Article</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
+        {/* Main Title */}
         <div className="mb-4">
-          <label className="block text-sm font-semibold">Title:</label>
+          <label className="block text-sm font-semibold">Main Title:</label>
           <input
             type="text"
-            name="title"
-            value={articleData.title}
+            name="mainTitle"
+            value={articleData.mainTitle}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 w-full rounded"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-semibold">Content:</label>
-          <textarea
-            name="content"
-            value={articleData.content}
-            onChange={handleInputChange}
-            className="border border-gray-300 p-2 w-full rounded bg-sky-950"
-          />
-        </div>
+
+        {/* Banner Image */}
         <div className="mb-4">
           <label className="block text-sm font-semibold">
             Banner Image URL:
@@ -59,6 +91,8 @@ export default function CreateArticle() {
             className="border border-gray-300 p-2 w-full rounded"
           />
         </div>
+
+        {/* Link */}
         <div className="mb-4">
           <label className="block text-sm font-semibold">Link:</label>
           <input
@@ -69,12 +103,50 @@ export default function CreateArticle() {
             className="border border-gray-300 p-2 w-full rounded"
           />
         </div>
+
+        {/* Content */}
+        {articleData.content.map((contentItem, index) => (
+          <div key={index} className="mb-4">
+            <label className="block text-sm font-semibold">Title:</label>
+            <input
+              type="text"
+              name="title"
+              value={contentItem.title}
+              onChange={(e) => handleContentChange(index, e)}
+              className="border border-gray-300 p-2 w-full rounded"
+            />
+            <label className="block text-sm font-semibold mt-2">
+              Description:
+            </label>
+            <textarea
+              name="description"
+              value={contentItem.description}
+              onChange={(e) => handleContentChange(index, e)}
+              className="border border-gray-300 p-2 w-full rounded bg-sky-950"
+            />
+            <button
+              type="button"
+              className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+              onClick={() => removeContentItem(index)}
+            >
+              Remove Content
+            </button>
+          </div>
+        ))}
+
         <button
           type="button"
-          onClick={handleSubmit}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-green-500 text-white px-4 py-2 rounded"
+          onClick={addContentItem}
         >
-          Create Article
+          Add Content
+        </button>
+
+        <button
+          type="submit"
+          className="bg-sky-950 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4 ml-8"
+        >
+          Create
         </button>
       </form>
     </div>
