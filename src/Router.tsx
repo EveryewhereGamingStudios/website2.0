@@ -12,6 +12,7 @@ import GetNFT from "./Pages/GetNFT";
 import Invest from "./Pages/Invest";
 import { Footer } from "./Components/Footer";
 import Deck from "./Pages/Deck";
+import CreateArticle from "./Pages/CreateArticle";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
         element: <GetNFT />,
       },
     ],
+  },
+  {
+    path: "/createarticle",
+    element: <CreateArticle />,
   },
   {
     path: "*",

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-// import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
@@ -20,7 +20,7 @@ export default function BlogArticle() {
 
   return (
     <div>
-      {/* <Helmet>
+      <Helmet>
         <title>{article?.title || "Blog"}</title>
         <meta name="description" content={article?.title || "Blog"} />
         <meta name="keywords" content={article?.title || "Blog"} />
@@ -35,7 +35,7 @@ export default function BlogArticle() {
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Blog" />
-      </Helmet> */}
+      </Helmet>
       <div className="md:p-12 p-4 bg-opacity-10 rounded-lg items-start justify-start w-full self-center flex">
         {loading && <p className="text-center loading">Loading...</p>}
         {error && <p className="text-center error">{error}</p>}
