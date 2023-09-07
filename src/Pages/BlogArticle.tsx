@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from "react";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
 
-const BlogArticle = () => {
+export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
   const { articles, loading, error, getArticles } = useBlog();
 
@@ -19,8 +19,8 @@ const BlogArticle = () => {
   }, [articles, id]);
 
   return (
-    <>
-      <Helmet>
+    <div>
+      {/* <Helmet>
         <title>{article?.title || "Blog"}</title>
         <meta name="description" content={article?.title || "Blog"} />
         <meta name="keywords" content={article?.title || "Blog"} />
@@ -35,7 +35,7 @@ const BlogArticle = () => {
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Blog" />
-      </Helmet>
+      </Helmet> */}
       <div className="md:p-12 p-4 bg-opacity-10 rounded-lg items-start justify-start w-full self-center flex">
         {loading && <p className="text-center loading">Loading...</p>}
         {error && <p className="text-center error">{error}</p>}
@@ -58,9 +58,9 @@ const BlogArticle = () => {
 
             <div className="prose max-w-none self-center w-full text-center mt-12">
               {article &&
-                article?.content.map((item) => {
+                article?.content.map((item, index) => {
                   return (
-                    <div className="flex flex-col text-start">
+                    <div key={index} className="flex flex-col text-start">
                       <span className="font-bold text-xl mt-4 mb-2">
                         {item.title}
                       </span>
@@ -88,12 +88,11 @@ const BlogArticle = () => {
           {articles &&
             articles?.map((article, index) => {
               if (index > 2) return null;
-              if (article) return CardBlog(article);
+              if (article) return <div key={index}>{CardBlog(article)}</div>;
+              return null;
             })}
         </div>
       </div>
-    </>
+    </div>
   );
-};
-
-export default BlogArticle;
+}

@@ -10,7 +10,7 @@ export function CardBlog(article: IBlogPost) {
         className="rounded-t-lg"
       />
       <div className="p-4 border-t border-[#30D1FF] justify-between h-[170px] flex flex-col">
-        <a href={`/blog/${article.uuid}`}>
+        <a href={`/article/${article.uuid}`}>
           <h2 className="title text-xl text-[#30D1FF] mb-2 truncate font-bold">
             {article.title}
           </h2>

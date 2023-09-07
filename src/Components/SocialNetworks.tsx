@@ -2,22 +2,22 @@ export function SocialNetworks() {
   const socialNetworks = [
     {
       title: "X",
-      img: "logos/mdi_x.png",
+      img: "/logos/mdi_x.png",
       action: "https://x.com/Cosmic_Exodus",
     },
     {
       title: "LinkdIn",
-      img: "logos/ri_linkedin-fill.png",
+      img: "/logos/ri_linkedin-fill.png",
       action: "https://www.linkedin.com/company/cosmic-exodus/",
     },
     {
       title: "Youtube",
-      img: "logos/mdi_youtube.png",
+      img: "/logos/mdi_youtube.png",
       action: "https://www.youtube.com/@cosmicexodus",
     },
     {
       title: "Discord",
-      img: "logos/ic_baseline-discord.png",
+      img: "/logos/ic_baseline-discord.png",
       action: "https://discord.com/invite/36AdSFvSX5",
     },
   ];
@@ -31,13 +31,13 @@ export function SocialNetworks() {
         {socialNetworks?.map((social, index) => {
           return (
             <a
-              href={social.action}
+              href={social?.action}
               target="_blank"
               rel="noreferrer"
               key={index}
               className="mx-4"
             >
-              <img src={social.img} alt={social.title} />
+              <img src={social?.img} alt={social?.title} />
             </a>
           );
         })}
