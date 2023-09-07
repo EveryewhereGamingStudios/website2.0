@@ -142,12 +142,12 @@ export default function CreateArticle() {
         console.error("Error saving article:", error);
       }
     },
-    [password]
+    [password, validPassword]
   );
 
   if (password !== validPassword) {
     return (
-      <div className="flex w-screen h-screen items-center justify-center p-4 bg-sky-950 flex-col">
+      <div className="flex w-screen h-screen items-center justify-center p-4 bg-[#080b1c] flex-col">
         <label htmlFor="password" className="block text-sm font-semibold">
           Password:
         </label>
@@ -164,7 +164,7 @@ export default function CreateArticle() {
   }
 
   return (
-    <div className="w-screen h-full min-h-screen mx-auto px-32 pt-8 p-4 bg-sky-950">
+    <div className="w-screen h-full min-h-screen mx-auto px-32 pt-8 p-4 bg-[#080b1c]">
       <h1 className="text-2xl font-bold mb-4">Create a New Article</h1>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-row justify-between w-full flex-wrap">
@@ -225,7 +225,7 @@ export default function CreateArticle() {
               id="bannerImage"
               accept="image/*"
               onChange={handleImageUpload}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="border-2 border-[#2ed2ff] p-2 rounded-xl w-[320px] mt-4"
             />
           </div>
           <div className="mb-4">
@@ -237,7 +237,7 @@ export default function CreateArticle() {
               id="coverImage"
               accept="image/*"
               onChange={handleCoverImageUpload}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="border-2 border-[#2ed2ff] p-2 rounded-xl w-[320px] mt-4"
             />
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function CreateArticle() {
               name="description"
               value={contentItem.description}
               onChange={(e) => handleContentChange(index, e)}
-              className="border border-gray-300 p-2 w-full rounded bg-sky-950"
+              className="border-2 border-[#2ed2ff] p-2 w-full bg-[#080b1c] rounded-xl"
             />
           </div>
         ))}
@@ -292,10 +292,11 @@ export default function CreateArticle() {
         </button>
 
         <button
-          type="submit"
-          className="bg-sky-950 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4 ml-8"
+          type="button"
+          className="bg-blue-600 text-white px-4 py-2 rounded ml-4"
+          onClick={handleSubmit}
         >
-          Create
+          Create Article
         </button>
       </form>
     </div>
