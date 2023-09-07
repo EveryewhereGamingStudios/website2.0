@@ -10,6 +10,7 @@ interface ContentItem {
 interface ArticleData {
   articleTitle: string;
   bannerImage: string;
+  coverImage: string;
   link: string;
   date: string;
   timeToRead: string;
@@ -21,6 +22,7 @@ export default function CreateArticle() {
   const [articleData, setArticleData] = useState<ArticleData>({
     articleTitle: "",
     bannerImage: "",
+    coverImage: "",
     link: "",
     date: "",
     timeToRead: "",
@@ -32,20 +34,36 @@ export default function CreateArticle() {
     ],
   });
 
-  async function uploadImageAndGetURL(file: File): Promise<string | null> {
-    const storage = getStorage(app);
-    const storageRef = ref(storage, "images/" + file.name);
+  const uploadImageAndGetURL = useCallback(
+    async (file: File): Promise<string | null> => {
+      const storage = getStorage(app);
+      const storageRef = ref(storage, "images/" + file.name);
 
-    try {
-      await uploadBytes(storageRef, file);
+      try {
+        await uploadBytes(storageRef, file);
 
-      const url = await getDownloadURL(storageRef);
-      return url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      return null;
-    }
-  }
+        const url = await getDownloadURL(storageRef);
+        return url;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        return null;
+      }
+    },
+    [app]
+  );
+
+  const handleCoverImageUpload = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const imageUrl = await uploadImageAndGetURL(file);
+        if (imageUrl) {
+          setArticleData({ ...articleData, coverImage: imageUrl });
+        }
+      }
+    },
+    [articleData, uploadImageAndGetURL]
+  );
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -102,6 +120,7 @@ export default function CreateArticle() {
       setArticleData({
         articleTitle: "",
         bannerImage: "",
+        coverImage: "",
         timeToRead: "",
         date: "",
         link: "",
@@ -140,23 +159,6 @@ export default function CreateArticle() {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="bannerImage"
-              className="block text-sm font-semibold"
-            >
-              Banner Image URL:
-            </label>
-            <input
-              type="text"
-              id="bannerImage"
-              name="bannerImage"
-              value={articleData.bannerImage}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
-            />
-          </div>
-
-          <div className="mb-4">
             <label htmlFor="link" className="block text-sm font-semibold">
               Link:
             </label>
@@ -182,6 +184,8 @@ export default function CreateArticle() {
               className="border border-gray-300 p-2 w-full rounded"
             />
           </div>
+        </div>
+        <div className="flex flex-row justify-between w-full flex-wrap">
           <div className="mb-4">
             <label
               htmlFor="bannerImage"
@@ -194,6 +198,18 @@ export default function CreateArticle() {
               id="bannerImage"
               accept="image/*"
               onChange={handleImageUpload}
+              className="border border-gray-300 p-2 w-full rounded"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="coverImage" className="block text-sm font-semibold">
+              Cover Image:
+            </label>
+            <input
+              type="file"
+              id="coverImage"
+              accept="image/*"
+              onChange={handleCoverImageUpload}
               className="border border-gray-300 p-2 w-full rounded"
             />
           </div>
