@@ -18,7 +18,9 @@ interface ArticleData {
 }
 
 export default function CreateArticle() {
+  const validPassword = process.env.REACT_APP_PASSWORD;
   const { app } = useFirebase();
+  const [password, setPassword] = useState("");
   const [articleData, setArticleData] = useState<ArticleData>({
     articleTitle: "",
     bannerImage: "",
@@ -112,29 +114,54 @@ export default function CreateArticle() {
     }
   };
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    try {
-      // Clear the form
-      setArticleData({
-        articleTitle: "",
-        bannerImage: "",
-        coverImage: "",
-        timeToRead: "",
-        date: "",
-        link: "",
-        content: [
-          {
-            title: "",
-            description: "",
-          },
-        ],
-      });
-    } catch (error) {
-      console.error("Error saving article:", error);
-    }
-  }, []);
+      if (password !== validPassword) {
+        alert("Incorrect password. Access denied.");
+        return;
+      }
+
+      try {
+        setArticleData({
+          articleTitle: "",
+          bannerImage: "",
+          coverImage: "",
+          timeToRead: "",
+          date: "",
+          link: "",
+          content: [
+            {
+              title: "",
+              description: "",
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Error saving article:", error);
+      }
+    },
+    [password]
+  );
+
+  if (password !== validPassword) {
+    return (
+      <div className="flex w-screen h-screen items-center justify-center p-4 bg-sky-950 flex-col">
+        <label htmlFor="password" className="block text-sm font-semibold">
+          Password:
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="border border-gray-300 p-2 rounded bg-transparent w-[200px]"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-screen h-full min-h-screen mx-auto px-32 pt-8 p-4 bg-sky-950">
