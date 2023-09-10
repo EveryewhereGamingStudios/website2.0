@@ -5,7 +5,7 @@ import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
 
-const BlogArticle = () => {
+export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
   const { articles, loading, error, getArticles } = useBlog();
 
@@ -19,18 +19,21 @@ const BlogArticle = () => {
   }, [articles, id]);
 
   return (
-    <>
+    <div>
       <Helmet>
-        <title>{article?.title || "Blog"}</title>
-        <meta name="description" content={article?.title || "Blog"} />
-        <meta name="keywords" content={article?.title || "Blog"} />
+        <title>{article?.articleTitle || "Blog"}</title>
+        <meta name="description" content={article?.articleTitle || "Blog"} />
+        <meta name="keywords" content={article?.articleTitle || "Blog"} />
         <meta name="author" content={"Tom Couceiro"} />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
 
-        <meta property="og:title" content={article?.title || "Blog"} />
-        <meta property="og:description" content={article?.title || "Blog"} />
+        <meta property="og:title" content={article?.articleTitle || "Blog"} />
+        <meta
+          property="og:description"
+          content={article?.articleTitle || "Blog"}
+        />
         <meta property="og:image" content={article?.coverImage || "Blog"} />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="article" />
@@ -42,29 +45,29 @@ const BlogArticle = () => {
         {article && (
           <div className="w-full self-center flex flex-col">
             <h1 className="text-3xl font-semibold text-center">
-              {article.title}
+              {article.articleTitle}
             </h1>
             <span className="text-gray-500 text-center">
               {article?.timeToRead}
             </span>
             <span className="text-gray-500 mb-12 text-center">
-              {article?.createdAt}
+              {article?.date}
             </span>
             <img
               src={article.bannerImage || "/assets/images/spaceportal.png"}
-              alt={article.title}
+              alt={article.articleTitle}
               className="border-[#30D1FF] border rounded-xl max-h-[300px] min-w-full self-center"
             />
 
             <div className="prose max-w-none self-center w-full text-center mt-12">
               {article &&
-                article?.content.map((item) => {
+                article?.content.map((item, index) => {
                   return (
-                    <div className="flex flex-col text-start">
+                    <div key={index} className="flex flex-col text-start">
                       <span className="font-bold text-xl mt-4 mb-2">
                         {item.title}
                       </span>
-                      <span className="text-sm">{item.desctiption}</span>
+                      <span className="text-sm">{item.description}</span>
                     </div>
                   );
                 })}
@@ -88,12 +91,11 @@ const BlogArticle = () => {
           {articles &&
             articles?.map((article, index) => {
               if (index > 2) return null;
-              if (article) return CardBlog(article);
+              if (article) return <div key={index}>{CardBlog(article)}</div>;
+              return null;
             })}
         </div>
       </div>
-    </>
+    </div>
   );
-};
-
-export default BlogArticle;
+}

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useBlog } from "../Context/BlogProvider";
 import { CardBlog } from "../Components/CardBlog";
 
-const Blog = () => {
+function Blog() {
   const { articles, loading, error, getArticles } = useBlog();
 
   useEffect(() => {
@@ -17,6 +17,6 @@ const Blog = () => {
       {articles?.map((article) => article && CardBlog(article))}
     </div>
   );
-};
+}
 
 export default Blog;

@@ -11,7 +11,7 @@ export function Footer() {
           </span>
         </div>
         <div>
-          <img src="logos/logo.png" alt="Logo Cosmic Exodus" />
+          <img src="/logos/logo.png" alt="Logo Cosmic Exodus" />
         </div>
       </div>
     </footer>

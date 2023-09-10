@@ -12,6 +12,7 @@ import GetNFT from "./Pages/GetNFT";
 import Invest from "./Pages/Invest";
 import { Footer } from "./Components/Footer";
 import Deck from "./Pages/Deck";
+import CreateArticle from "./Pages/CreateArticle";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/blog/:id",
+        path: "/article/:id",
         element: (
           <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <BlogArticle />
@@ -93,13 +94,19 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //     path: "*",
-  //     element: <>
-  //         <h1 style={{textAlign:"center"}}>404 - Not found</h1>
-  //         <h2 style={{textAlign:"center"}}>Who/Where?</h2>
-  //     </>
-  // }
+  {
+    path: "/createarticle",
+    element: <CreateArticle />,
+  },
+  {
+    path: "*",
+    element: (
+      <div className="bg-slate-800 h-screen items-center justify-center flex">
+        <h1 style={{ textAlign: "center" }}>404 - Not found</h1>
+        <h2 style={{ textAlign: "center" }}>Who/Where?</h2>
+      </div>
+    ),
+  },
 ]);
 
 const Routes = () => {

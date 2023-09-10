@@ -3,8 +3,17 @@ import FirebaseProvider from "./Context/FirebaseProvider";
 import Routes from "./Router";
 import {
   ThirdwebProvider,
-  localWallet,
+  // bloctoWallet,
+  coinbaseWallet,
+  // frameWallet,
+  // localWallet,
+  magicLink,
   metamaskWallet,
+  // rainbowWallet,
+  // safeWallet,
+  // trustWallet,
+  // walletConnect,
+  // zerionWallet,
 } from "@thirdweb-dev/react";
 import "./Styles/styles.scss";
 
@@ -12,8 +21,40 @@ const App = () => {
   return (
     <>
       <ThirdwebProvider
-        supportedWallets={[localWallet(), metamaskWallet()]}
-        activeChain="goerli"
+        supportedWallets={[
+          metamaskWallet(),
+          coinbaseWallet(),
+          // walletConnect(),
+          // safeWallet({
+          //   personalWallets: [
+          //     metamaskWallet(),
+          //     coinbaseWallet(),
+          //     walletConnect(),
+          //   ],
+          // }),
+          // localWallet(),
+          // trustWallet(),
+          // zerionWallet(),
+          // bloctoWallet(),
+          // frameWallet(),
+          // rainbowWallet(),
+          magicLink({
+            apiKey: "pk_live_056D523F9E58FD92",
+            oauthOptions: {
+              providers: [
+                "google",
+                // "facebook",
+                // "twitter",
+                // "apple",
+                // "discord",
+                // "github",
+                // "twitch",
+              ],
+            },
+          }),
+        ]}
+        autoConnect
+        activeChain="mumbai"
       >
         <FirebaseProvider>
           <BlogProvider>
