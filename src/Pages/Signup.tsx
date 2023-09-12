@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import links from "../data/links.json";
 import { useFirebase } from "../Context/FirebaseProvider";
 
@@ -7,9 +7,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gdpr, setGdpr] = useState(false);
-
   const { signUpWithEmail, error, signedUp } = useFirebase();
-
   const gdprRef = useRef<HTMLInputElement>(null);
 
   const submitForm = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -81,6 +79,7 @@ const Signup = () => {
       </form>
     </>
   );
+
   const success = (
     <div className="success">
       <h2>Thank you for signing!</h2>

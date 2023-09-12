@@ -2,10 +2,11 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
-import { FirebaseApp, initializeApp } from "firebase/app";
+import firebase, { FirebaseApp, initializeApp } from "firebase/app";
 import { Analytics, getAnalytics } from "firebase/analytics";
 import {
   Auth,
@@ -18,9 +19,16 @@ import {
   Firestore,
   addDoc,
   collection,
+  doc,
+  getDocs,
   getFirestore,
+  query,
   serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
 } from "firebase/firestore";
+import { useAddress } from "@thirdweb-dev/react";
 
 interface FirebaseContextProps {
   app: FirebaseApp;
@@ -32,6 +40,7 @@ interface FirebaseContextProps {
   signedUp: boolean;
   error: string;
   loadingSignUp: boolean;
+  user: IUser | undefined;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
   signWaitlist: (email: string) => Promise<boolean>;
   signToOpenDeck: (email: string) => Promise<boolean>;
@@ -39,6 +48,13 @@ interface FirebaseContextProps {
 
 interface Props {
   children: JSX.Element;
+}
+
+interface IUser {
+  email: string;
+  name: string;
+  publicAddress: string;
+  uid: string;
 }
 
 export const FirebaseContext = createContext<FirebaseContextProps | undefined>(
@@ -61,16 +77,51 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
   const [signedUp, setSignedUp] = useState(false);
-
+  const [user, setUser] = useState<IUser>();
   const [loadingSignUp, setLoadingSignUp] = useState(false);
   const [error, setError] = useState("");
+  const address = useAddress();
   const googleAuthProvider = useMemo(() => {
     return new GoogleAuthProvider();
   }, []);
 
-  const authenticate = useCallback(async () => {
-    googleAuthProvider.addScope("profile");
+  const verifyUserDatabase = useCallback(async () => {
+    if (!address) return;
+    console.log(address);
+    try {
+      const usersRef = collection(db, "users");
+      const q = query(collection(db, "users"), where("uid", "==", address));
+      const docs = await getDocs(q);
+      console.log("VERIFICOUUU");
+      if (docs.docs.length === 0) {
+        await setDoc(doc(usersRef, `${address}`), {
+          uid: address,
+          name: "",
+          email: "",
+          publicAddress: address,
+        });
 
+        const q = query(collection(db, "users"), where("uid", "==", address));
+        const docs = await getDocs(q);
+
+        docs.forEach((doc) => {
+          setUser(doc.data() as IUser);
+        });
+      } else {
+        const docs = await getDocs(q);
+
+        docs.forEach((doc) => {
+          setUser(doc.data() as IUser);
+        });
+      }
+    } catch {}
+  }, [address, db]);
+
+  useEffect(() => {
+    verifyUserDatabase();
+  }, [address, verifyUserDatabase]);
+
+  const authenticate = useCallback(async () => {
     try {
       await signInWithPopup(auth, googleAuthProvider);
     } catch (e) {
@@ -143,6 +194,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       signedUp,
       error,
       loadingSignUp,
+      user,
       authenticate,
       signUpWithEmail,
       signWaitlist,
@@ -157,6 +209,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     signedUp,
     error,
     loadingSignUp,
+    user,
     authenticate,
     signUpWithEmail,
     signWaitlist,
