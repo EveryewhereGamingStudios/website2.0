@@ -55,6 +55,14 @@ interface IUser {
   name: string;
   publicAddress: string;
   uid: string;
+  photo: string;
+  socialNetworks: [
+    {
+      title: string;
+      link: string;
+    }
+  ];
+  gdpr: boolean;
 }
 
 export const FirebaseContext = createContext<FirebaseContextProps | undefined>(
@@ -92,7 +100,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       const usersRef = collection(db, "users");
       const q = query(collection(db, "users"), where("uid", "==", address));
       const docs = await getDocs(q);
-      console.log("VERIFICOUUU");
+
       if (docs.docs.length === 0) {
         await setDoc(doc(usersRef, `${address}`), {
           uid: address,
