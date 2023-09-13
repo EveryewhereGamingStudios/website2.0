@@ -50,18 +50,13 @@ interface Props {
   children: JSX.Element;
 }
 
-interface IUser {
+export interface IUser {
   email: string;
   name: string;
-  publicAddress: string;
-  uid: string;
-  photo: string;
-  socialNetworks: [
-    {
-      title: string;
-      link: string;
-    }
-  ];
+  publicAddress?: string;
+  uid?: string;
+  photo: string | undefined;
+  socialNetworks: [];
   gdpr: boolean;
 }
 
@@ -95,7 +90,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
 
   const verifyUserDatabase = useCallback(async () => {
     if (!address) return;
-    console.log(address);
+
     try {
       const usersRef = collection(db, "users");
       const q = query(collection(db, "users"), where("uid", "==", address));
