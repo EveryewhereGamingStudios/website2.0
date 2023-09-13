@@ -1,6 +1,8 @@
+import { useAddress } from "@thirdweb-dev/react";
 import links from "../data/links.json";
 
 const Home = () => {
+  const address = useAddress();
   return (
     <>
       <div className="hero">
@@ -21,7 +23,7 @@ const Home = () => {
 
           <div className="cta">
             <a href="/signup" className="btn btn-primary">
-              Create an account
+              {!address ? "Create an account" : "My profile"}
             </a>
             <a href="/waitlist" className="btn btn-secondary">
               Subscribe to our waitlist

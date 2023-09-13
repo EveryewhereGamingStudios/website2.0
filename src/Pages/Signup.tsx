@@ -5,10 +5,11 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import moment from "moment";
 
 const UserProfile = () => {
-  const { user, app } = useFirebase();
+  const { user, app, updateUser } = useFirebase();
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState<IUser>({
     name: user?.name || "",
+    uid: user?.uid || "",
     email: user?.email || "",
     photo: user?.photo || "",
     socialNetworks: [],
@@ -25,6 +26,7 @@ const UserProfile = () => {
     setIsEditing(false);
     setEditedUser({
       name: user?.name || "",
+      uid: user?.uid || "",
       email: user?.email || "",
       photo: user?.photo || "",
       socialNetworks: [],
@@ -37,7 +39,7 @@ const UserProfile = () => {
       const storage = getStorage(app);
       const storageRef = ref(
         storage,
-        "images/" + `${file.name}-${moment().format("LLL")}`
+        "usersImages/" + `${file.name}-${moment().format("LLL")}`
       );
 
       try {
@@ -68,18 +70,30 @@ const UserProfile = () => {
   );
 
   const handleSaveEdit = async () => {
-    if (!gdprRef.current?.checked) {
-      // Display an error message or take action if GDPR is not checked
+    if (!gdprRef.current) {
+      alert("Please agree to the Privacy Policy.");
       return;
     }
 
-    // Add validation for email and other fields here
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(editedUser.email)) {
+      alert("Invalid email format.");
+      return;
+    }
 
     if (file) {
       const imageUrl = await uploadImageAndGetURL(file);
-      setEditedUser({ ...editedUser, photo: imageUrl! });
-      // Clear the file input
-      // document.getElementById("fileInput")!.value = "";
+      if (!imageUrl) {
+        alert("Image upload failed. Please try again.");
+        return;
+      }
+      setEditedUser({ ...editedUser, photo: imageUrl });
+    }
+
+    try {
+      updateUser(editedUser);
+    } catch (error) {
+      return;
     }
 
     setIsEditing(false);
@@ -101,6 +115,7 @@ const UserProfile = () => {
                   <img
                     src={
                       editedUser.photo ||
+                      user?.photo ||
                       `https://api.dicebear.com/6.x/bottts/png?seed=${user?.publicAddress}`
                     }
                     alt=""
@@ -111,7 +126,7 @@ const UserProfile = () => {
                     type="file"
                     accept="image/*"
                     onChange={handleImageUpload}
-                    className="absolute -mt-8"
+                    className="self-center mt-2 max-w-[100px]"
                   />
                 </div>
 
@@ -119,14 +134,14 @@ const UserProfile = () => {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  value={editedUser.name}
+                  value={editedUser.name || user?.name}
                   onChange={handleInputChange}
                 />
                 <InputField
                   type="email"
                   name="email"
                   placeholder="E-mail"
-                  value={editedUser.email}
+                  value={editedUser.email || user?.email}
                   onChange={handleInputChange}
                 />
 
@@ -164,14 +179,14 @@ const UserProfile = () => {
               <>
                 <img
                   src={
-                    editedUser.photo ||
+                    user?.photo ||
                     `https://api.dicebear.com/6.x/bottts/png?seed=${user?.publicAddress}`
                   }
                   alt=""
                   className="w-32 h-32 mx-auto rounded-full aspect-square"
                 />
                 <h2 className="text-xl font-semibold sm:text-2xl">
-                  {editedUser.name || "User"}
+                  {user?.name || "User"}
                 </h2>
 
                 <div className="flex justify-center pt-2 space-x-4 align-center">
