@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import firebase, { FirebaseApp, initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { Analytics, getAnalytics } from "firebase/analytics";
 import {
   Auth,
@@ -51,13 +51,18 @@ interface Props {
   children: JSX.Element;
 }
 
+interface ISocialItems {
+  title: string;
+  link: string;
+}
+
 export interface IUser {
   email: string;
   name: string;
   publicAddress?: string;
   uid: string;
   photo: string | undefined;
-  socialNetworks: [];
+  socialNetworks: ISocialItems[];
   gdpr: boolean;
 }
 
@@ -88,7 +93,10 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   }, []);
 
   const verifyUserDatabase = useCallback(async () => {
-    if (!address) return;
+    if (!address) {
+      setUser(undefined);
+      return;
+    }
 
     try {
       const usersRef = collection(db, "users");
