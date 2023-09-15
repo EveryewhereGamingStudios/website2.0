@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     // display: block;
     // margin: -30px;
     // padding: 0px;
@@ -18,7 +19,8 @@
         line-height: 134.9%;
         width: 827px;
         text-align: center;
-        text-transform: uppercase;  
+        text-transform: uppercase;
+        align-self: center;
 
         .highlight {
             color: $color-sky-blue;
