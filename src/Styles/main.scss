@@ -12,11 +12,11 @@
 
     .container {
         padding: 30px;
-
+        min-height: 85vh;
         display: flex;
         flex-direction: column;
-        align-content: flex-start;
-        justify-content: flex-start;
+        align-content: center;
+        justify-content: center;
         align-items: stretch;
     }
 }

@@ -11,8 +11,11 @@ const Nav = () => {
           </a>
         </div>
 
-        <div className="w-[170px] items-center justify-center flex">
-          <ConnectWallet theme="dark" />
+        <div className="w-[250px] items-center justify-center flex">
+          <ConnectWallet
+            theme="dark"
+            modalTitle="Enter the metaverse of web3 gaming"
+          />
         </div>
 
         <div className="nav-discord desktop-only items-center w-[170px] flex justify-end">
