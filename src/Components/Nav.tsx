@@ -1,7 +1,8 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import links from "../data/links.json";
 
 const Nav = () => {
+  const address = useAddress();
   return (
     <>
       <div className="nav px-4">
@@ -11,12 +12,14 @@ const Nav = () => {
           </a>
         </div>
 
-        {/* <div className="w-[250px] items-center justify-center flex">
-          <ConnectWallet
-            theme="dark"
-            modalTitle="Enter the metaverse of web3 gaming"
-          />
-        </div> */}
+        {address && (
+          <div className="w-[250px] items-center justify-center flex">
+            <ConnectWallet
+              theme="dark"
+              modalTitle="Enter the metaverse of web3 gaming"
+            />
+          </div>
+        )}
 
         <div className="nav-discord desktop-only items-center w-[170px] flex justify-end">
           <a href={links.discord} className="flex items-center">

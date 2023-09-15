@@ -29,8 +29,9 @@ const Home = () => {
               background: "transparent",
               color: "hsl(272, 100%, 79%)",
               borderRadius: 10,
-              padding: 5,
-              paddingInline: 30,
+              padding: 10,
+              paddingRight: 30,
+              paddingLeft: 30,
             }}
             className="btn btn-primary mx-[4px]"
           />
