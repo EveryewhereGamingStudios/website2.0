@@ -24,9 +24,13 @@ const Sidebar = () => {
         <div className="mobile-only">
           <img src="/assets/images/line.png" alt="Line" className="hr" />
 
-          <a href={links.discord}>
+          <a href={links.discord} className="flex items-center">
             Join us on Discord{" "}
-            <img src="/assets/images/discord.png" alt="Discord Channel icon" />
+            <img
+              src="/assets/images/discord.png"
+              alt="Discord Channel icon"
+              className="h-4 w-4 ml-2"
+            />
           </a>
         </div>
       </div>
