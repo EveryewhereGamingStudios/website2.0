@@ -73,7 +73,7 @@
         width: 450px;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
 
         .btn {
             padding: 5px 30px;
@@ -96,11 +96,6 @@
     .bottom {
         position: absolute;
         bottom: 20px;
-        right: 20px;
-
-        * {
-            margin: 0px 10px;
-        }
     }
 }
 

@@ -25,16 +25,24 @@ const Home = () => {
             <a href="/signup" className="btn btn-primary">
               {!address ? "Create an account" : "My profile"}
             </a>
-            <a href="/waitlist" className="btn btn-secondary">
+            {/* <a href="/waitlist" className="btn btn-secondary">
               Subscribe to our waitlist
-            </a>
+            </a> */}
           </div>
-          <div className="bottom flex justify-between w-[98%]">
+          <div className="bottom flex justify-between w-full self-center px-4">
             <a href={links.saga}>
-              <img src="/assets/images/saga.png" alt="Saga logo" />
+              <img
+                src="/assets/images/saga.png"
+                alt="Saga logo"
+                className="md:h-[30px] h-[20px]"
+              />
             </a>
             <a href={links.youtube}>
-              <img src="/assets/images/yaygames.png" alt="YAY Games logo" />
+              <img
+                src="/assets/images/yaygames.png"
+                alt="YAY Games logo"
+                className="md:h-[30px] h-[20px]"
+              />
             </a>
           </div>
         </div>
