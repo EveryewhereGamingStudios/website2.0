@@ -5,14 +5,21 @@ const Sidebar = () => {
     <>
       <div className="top">
         <span className="title">Games</span>
-        <a href={links.withstand_kairos} className="thin">
+        <a
+          href={links.withstand_kairos}
+          className="thin"
+          target="_blank"
+          rel="noreferrer"
+        >
           Withstand Kairos <span className="btn-new">New</span>
         </a>
 
         <img src="/assets/images/line.png" alt="Line" className="hr" />
 
         <a href={links.blog}>Blog</a>
-        <a href={links.whitepaper}>Whitepaper</a>
+        <a href={links.whitepaper} target="_blank" rel="noreferrer">
+          Whitepaper
+        </a>
         <a href={links.deck}>Cosmic Deck</a>
         <span className="disabled">Shop</span>
 

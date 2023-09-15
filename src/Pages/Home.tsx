@@ -1,4 +1,4 @@
-import { useAddress } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import links from "../data/links.json";
 
 const Home = () => {
@@ -21,12 +21,30 @@ const Home = () => {
       </h1>
 
       <div className="cta">
-        <a href="/signup" className="btn btn-primary">
-          {!address ? "Create account" : "My profile"}
-        </a>
-        {/* <a href="/waitlist" className="btn btn-secondary">
-              Subscribe to our waitlist
-            </a> */}
+        {!address ? (
+          <ConnectWallet
+            theme="dark"
+            modalTitle="Enter the metaverse of web3 gaming"
+            style={{
+              background: "transparent",
+              color: "hsl(272, 100%, 79%)",
+              borderRadius: 10,
+              padding: 5,
+              paddingInline: 30,
+            }}
+            className="btn btn-primary mx-[4px]"
+          />
+        ) : (
+          <a href="/signup" className="btn btn-primary mx-[4px]">
+            My profile
+          </a>
+        )}
+
+        {address && (
+          <a href="/waitlist" className="btn btn-secondary mx-[4px]">
+            Download
+          </a>
+        )}
       </div>
       <div className="bottom flex justify-between w-full self-center px-4">
         <a href={links.saga}>
