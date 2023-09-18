@@ -34,7 +34,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: (
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Signup />
+            <Footer />
+          </div>
+        ),
       },
       {
         path: "/deck",
