@@ -53,34 +53,34 @@ const Waitlist = () => {
       </p>
 
       <form>
-        <input
-          type="text"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-
-        <button type="submit" onClick={submitForm}>
-          Subscribe
-        </button>
-
-        {/* GDPR authorization */}
-        <div ref={gdprRef}>
+        <div className="flex flex-col items-center justify-center mt-4">
           <input
-            type="checkbox"
-            id="gdpr"
+            type="text"
+            placeholder="Email Address"
+            value={email}
             onChange={(e) => {
-              setGdpr(e.target.checked);
-              if (gdprRef.current) {
-                gdprRef.current.classList.remove("error");
-              }
+              setEmail(e.target.value);
             }}
           />
-          <label htmlFor="gdpr">
-            I agree to the <a href={links.privacy_policy}>Privacy Policy</a>
-          </label>
+          {/* GDPR authorization */}
+          <div ref={gdprRef}>
+            <input
+              type="checkbox"
+              id="gdpr"
+              onChange={(e) => {
+                setGdpr(e.target.checked);
+                if (gdprRef.current) {
+                  gdprRef.current.classList.remove("error");
+                }
+              }}
+            />
+            <label htmlFor="gdpr">
+              I agree to the <a href={links.privacy_policy}>Privacy Policy</a>
+            </label>
+          </div>
+          <button type="submit" onClick={submitForm} className="mt-6">
+            Subscribe
+          </button>
         </div>
       </form>
     </>

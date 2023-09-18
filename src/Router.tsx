@@ -25,7 +25,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/waitlist",
-        element: <Waitlist />,
+        element: (
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Waitlist />
+            <Footer />
+          </div>
+        ),
       },
       {
         path: "/signup",
