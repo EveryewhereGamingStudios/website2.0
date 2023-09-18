@@ -8,7 +8,7 @@ const Home = () => {
       <div />
 
       <div>
-        <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-5xl leading-[1.349] text-center uppercase self-center md:w-[827px] lg:w-[600px] xl:w-[627px]">
+        <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-6xl leading-[1.349] text-center uppercase self-center md:w-[827px] lg:w-[600px] xl:w-[827px]">
           An immersive strategy <span className="text-[#2ed2ff]">gamefi</span>{" "}
           experience
         </h1>
@@ -25,14 +25,14 @@ const Home = () => {
                 padding: 10,
                 paddingRight: 30,
                 paddingLeft: 30,
-                border: "1px solid hsl(272, 100%, 79%)",
+                border: "2px solid hsl(272, 100%, 79%)",
               }}
               className="mx-4"
             />
           ) : (
             <a
               href="/signup"
-              className="mx-4 border border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+              className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
             >
               My profile
             </a>
@@ -41,7 +41,7 @@ const Home = () => {
           {address && (
             <a
               href="/waitlist"
-              className="mx-4 border border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+              className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
             >
               Download
             </a>

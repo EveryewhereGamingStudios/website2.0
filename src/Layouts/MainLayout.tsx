@@ -15,7 +15,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="bg-gray-900">
+    <div className="bg-[#080b1c]">
       <aside
         id="default-sidebar"
         className="fixed top-0 left-0 z-40 w-72 h-screen transition-transform -translate-x-full lg:translate-x-0"
@@ -26,7 +26,7 @@ const MainLayout = () => {
         </div>
       </aside>
 
-      <div className="lg:ml-64 min-h-screen w-ful bg-gray-900">
+      <div className="lg:ml-64 min-h-screen w-ful bg-[#080b1c]">
         <div className="h-16 flex items-center justify-center px-4">
           <div className="w-full flex items-center justify-between">
             <div className="w-[170px]">
