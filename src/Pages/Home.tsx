@@ -20,19 +20,19 @@ const Home = () => {
               modalTitle="Enter the metaverse of web3 gaming"
               style={{
                 background: "transparent",
-                color: "hsl(272, 100%, 79%)",
+                color: "#cd94ff",
                 borderRadius: 10,
                 padding: 10,
                 paddingRight: 30,
                 paddingLeft: 30,
-                border: "2px solid hsl(272, 100%, 79%)",
+                border: "2px solid #cd94ff",
               }}
               className="mx-4"
             />
           ) : (
             <a
               href="/signup"
-              className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+              className="mx-4 border-2 border-[#cd94ff] text-[#cd94ff] p-[5.5px] px-[20px] rounded-[10px]"
             >
               My profile
             </a>

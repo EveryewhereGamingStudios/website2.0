@@ -145,6 +145,7 @@ const UserProfile = () => {
                     id="fileInput"
                     type="file"
                     accept="image/*"
+                    placeholder="Choose file"
                     onChange={handleImageUpload}
                     className="self-center mt-2 max-w-[100px]"
                   />

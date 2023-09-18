@@ -41,10 +41,10 @@ const Nav = () => {
         alt="menu toggle"
         className="sidebar-toggle mobile-only h-5 w-5"
         onClick={() => {
-          const sidebar = document.querySelector(".default-sidebar");
-          if (sidebar) {
-            sidebar.classList.toggle("sidebar-show");
-          }
+          // const sidebar = document.querySelector(".default-sidebar");
+          // if (sidebar) {
+          //   sidebar.classList.toggle("sidebar-show");
+          // }
         }}
       />
     </div>
