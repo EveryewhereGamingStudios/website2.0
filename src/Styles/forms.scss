@@ -2,7 +2,7 @@ form {
     input[type="text"],
     input[type="password"] {
         width: 300px;
-        height: 34px;
+        height: 38px;
         border-radius: 10px;
 
         border: 2px solid $color-sky-blue;
@@ -12,7 +12,6 @@ form {
         font-size: 16px;
         margin-top: 20px;
         margin-bottom: 20px;
-        margin-right: 20px;
         background: transparent;
 
         &:focus {

@@ -43,9 +43,9 @@ const Deck = () => {
   const form = (
     <>
       <p>
-        Insert your E-mail.
+        Enter your email address to
         <br />
-        For open our Cosmic Deck!
+        Unlock access to our Cosmic Deck!
       </p>
 
       <form className="flex flex-col items-center">
