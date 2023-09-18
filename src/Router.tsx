@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: "/deck",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Deck />
             <Footer />
           </div>
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Blog />
             <Footer />
           </div>
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/article/:id",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <BlogArticle />
             <Footer />
           </div>
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       {
         path: "/invest",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Invest />
             <Footer />
           </div>
