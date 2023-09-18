@@ -5,24 +5,15 @@ const Home = () => {
   const address = useAddress();
   return (
     <div className="flex flex-col items-center justify-between min-h-[85vh]">
-      {/* <div className="video">
-        <iframe
-          id="ytplayer"
-          width="720"
-          height="405"
-          src="https://www.youtube.com/embed/nMJ-gF2uW4E/?&autoplay=1&t=2"
-          title="ytplayer"
-        />
-      </div> */}
       <div />
 
       <div>
-        <h1>
-          An immersive strategy <span className="highlight">gamefi</span>{" "}
+        <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-5xl leading-[1.349] text-center uppercase self-center md:w-[827px] lg:w-[600px] xl:w-[627px]">
+          An immersive strategy <span className="text-[#2ed2ff]">gamefi</span>{" "}
           experience
         </h1>
 
-        <div className="cta">
+        <div className="mt-4 items-center justify-center flex">
           {!address ? (
             <ConnectWallet
               theme="dark"
@@ -34,17 +25,24 @@ const Home = () => {
                 padding: 10,
                 paddingRight: 30,
                 paddingLeft: 30,
+                border: "1px solid hsl(272, 100%, 79%)",
               }}
-              className="btn btn-primary mx-[4px]"
+              className="mx-4"
             />
           ) : (
-            <a href="/signup" className="btn btn-primary mx-[4px]">
+            <a
+              href="/signup"
+              className="mx-4 border border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+            >
               My profile
             </a>
           )}
 
           {address && (
-            <a href="/waitlist" className="btn btn-secondary mx-[4px]">
+            <a
+              href="/waitlist"
+              className="mx-4 border border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+            >
               Download
             </a>
           )}
