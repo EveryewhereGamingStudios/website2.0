@@ -185,14 +185,12 @@ const UserProfile = () => {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  value={editedUser.name || user?.name}
                   onChange={handleInputChange}
                 />
                 <InputField
                   type="email"
                   name="email"
                   placeholder="E-mail"
-                  value={editedUser.email || user?.email}
                   onChange={handleInputChange}
                 />
 
@@ -316,16 +314,15 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-const InputField = ({ name, placeholder, value, onChange }: any) => {
+const InputField = ({ name, placeholder, onChange }: any) => {
   return (
     <form>
       <input
         type="text"
         name={name}
         placeholder={placeholder}
-        value={value}
         onChange={onChange}
-        className="px-2 font-semibold bg-transparent border-2 border-sky-500 rounded-lg"
+        className="my-2 px-4 w-[270px] focus:outline-none py-[5px] font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
       />
     </form>
   );

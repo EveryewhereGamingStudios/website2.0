@@ -28,7 +28,7 @@ const Invest = () => {
         For open investment dashboard!
       </p>
 
-      <form>
+      <form className="flex flex-col items-center justify-center">
         <input
           type="text"
           placeholder="100.000,00"
@@ -36,6 +36,7 @@ const Invest = () => {
           onChange={(e) => {
             setAmount(e.target.value);
           }}
+          className="my-2 px-4 py-[5px] w-[270px] focus:outline-none font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
         />
 
         <button type="submit" onClick={submitForm}>

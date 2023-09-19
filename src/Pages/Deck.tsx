@@ -56,6 +56,7 @@ const Deck = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          className="my-2 px-4 py-[5px] w-[270px] focus:outline-none font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
         />
 
         <button type="submit" onClick={submitForm}>
