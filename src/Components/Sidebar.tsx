@@ -138,7 +138,7 @@ const socialNetworks: ISocialNetworks[] = [
   },
   {
     title: "Telegram",
-    link: "t.me/Cosmic_Exodus",
+    link: "https://t.me/Cosmic_Exodus",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
