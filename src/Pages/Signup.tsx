@@ -146,7 +146,7 @@ const UserProfile = () => {
           <div className="my-2 space-y-1">
             {isEditing ? (
               <form className="flex flex-col">
-                <div>
+                <div className="flex">
                   <img
                     src={
                       editedUser.photo ||
@@ -156,14 +156,29 @@ const UserProfile = () => {
                     alt=""
                     className="w-32 h-32 mx-auto rounded-full aspect-square"
                   />
-                  <input
-                    id="fileInput"
-                    type="file"
-                    accept="image/*"
-                    placeholder="Choose file"
-                    onChange={handleImageUpload}
-                    className="self-center mt-2 max-w-[100px]"
-                  />
+                  <div className="absolute h-10 w-10 items-center ml-48 flex justify-center">
+                    <input
+                      id="fileInput"
+                      type="file"
+                      accept="image/*"
+                      placeholder="Choose file"
+                      onChange={handleImageUpload}
+                      className="self-center max-w-[100px] sr-only"
+                    />
+                    <label htmlFor="fileInput" className="cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="40"
+                        height="40"
+                        fill="#2ed2ff"
+                        className="bi bi-camera-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                        <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+                      </svg>
+                    </label>
+                  </div>
                 </div>
 
                 <InputField
@@ -301,7 +316,7 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-const InputField = ({ type, name, placeholder, value, onChange }: any) => {
+const InputField = ({ name, placeholder, value, onChange }: any) => {
   return (
     <form>
       <input
