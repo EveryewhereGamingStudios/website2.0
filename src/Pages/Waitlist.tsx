@@ -44,8 +44,8 @@ const Waitlist = () => {
   };
 
   const form = (
-    <>
-      <p>
+    <div className="flex flex-col items-center justify-center">
+      <p className="text-center">
         Enter the metaverse of web3 gaming.
         <br />
         Subscribe to our waitlist and register for the Alpha test run coming
@@ -61,6 +61,7 @@ const Waitlist = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            className="my-2 px-4 w-[270px] focus:outline-none py-[5px] font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
           />
           {/* GDPR authorization */}
           <div ref={gdprRef}>
@@ -83,7 +84,7 @@ const Waitlist = () => {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 
   const success = (
@@ -100,12 +101,9 @@ const Waitlist = () => {
   );
 
   return (
-    <>
-      <div className="waitlist">
-        <h1>Waitlist</h1>
-        {registered ? success : error ? failure : form}
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center">
+      {registered ? success : error ? failure : form}
+    </div>
   );
 };
 
