@@ -3,7 +3,7 @@ import { IUser, useFirebase } from "../Context/FirebaseProvider";
 import links from "../data/links.json";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import moment from "moment";
-import { useAddress } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 
 const UserProfile = () => {
   const { user, app, updateUser } = useFirebase();
@@ -22,7 +22,7 @@ const UserProfile = () => {
     ],
     gdpr: user?.gdpr || false,
   });
-  const [file, setFile] = useState<File | null>(null);
+  const [file] = useState<File | null>(null);
   const gdprRef = useRef<HTMLInputElement | null>(null);
 
   const handleEditClick = () => {
@@ -118,14 +118,29 @@ const UserProfile = () => {
 
   if (!address) {
     return (
-      <div className="waitlist">
+      <div className="items-center justify-center flex flex-col">
         <h1>Connect your wallet to access your profile!</h1>
+
+        <ConnectWallet
+          theme="dark"
+          modalTitle="Enter the metaverse of web3 gaming"
+          style={{
+            background: "transparent",
+            color: "#cd94ff",
+            borderRadius: 10,
+            padding: 10,
+            paddingRight: 30,
+            paddingLeft: 30,
+            border: "2px solid #cd94ff",
+            marginTop: 20,
+          }}
+        />
       </div>
     );
   }
 
   return (
-    <div className="waitlist">
+    <div className="items-center justify-center flex">
       <div className="flex flex-col justify-center p-6 shadow-md rounded-xl sm:px-12 dark:text-gray-100">
         <div className="space-y-4 divide-y divide-gray-700 text-center ">
           <div className="my-2 space-y-1">
