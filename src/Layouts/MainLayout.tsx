@@ -45,7 +45,12 @@ const MainLayout = () => {
             )}
 
             <div className="nav-discord desktop-only items-center w-[170px] flex justify-end">
-              <a href={links.discord} className="flex items-center">
+              <a
+                href={links.discord}
+                className="flex items-center"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Join us on Discord
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

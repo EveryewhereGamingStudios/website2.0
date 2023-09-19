@@ -156,7 +156,7 @@ const UserProfile = () => {
                     alt=""
                     className="w-32 h-32 mx-auto rounded-full aspect-square"
                   />
-                  <div className="absolute h-10 w-10 items-center ml-48 flex justify-center">
+                  <div className="absolute h-10 w-10 items-center ml-44 flex justify-center">
                     <input
                       id="fileInput"
                       type="file"
