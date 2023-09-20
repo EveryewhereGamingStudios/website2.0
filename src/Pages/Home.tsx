@@ -8,9 +8,9 @@ const Home = () => {
       <div />
 
       <div>
-        <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-6xl leading-[1.349] text-center uppercase self-center md:w-[827px] lg:w-[600px] xl:w-[827px]">
-          An immersive strategy <span className="text-[#2ed2ff]">gamefi</span>{" "}
-          experience
+        <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-6xl leading-[1.349] text-center uppercase self-center w-[300px] md:w-[427px] lg:w-[427px] xl:w-[727px]">
+          Enter the metaverse of web3{" "}
+          <span className="text-[#2ed2ff]">gaming</span>
         </h1>
 
         <div className="mt-4 items-center justify-center flex">
@@ -27,6 +27,7 @@ const Home = () => {
                 paddingLeft: 30,
                 border: "2px solid #cd94ff",
               }}
+              btnTitle="Connect"
               className="mx-4"
             />
           ) : (
