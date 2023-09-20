@@ -205,7 +205,7 @@ const UserProfile = () => {
                   />
                 ))} */}
 
-                <div className="items-center flex mb-4" ref={gdprRef}>
+                <div className="items-center flex justify-center" ref={gdprRef}>
                   <input
                     type="checkbox"
                     id="gdpr"

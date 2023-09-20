@@ -36,7 +36,7 @@ const Invest = () => {
           onChange={(e) => {
             setAmount(e.target.value);
           }}
-          className="my-2 px-4 py-[5px] w-[270px] focus:outline-none font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
+          className="my-4 px-4 py-[5px] w-[270px] focus:outline-none font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
         />
 
         <button type="submit" onClick={submitForm}>
@@ -47,32 +47,29 @@ const Invest = () => {
   );
 
   const success = (
-    <div className="success">
+    <div className="flex flex-col items-center justify-center">
       <h2>Thank you for open Cosmic deck!</h2>
     </div>
   );
 
   const failure = (
-    <div className="failure">
+    <div className="flex flex-col items-center justify-center">
       <h2>Something went wrong!</h2>
       <p>{error}</p>
     </div>
   );
 
   const conectWallet = (
-    <div className="failure">
+    <div className="flex flex-col items-center justify-center">
       <h2>Conect your wallet to continue!</h2>
       <p>{error}</p>
     </div>
   );
 
   return (
-    <>
-      <div className="waitlist">
-        <h1>Cosmic Deck</h1>
-        {signedUp ? success : error ? failure : !address ? conectWallet : form}
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center">
+      {signedUp ? success : error ? failure : !address ? conectWallet : form}
+    </div>
   );
 };
 
