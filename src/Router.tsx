@@ -36,7 +36,6 @@ const router = createBrowserRouter([
         element: (
           <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Signup />
-            <Footer />
           </div>
         ),
       },
@@ -45,7 +44,6 @@ const router = createBrowserRouter([
         element: (
           <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Deck />
-            <Footer />
           </div>
         ),
       },
@@ -76,7 +74,6 @@ const router = createBrowserRouter([
         element: (
           <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Invest />
-            <Footer />
           </div>
         ),
       },

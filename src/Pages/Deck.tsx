@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFirebase } from "../Context/FirebaseProvider";
+// import { SlideDeck } from "../Components/SlideDeck";
 
 const Deck = () => {
   const { signToOpenDeck } = useFirebase();
@@ -82,6 +83,7 @@ const Deck = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       {registered ? success : error ? failure : form}
+      {/* <SlideDeck /> */}
     </div>
   );
 };
