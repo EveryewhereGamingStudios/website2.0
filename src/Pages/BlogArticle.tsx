@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
+import React from "react";
 
 export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
@@ -17,6 +18,36 @@ export default function BlogArticle() {
   const article = useMemo(() => {
     return articles.find((item) => item.uuid === id);
   }, [articles, id]);
+
+  const EmojiTextWithLineBreak = ({ text }: any) => {
+    const emojiRegex =
+      /([\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu;
+    const newText = text.replace(emojiRegex, "<br>$&");
+
+    const elements = newText
+      .split("<br>")
+      .map(
+        (
+          part:
+            | string
+            | number
+            | boolean
+            | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+            | Iterable<React.ReactNode>
+            | React.ReactPortal
+            | null
+            | undefined,
+          index: any
+        ) => (
+          <React.Fragment key={index}>
+            {index > 0 && <br />}
+            {part}
+          </React.Fragment>
+        )
+      );
+
+    return <span>{elements}</span>;
+  };
 
   return (
     <div>
@@ -67,7 +98,9 @@ export default function BlogArticle() {
                       <span className="font-bold text-xl mt-4 mb-2">
                         {item.title}
                       </span>
-                      <span className="text-sm">{item.description}</span>
+                      <span className="text-sm leading-7">
+                        <EmojiTextWithLineBreak text={item.description} />
+                      </span>
                     </div>
                   );
                 })}
