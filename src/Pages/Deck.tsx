@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useFirebase } from "../Context/FirebaseProvider";
-// import { SlideDeck } from "../Components/SlideDeck";
 
 const Deck = () => {
   const { signToOpenDeck } = useFirebase();
@@ -26,9 +25,9 @@ const Deck = () => {
         .then((res) => {
           if (res === true) {
             setRegistered(true);
-            window.open(
-              "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view"
-            );
+            // window.open(
+            //   "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view"
+            // );
           } else {
             setError("Error, try again!");
           }
@@ -68,8 +67,16 @@ const Deck = () => {
   );
 
   const success = (
-    <div className="flex flex-col items-center justify-center">
-      <h2>Thank you for open Cosmic deck!</h2>
+    <div className="flex flex-col items-center justify-center w-full">
+      <object
+        data="/CosmicDeck.pdf"
+        type="application/pdf"
+        width="100%"
+        height="100%"
+        className="h-[750px]"
+      >
+        {""}
+      </object>
     </div>
   );
 
@@ -83,7 +90,6 @@ const Deck = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       {registered ? success : error ? failure : form}
-      {/* <SlideDeck /> */}
     </div>
   );
 };
