@@ -20,33 +20,33 @@ export default function BlogArticle() {
   }, [articles, id]);
 
   const EmojiTextWithLineBreak = ({ text }: any) => {
-    const emojiRegex =
-      /([\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu;
-    const newText = text.replace(emojiRegex, "<br>$&");
+    const textParts = text.split("<br />");
 
-    const elements = newText
-      .split("<br>")
-      .map(
-        (
-          part:
-            | string
-            | number
-            | boolean
-            | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-            | Iterable<React.ReactNode>
-            | React.ReactPortal
-            | null
-            | undefined,
-          index: any
-        ) => (
-          <React.Fragment key={index}>
-            {index > 0 && <br />}
-            {part}
-          </React.Fragment>
-        )
-      );
-
-    return <span>{elements}</span>;
+    return (
+      <span>
+        {textParts.map(
+          (
+            part:
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                  any,
+                  string | React.JSXElementConstructor<any>
+                >
+              | Iterable<React.ReactNode>
+              | React.ReactPortal
+              | null
+              | undefined,
+            index: any
+          ) => (
+            <React.Fragment key={index}>
+              {index > 0 && <br />} {part}
+            </React.Fragment>
+          )
+        )}
+      </span>
+    );
   };
 
   return (
@@ -95,7 +95,7 @@ export default function BlogArticle() {
                 article?.content.map((item, index) => {
                   return (
                     <div key={index} className="flex flex-col text-start">
-                      <span className="font-bold text-xl mt-4 mb-2">
+                      <span className="font-bold text-xl mt-8 mb-2">
                         {item.title}
                       </span>
                       <span className="text-sm leading-6">
