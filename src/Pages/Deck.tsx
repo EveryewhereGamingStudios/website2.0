@@ -66,17 +66,27 @@ const Deck = () => {
     </>
   );
 
+  const pdfUrl =
+    "https://drive.google.com/file/d/1q77ZJUxoZnPvzzv0S2VOyf8jOm9M-PJV/preview";
+
   const success = (
     <div className="flex flex-col items-center justify-center w-full">
-      <object
-        data="/Cosmic_Deck.pdf"
+      {/* <object
+        data="https://drive.google.com/drive/folders/12s4pOb8FaQIicDJC6dgzSStHBtQr5wI-"
         type="application/pdf"
         width="100%"
         height="100%"
         className="min-h-[89vh]"
       >
         {""}
-      </object>
+      </object> */}
+      <iframe
+        title="PDF Viewer"
+        src={pdfUrl}
+        width="100%"
+        height="100%"
+        className="min-h-[89vh]"
+      ></iframe>
     </div>
   );
 
