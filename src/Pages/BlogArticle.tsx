@@ -1,10 +1,37 @@
+import React from "react";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
-import React from "react";
+
+export const EmojiTextWithLineBreak = ({ text }: any) => {
+  const textParts = text.split("<br />");
+
+  return (
+    <span>
+      {textParts.map(
+        (
+          part:
+            | string
+            | number
+            | boolean
+            | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+            | Iterable<React.ReactNode>
+            | React.ReactPortal
+            | null
+            | undefined,
+          index: any
+        ) => (
+          <React.Fragment key={index}>
+            {index > 0 && <br />} {part}
+          </React.Fragment>
+        )
+      )}
+    </span>
+  );
+};
 
 export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
@@ -18,36 +45,6 @@ export default function BlogArticle() {
   const article = useMemo(() => {
     return articles.find((item) => item.uuid === id);
   }, [articles, id]);
-
-  const EmojiTextWithLineBreak = ({ text }: any) => {
-    const textParts = text.split("<br />");
-
-    return (
-      <span>
-        {textParts.map(
-          (
-            part:
-              | string
-              | number
-              | boolean
-              | React.ReactElement<
-                  any,
-                  string | React.JSXElementConstructor<any>
-                >
-              | Iterable<React.ReactNode>
-              | React.ReactPortal
-              | null
-              | undefined,
-            index: any
-          ) => (
-            <React.Fragment key={index}>
-              {index > 0 && <br />} {part}
-            </React.Fragment>
-          )
-        )}
-      </span>
-    );
-  };
 
   return (
     <div>
