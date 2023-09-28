@@ -69,11 +69,11 @@ const Deck = () => {
   const success = (
     <div className="flex flex-col items-center justify-center w-full">
       <object
-        data="/CosmicDeck.pdf"
+        data="/Cosmic_Deck.pdf"
         type="application/pdf"
         width="100%"
         height="100%"
-        className="h-[750px]"
+        className="min-h-[89vh]"
       >
         {""}
       </object>

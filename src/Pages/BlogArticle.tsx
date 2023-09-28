@@ -98,7 +98,7 @@ export default function BlogArticle() {
                       <span className="font-bold text-xl mt-4 mb-2">
                         {item.title}
                       </span>
-                      <span className="text-sm leading-7">
+                      <span className="text-sm leading-6">
                         <EmojiTextWithLineBreak text={item.description} />
                       </span>
                     </div>
