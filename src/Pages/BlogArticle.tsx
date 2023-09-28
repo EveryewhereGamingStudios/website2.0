@@ -95,7 +95,7 @@ export default function BlogArticle() {
                 article?.content.map((item, index) => {
                   return (
                     <div key={index} className="flex flex-col text-start">
-                      <span className="font-bold text-xl mt-8 mb-2">
+                      <span className="font-bold text-2xl mt-8 mb-2">
                         {item.title}
                       </span>
                       <span className="text-sm leading-6">
