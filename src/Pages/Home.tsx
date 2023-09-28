@@ -330,12 +330,14 @@ const Home = () => {
       <div />
 
       <div>
-        {address && profile()}
-
-        <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-6xl leading-[1.349] text-center uppercase self-center w-[300px] md:w-[427px] lg:w-[427px] xl:w-[727px]">
-          Enter the metaverse of web3{" "}
-          <span className="text-[#2ed2ff]">gaming</span>
-        </h1>
+        {address ? (
+          profile()
+        ) : (
+          <h1 className="font-saira font-semibold text-2xl md:text-4xl xl:text-6xl leading-[1.349] text-center uppercase self-center w-[300px] md:w-[427px] lg:w-[427px] xl:w-[727px]">
+            Enter the metaverse of web3{" "}
+            <span className="text-[#2ed2ff]">gaming</span>
+          </h1>
+        )}
 
         <div className="mt-4 items-center justify-center flex">
           {!address && (
