@@ -12,6 +12,7 @@ import Invest from "./Pages/Invest";
 import { Footer } from "./Components/Footer";
 import Deck from "./Pages/Deck";
 import CreateArticle from "./Pages/CreateArticle";
+import Resources from "./Pages/Resources";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
           <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Blog />
             <Footer />
+          </div>
+        ),
+      },
+      {
+        path: "/resources",
+        element: (
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Resources />
           </div>
         ),
       },

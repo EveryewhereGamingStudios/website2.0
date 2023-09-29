@@ -22,6 +22,7 @@ import {
   doc,
   getDocs,
   getFirestore,
+  onSnapshot,
   query,
   serverTimestamp,
   setDoc,
@@ -41,6 +42,7 @@ interface FirebaseContextProps {
   error: string;
   loadingSignUp: boolean;
   user: IUser | undefined;
+  users: IUser[];
   signUpWithEmail: (email: string, password: string) => Promise<void>;
   signWaitlist: (email: string) => Promise<boolean>;
   signToOpenDeck: (email: string) => Promise<boolean>;
@@ -91,6 +93,20 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const googleAuthProvider = useMemo(() => {
     return new GoogleAuthProvider();
   }, []);
+  const [users, setUsers] = useState<IUser[]>([]);
+
+  const getUsers = useCallback(async () => {
+    const petsCollectionRef = collection(db, "users");
+
+    const unsubscribe = onSnapshot(petsCollectionRef, (userss) => {
+      let usersList: any = [];
+      userss.docs.map((item) => usersList.push(item.data()));
+
+      usersList && setUsers(usersList);
+    });
+
+    return unsubscribe;
+  }, [db]);
 
   const verifyUserDatabase = useCallback(async () => {
     if (!address) {
@@ -129,7 +145,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
 
   useEffect(() => {
     verifyUserDatabase();
-  }, [address, verifyUserDatabase]);
+    getUsers();
+  }, [address, getUsers, verifyUserDatabase]);
 
   const authenticate = useCallback(async () => {
     try {
@@ -220,6 +237,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       error,
       loadingSignUp,
       user,
+      users,
       authenticate,
       signUpWithEmail,
       signWaitlist,
@@ -236,6 +254,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     error,
     loadingSignUp,
     user,
+    users,
     authenticate,
     signUpWithEmail,
     signWaitlist,

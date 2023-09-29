@@ -21,6 +21,7 @@ const Sidebar = () => {
           Whitepaper
         </a>
         <a href={links.deck}>Cosmic Deck</a>
+        <a href="/resources">Resources</a>
         <span className="disabled">Shop</span>
 
         <img src="/assets/images/line.png" alt="Line" className="hr" />
