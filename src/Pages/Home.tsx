@@ -359,7 +359,7 @@ const Home = () => {
                 title: "Enter the metaverse of web3 gaming!",
                 subtitle: "Choose an option to get started.",
                 img: {
-                  src: "https://cosmicexodus.xyz/assets/images/logo.png",
+                  src: "/assets/images/logo.png",
                   width: 100,
                   height: 50,
                 },
