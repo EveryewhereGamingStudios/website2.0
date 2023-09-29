@@ -25,9 +25,9 @@ const Deck = () => {
         .then((res) => {
           if (res === true) {
             setRegistered(true);
-            window.open(
-              "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view"
-            );
+            // window.open(
+            //   "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view"
+            // );
           } else {
             setError("Error, try again!");
           }
@@ -43,12 +43,12 @@ const Deck = () => {
   const form = (
     <>
       <p>
-        Insert your E-mail.
+        Enter your email address to
         <br />
-        For open our Cosmic Deck!
+        Unlock access to our Cosmic Deck!
       </p>
 
-      <form>
+      <form className="flex flex-col items-center">
         <input
           type="text"
           placeholder="Email Address"
@@ -56,6 +56,7 @@ const Deck = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          className="my-4 px-4 py-[5px] w-[270px] focus:outline-none font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
         />
 
         <button type="submit" onClick={submitForm}>
@@ -65,26 +66,41 @@ const Deck = () => {
     </>
   );
 
+  const pdfUrl =
+    "https://drive.google.com/file/d/1q77ZJUxoZnPvzzv0S2VOyf8jOm9M-PJV/preview";
+
   const success = (
-    <div className="success">
-      <h2>Thank you for open Cosmic deck!</h2>
+    <div className="flex flex-col items-center justify-center w-full">
+      {/* <object
+        data="https://drive.google.com/drive/folders/12s4pOb8FaQIicDJC6dgzSStHBtQr5wI-"
+        type="application/pdf"
+        width="100%"
+        height="100%"
+        className="min-h-[89vh]"
+      >
+        {""}
+      </object> */}
+      <iframe
+        title="PDF Viewer"
+        src={pdfUrl}
+        width="100%"
+        height="100%"
+        className="min-h-[89vh]"
+      ></iframe>
     </div>
   );
 
   const failure = (
-    <div className="failure">
+    <div className="flex flex-col items-center justify-center">
       <h2>Something went wrong!</h2>
       <p>{error}</p>
     </div>
   );
 
   return (
-    <>
-      <div className="waitlist">
-        <h1>Cosmic Deck</h1>
-        {registered ? success : error ? failure : form}
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center">
+      {registered ? success : error ? failure : form}
+    </div>
   );
 };
 

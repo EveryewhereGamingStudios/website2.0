@@ -3,53 +3,57 @@ import FirebaseProvider from "./Context/FirebaseProvider";
 import Routes from "./Router";
 import {
   ThirdwebProvider,
-  // bloctoWallet,
   coinbaseWallet,
-  // frameWallet,
-  // localWallet,
+  embeddedWallet,
+  localWallet,
   magicLink,
   metamaskWallet,
-  // rainbowWallet,
-  // safeWallet,
-  // trustWallet,
-  // walletConnect,
-  // zerionWallet,
+  phantomWallet,
+  rainbowWallet,
+  safeWallet,
+  smartWallet,
+  trustWallet,
+  walletConnect,
+  zerionWallet,
 } from "@thirdweb-dev/react";
 import "./Styles/styles.scss";
+
+const smartWalletOptions = {
+  factoryAddress: "YOUR_FACTORY_ADDRESS",
+  gasless: true,
+};
 
 const App = () => {
   return (
     <>
       <ThirdwebProvider
         supportedWallets={[
-          metamaskWallet(),
-          coinbaseWallet(),
-          // walletConnect(),
-          // safeWallet({
-          //   personalWallets: [
-          //     metamaskWallet(),
-          //     coinbaseWallet(),
-          //     walletConnect(),
-          //   ],
-          // }),
-          // localWallet(),
-          // trustWallet(),
-          // zerionWallet(),
-          // bloctoWallet(),
-          // frameWallet(),
-          // rainbowWallet(),
+          smartWallet(
+            metamaskWallet({ recommended: true }),
+            smartWalletOptions
+          ),
+          smartWallet(coinbaseWallet(), smartWalletOptions),
+          smartWallet(walletConnect(), smartWalletOptions),
+          smartWallet(
+            safeWallet({
+              personalWallets: [
+                metamaskWallet(),
+                coinbaseWallet(),
+                walletConnect(),
+              ],
+            }),
+            smartWalletOptions
+          ),
+          smartWallet(localWallet(), smartWalletOptions),
+          smartWallet(embeddedWallet(), smartWalletOptions),
+          smartWallet(trustWallet(), smartWalletOptions),
+          smartWallet(zerionWallet(), smartWalletOptions),
+          smartWallet(rainbowWallet(), smartWalletOptions),
+          smartWallet(phantomWallet(), smartWalletOptions),
           magicLink({
             apiKey: "pk_live_056D523F9E58FD92",
             oauthOptions: {
-              providers: [
-                "google",
-                // "facebook",
-                // "twitter",
-                // "apple",
-                // "discord",
-                // "github",
-                // "twitch",
-              ],
+              providers: ["google"],
             },
           }),
         ]}

@@ -37,7 +37,11 @@ export function SocialNetworks() {
               key={index}
               className="mx-4"
             >
-              <img src={social?.img} alt={social?.title} />
+              <img
+                src={social?.img}
+                alt={social?.title}
+                className="h-[50px] md:h-[70px]"
+              />
             </a>
           );
         })}

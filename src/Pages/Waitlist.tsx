@@ -44,8 +44,8 @@ const Waitlist = () => {
   };
 
   const form = (
-    <>
-      <p>
+    <div className="flex flex-col items-center justify-center">
+      <p className="text-center">
         Enter the metaverse of web3 gaming.
         <br />
         Subscribe to our waitlist and register for the Alpha test run coming
@@ -53,37 +53,38 @@ const Waitlist = () => {
       </p>
 
       <form>
-        <input
-          type="text"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-
-        <button type="submit" onClick={submitForm}>
-          Subscribe
-        </button>
-
-        {/* GDPR authorization */}
-        <div ref={gdprRef}>
+        <div className="flex flex-col items-center justify-center mt-4">
           <input
-            type="checkbox"
-            id="gdpr"
+            type="text"
+            placeholder="Email Address"
+            value={email}
             onChange={(e) => {
-              setGdpr(e.target.checked);
-              if (gdprRef.current) {
-                gdprRef.current.classList.remove("error");
-              }
+              setEmail(e.target.value);
             }}
+            className="my-2 px-4 w-[270px] focus:outline-none py-[5px] font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
           />
-          <label htmlFor="gdpr">
-            I agree to the <a href={links.privacy_policy}>Privacy Policy</a>
-          </label>
+          {/* GDPR authorization */}
+          <div ref={gdprRef}>
+            <input
+              type="checkbox"
+              id="gdpr"
+              onChange={(e) => {
+                setGdpr(e.target.checked);
+                if (gdprRef.current) {
+                  gdprRef.current.classList.remove("error");
+                }
+              }}
+            />
+            <label htmlFor="gdpr">
+              I agree to the <a href={links.privacy_policy}>Privacy Policy</a>
+            </label>
+          </div>
+          <button type="submit" onClick={submitForm} className="mt-6">
+            Subscribe
+          </button>
         </div>
       </form>
-    </>
+    </div>
   );
 
   const success = (
@@ -100,12 +101,9 @@ const Waitlist = () => {
   );
 
   return (
-    <>
-      <div className="waitlist">
-        <h1>Waitlist</h1>
-        {registered ? success : error ? failure : form}
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center">
+      {registered ? success : error ? failure : form}
+    </div>
   );
 };
 

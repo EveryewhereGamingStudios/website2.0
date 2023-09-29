@@ -1,6 +1,10 @@
 import { ArticleData } from "../Context/BlogProvider";
 
 export function CardBlog(article: ArticleData) {
+  function removeLineBreaks(text: string) {
+    const regex = /<br\s*\/?>/g;
+    return text.replace(regex, "");
+  }
   return (
     <div className="flex flex-col m-4 bg-opacity-10 rounded-lg w-[300px] border border-[#30D1FF]">
       <img
@@ -16,7 +20,7 @@ export function CardBlog(article: ArticleData) {
           </h2>
         </a>
         <p className="text-sm mb-2">
-          {article.content[0].description.slice(0, 105)} ...
+          {removeLineBreaks(article.content[0].description.slice(0, 108))} ...
         </p>
         <div className="flex justify-between">
           <p className="text-xs text-[#30D1FF]">{article?.timeToRead}</p>

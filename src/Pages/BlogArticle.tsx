@@ -1,9 +1,37 @@
+import React from "react";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
 // import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
+
+export const EmojiTextWithLineBreak = ({ text }: any) => {
+  const textParts = text.split("<br />");
+
+  return (
+    <span>
+      {textParts.map(
+        (
+          part:
+            | string
+            | number
+            | boolean
+            | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+            | Iterable<React.ReactNode>
+            | React.ReactPortal
+            | null
+            | undefined,
+          index: any
+        ) => (
+          <React.Fragment key={index}>
+            {index > 0 && <br />} {part}
+          </React.Fragment>
+        )
+      )}
+    </span>
+  );
+};
 
 export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
@@ -64,10 +92,12 @@ export default function BlogArticle() {
                 article?.content.map((item, index) => {
                   return (
                     <div key={index} className="flex flex-col text-start">
-                      <span className="font-bold text-xl mt-4 mb-2">
+                      <span className="font-bold text-2xl mt-8 mb-2">
                         {item.title}
                       </span>
-                      <span className="text-sm">{item.description}</span>
+                      <span className="text-sm leading-6">
+                        <EmojiTextWithLineBreak text={item.description} />
+                      </span>
                     </div>
                   );
                 })}
@@ -75,10 +105,24 @@ export default function BlogArticle() {
             <a
               href={article?.link}
               target="_blank"
-              className="mt-6 font-bold"
+              className="mt-6 font-bold text-[#2ed2ff] flex items-center"
               rel="noreferrer"
             >
-              {article?.link}
+              Join Us
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                className="ml-[4px] mt-[1px]"
+              >
+                <path
+                  fill="#2ed2ff"
+                  d="M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 5 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z"
+                ></path>
+              </svg>
             </a>
           </div>
         )}

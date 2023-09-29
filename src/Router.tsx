@@ -5,7 +5,6 @@ import Waitlist from "./Pages/Waitlist";
 import Signup from "./Pages/Signup";
 import Blog from "./Pages/Blog";
 import BlogArticle from "./Pages/BlogArticle";
-import AdminLayout from "./Layouts/AdminLayout";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import InGameActionsLayout from "./Layouts/InGameActionsLayout";
 import GetNFT from "./Pages/GetNFT";
@@ -13,6 +12,7 @@ import Invest from "./Pages/Invest";
 import { Footer } from "./Components/Footer";
 import Deck from "./Pages/Deck";
 import CreateArticle from "./Pages/CreateArticle";
+import Resources from "./Pages/Resources";
 
 const router = createBrowserRouter([
   {
@@ -25,34 +25,50 @@ const router = createBrowserRouter([
       },
       {
         path: "/waitlist",
-        element: <Waitlist />,
+        element: (
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Waitlist />
+            <Footer />
+          </div>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: (
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Signup />
+          </div>
+        ),
       },
       {
         path: "/deck",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Deck />
-            <Footer />
           </div>
         ),
       },
       {
         path: "/blog",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Blog />
             <Footer />
           </div>
         ),
       },
       {
+        path: "/resources",
+        element: (
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+            <Resources />
+          </div>
+        ),
+      },
+      {
         path: "/article/:id",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <BlogArticle />
             <Footer />
           </div>
@@ -65,21 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/invest",
         element: (
-          <div className="flex flex-col min-h-screen min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
             <Invest />
-            <Footer />
           </div>
         ),
-      },
-    ],
-  },
-  {
-    path: "/admin",
-    element: <AdminLayout />,
-    children: [
-      {
-        path: "",
-        element: <h1>Hello</h1>,
       },
     ],
   },
