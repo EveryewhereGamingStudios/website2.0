@@ -71,15 +71,6 @@ const Deck = () => {
 
   const success = (
     <div className="flex flex-col items-center justify-center w-full">
-      {/* <object
-        data="https://drive.google.com/drive/folders/12s4pOb8FaQIicDJC6dgzSStHBtQr5wI-"
-        type="application/pdf"
-        width="100%"
-        height="100%"
-        className="min-h-[89vh]"
-      >
-        {""}
-      </object> */}
       <iframe
         title="PDF Viewer"
         src={pdfUrl}

@@ -19,7 +19,7 @@ import {
 import "./Styles/styles.scss";
 
 const smartWalletOptions = {
-  factoryAddress: "YOUR_FACTORY_ADDRESS",
+  factoryAddress: "0x13430b46a04861523c961D0031B58789EA3BA1d7",
   gasless: true,
 };
 
@@ -27,6 +27,7 @@ const App = () => {
   return (
     <>
       <ThirdwebProvider
+        clientId="24d5562caeba0e6e3dad08b83bd4b3e3"
         supportedWallets={[
           smartWallet(
             metamaskWallet({ recommended: true }),

@@ -51,6 +51,7 @@ const Home = () => {
       const storage = getStorage(app);
       const storageRef = ref(
         storage,
+        // eslint-disable-next-line no-useless-concat
         "usersImages/" + `${file.name}-${moment().format("LLL")}`
       );
 
@@ -342,28 +343,12 @@ const Home = () => {
         <div className="mt-4 items-center justify-center flex">
           {!address && (
             <ConnectWallet
-              style={{
-                background: "transparent",
-                color: "#cd94ff",
-                borderRadius: 10,
-                padding: 10,
-                paddingRight: 30,
-                paddingLeft: 30,
-                border: "2px solid #cd94ff",
-              }}
+              style={connectWalletStyles}
               theme={"dark"}
               btnTitle={"Connect"}
               switchToActiveChain={true}
               modalSize={"wide"}
-              welcomeScreen={{
-                title: "Enter the metaverse of web3 gaming!",
-                subtitle: "Choose an option to get started.",
-                img: {
-                  src: "/assets/images/logo.png",
-                  width: 100,
-                  height: 50,
-                },
-              }}
+              welcomeScreen={connectWalletScreen}
               modalTitleIconUrl={""}
               className="mx-4"
             />
@@ -400,6 +385,30 @@ const Home = () => {
 };
 
 export default Home;
+
+//
+// Utils
+//
+
+const connectWalletStyles = {
+  background: "transparent",
+  color: "#cd94ff",
+  borderRadius: 10,
+  padding: 10,
+  paddingRight: 30,
+  paddingLeft: 30,
+  border: "2px solid #cd94ff",
+};
+
+const connectWalletScreen = {
+  title: "Enter the metaverse of web3 gaming!",
+  subtitle: "Choose an option to get started.",
+  img: {
+    src: "/assets/images/logo.png",
+    width: 100,
+    height: 50,
+  },
+};
 
 const InputField = ({ name, placeholder, onChange }: any) => {
   return (

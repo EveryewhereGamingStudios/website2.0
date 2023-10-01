@@ -9,13 +9,6 @@ import {
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Analytics, getAnalytics } from "firebase/analytics";
 import {
-  Auth,
-  createUserWithEmailAndPassword,
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import {
   Firestore,
   addDoc,
   collection,
@@ -35,15 +28,8 @@ interface FirebaseContextProps {
   app: FirebaseApp;
   db: Firestore;
   analytics: Analytics;
-  auth: Partial<Auth>;
-  provider: Partial<GoogleAuthProvider>;
-  authenticate: any;
-  signedUp: boolean;
-  error: string;
-  loadingSignUp: boolean;
   user: IUser | undefined;
   users: IUser[];
-  signUpWithEmail: (email: string, password: string) => Promise<void>;
   signWaitlist: (email: string) => Promise<boolean>;
   signToOpenDeck: (email: string) => Promise<boolean>;
   updateUser: (editedUser: IUser) => Promise<void>;
@@ -84,15 +70,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   });
   const db = getFirestore(app);
   const analytics = getAnalytics(app);
-  const auth = getAuth(app);
-  const [signedUp, setSignedUp] = useState(false);
   const [user, setUser] = useState<IUser>();
-  const [loadingSignUp, setLoadingSignUp] = useState(false);
-  const [error, setError] = useState("");
   const address = useAddress();
-  const googleAuthProvider = useMemo(() => {
-    return new GoogleAuthProvider();
-  }, []);
   const [users, setUsers] = useState<IUser[]>([]);
 
   const getUsers = useCallback(async () => {
@@ -147,33 +126,6 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     verifyUserDatabase();
     getUsers();
   }, [address, getUsers, verifyUserDatabase]);
-
-  const authenticate = useCallback(async () => {
-    try {
-      await signInWithPopup(auth, googleAuthProvider);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [auth, googleAuthProvider]);
-
-  const signUpWithEmail = useCallback(
-    async (email: string, password: string) => {
-      try {
-        setLoadingSignUp(true);
-
-        await createUserWithEmailAndPassword(auth, email, password)
-          .then((res) => {
-            setSignedUp(true);
-          })
-          .catch((err) => {
-            setError(err.message);
-          });
-      } finally {
-        setLoadingSignUp(false);
-      }
-    },
-    [auth]
-  );
 
   const signWaitlist = useCallback(
     async (email: string) => {
@@ -231,15 +183,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       app,
       db,
       analytics,
-      auth,
-      provider: googleAuthProvider,
-      signedUp,
-      error,
-      loadingSignUp,
       user,
       users,
-      authenticate,
-      signUpWithEmail,
       signWaitlist,
       signToOpenDeck,
       updateUser,
@@ -248,15 +193,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     app,
     db,
     analytics,
-    auth,
-    googleAuthProvider,
-    signedUp,
-    error,
-    loadingSignUp,
     user,
     users,
-    authenticate,
-    signUpWithEmail,
     signWaitlist,
     signToOpenDeck,
     updateUser,
