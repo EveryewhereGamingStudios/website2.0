@@ -356,7 +356,9 @@ const Home = () => {
 
           {address && (
             <a
-              href="/waitlist"
+              target="_blank"
+              rel="noreferrer"
+              href="https://drive.google.com/file/d/1B0H6hBiBeeKRA269HqPWY0CWLiWy4Zpd/view"
               className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
             >
               Download
