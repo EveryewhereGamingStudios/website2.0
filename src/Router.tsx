@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainLayout from "./Layouts/MainLayout";
 import Home from "./Pages/Home";
-import Waitlist from "./Pages/Waitlist";
+import Download from "./Pages/Download";
 import Signup from "./Pages/Signup";
 import Blog from "./Pages/Blog";
 import BlogArticle from "./Pages/BlogArticle";
@@ -24,11 +24,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/waitlist",
+        path: "/download",
         element: (
           <div className="flex flex-col min-h-[85vh] min-w-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-            <Waitlist />
-            <Footer />
+            <Download />
           </div>
         ),
       },

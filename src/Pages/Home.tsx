@@ -356,7 +356,7 @@ const Home = () => {
 
           {address && (
             <a
-              href="/waitlist"
+              href="/download"
               className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
             >
               Download
