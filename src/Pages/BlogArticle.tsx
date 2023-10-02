@@ -75,7 +75,7 @@ export default function BlogArticle() {
   }, []);
 
   const article = useMemo(() => {
-    return articles.find((item) => item.uuid === id);
+    return articles.find((item) => item.articleTitle === id);
   }, [articles, id]);
 
   return (
@@ -99,10 +99,13 @@ export default function BlogArticle() {
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Blog" />
       </Helmet>
-      <div className="md:p-12 p-4 bg-opacity-10 rounded-lg items-start justify-start w-full self-center flex">
-        {loading && <p className="text-center loading">Loading...</p>}
-        {error && <p className="text-center error">{error}</p>}
-      </div>
+      {loading ||
+        (error && (
+          <div className="md:p-12 p-4 bg-opacity-10 rounded-lg items-start justify-start w-full self-center flex">
+            {loading && <p className="text-center loading">Loading...</p>}
+            {error && <p className="text-center error">{error}</p>}
+          </div>
+        ))}
 
       <main className="pb-16 lg:pb-24 antialiased">
         <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">

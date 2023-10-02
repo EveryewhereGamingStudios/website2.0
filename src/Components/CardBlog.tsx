@@ -6,7 +6,7 @@ export function CardBlog(article: ArticleData) {
     return text.replace(regex, "");
   }
   return (
-    <a href={`/article/${article.uuid}`}>
+    <a href={`/article/${article.articleTitle}`}>
       <div className="flex flex-col m-4 bg-opacity-10 rounded-lg w-[300px] border border-[#30D1FF]">
         <img
           src={article.coverImage || "/assets/images/space.png"}
