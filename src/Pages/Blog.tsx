@@ -11,7 +11,7 @@ function Blog() {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-around">
+    <div className="flex flex-wrap justify-center">
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
       {articles?.map((article) => article && CardBlog(article))}

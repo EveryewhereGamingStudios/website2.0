@@ -364,22 +364,27 @@ const Home = () => {
           )}
         </div>
       </div>
-      <footer className="bottom-0 flex justify-between w-full self-center px-4">
-        <a href={links.saga}>
-          <img
-            src="/assets/images/saga.png"
-            alt="Saga logo"
-            className="md:h-[30px] h-[20px]"
-          />
-        </a>
-        <a href={links.youtube}>
-          <img
-            src="/assets/images/yaygames.png"
-            alt="YAY Games logo"
-            className="md:h-[30px] h-[20px]"
-          />
-        </a>
-      </footer>
+
+      {!address ? (
+        <footer className="bottom-0 flex justify-between w-full self-center px-4">
+          <a href={links.saga}>
+            <img
+              src="/assets/images/saga.png"
+              alt="Saga logo"
+              className="md:h-[30px] h-[20px]"
+            />
+          </a>
+          <a href={links.youtube}>
+            <img
+              src="/assets/images/yaygames.png"
+              alt="YAY Games logo"
+              className="md:h-[30px] h-[20px]"
+            />
+          </a>
+        </footer>
+      ) : (
+        <div />
+      )}
     </div>
   );
 };

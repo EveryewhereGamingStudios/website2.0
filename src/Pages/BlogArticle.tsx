@@ -70,38 +70,45 @@ export default function BlogArticle() {
       <div className="md:p-12 p-4 bg-opacity-10 rounded-lg items-start justify-start w-full self-center flex">
         {loading && <p className="text-center loading">Loading...</p>}
         {error && <p className="text-center error">{error}</p>}
-        {article && (
-          <div className="w-full self-center flex flex-col">
-            <h1 className="text-3xl font-semibold text-center">
-              {article.articleTitle}
-            </h1>
-            <span className="text-gray-500 text-center">
-              {article?.timeToRead}
-            </span>
-            <span className="text-gray-500 mb-12 text-center">
-              {article?.date}
-            </span>
-            <img
-              src={article.bannerImage || "/assets/images/spaceportal.png"}
-              alt={article.articleTitle}
-              className="border-[#30D1FF] border rounded-xl max-h-[300px] min-w-full self-center"
-            />
+      </div>
 
-            <div className="prose max-w-none self-center w-full text-center mt-12">
-              {article &&
-                article?.content.map((item, index) => {
-                  return (
-                    <div key={index} className="flex flex-col text-start">
-                      <span className="font-bold text-2xl mt-8 mb-2">
-                        {item.title}
-                      </span>
-                      <span className="text-sm leading-6">
-                        <EmojiTextWithLineBreak text={item.description} />
-                      </span>
-                    </div>
-                  );
-                })}
+      <main className="pb-16 lg:pb-24 antialiased">
+        <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+          <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue format-invert">
+            <div className="w-full self-center flex flex-col">
+              <h1 className="text-3xl font-semibold text-center">
+                {article?.articleTitle}
+              </h1>
+              <span className="text-gray-500 text-center">
+                {article?.timeToRead}
+              </span>
+              <span className="text-gray-500 mb-12 text-center">
+                {article?.date}
+              </span>
             </div>
+
+            <figure>
+              <img
+                src={article?.bannerImage}
+                alt={article?.articleTitle}
+                className="border-[#30D1FF] border rounded-xl w-full"
+              />
+            </figure>
+
+            {article &&
+              article?.content.map((item, index) => {
+                return (
+                  <div key={index} className="flex flex-col text-start">
+                    <span className="font-bold text-2xl mt-8 mb-2">
+                      {item.title}
+                    </span>
+                    <span className="text-sm leading-6">
+                      <EmojiTextWithLineBreak text={item.description} />
+                    </span>
+                  </div>
+                );
+              })}
+
             <a
               href={article?.link}
               target="_blank"
@@ -124,14 +131,15 @@ export default function BlogArticle() {
                 ></path>
               </svg>
             </a>
-          </div>
-        )}
-      </div>
+          </article>
+        </div>
+      </main>
+
       <div className="mb-20">
         <h1 className="text-3xl font-semibold text-center">
           It can be interesting too...
         </h1>
-        <div className="mt-4 flex flex-wrap justify-around">
+        <div className="mt-4 flex flex-wrap justify-center">
           {articles &&
             articles?.map((article, index) => {
               if (index > 2) return null;
