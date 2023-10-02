@@ -81,10 +81,11 @@ export default function BlogArticle() {
             <span className="text-gray-500 mb-12 text-center">
               {article?.date}
             </span>
+
             <img
               src={article.bannerImage || "/assets/images/spaceportal.png"}
               alt={article.articleTitle}
-              className="border-[#30D1FF] border rounded-xl max-h-[300px] min-w-full self-center"
+              className="border-[#30D1FF] border rounded-xl h-[300px] w-full object-cover"
             />
 
             <div className="prose max-w-none self-center w-full text-center mt-12">
