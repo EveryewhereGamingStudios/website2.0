@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
