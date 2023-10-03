@@ -1,17 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "./colors.scss";
 @import "./fonts.scss";
-
 @import "./sidebar.scss";
-@import "./main.scss";
-@import "./nav.scss";
-@import "./forms.scss";
 
-@import "./pages/home.scss";
-@import "./pages/waitlist.scss";
-@import "./pages/blog.scss";
-@import "./pages/get-nft.scss";
 
-@import "./admin/auth.scss";
 
 body {
     padding: 0px;
