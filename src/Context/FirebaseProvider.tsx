@@ -7,7 +7,12 @@ import {
   useState,
 } from "react";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { Analytics, getAnalytics } from "firebase/analytics";
+import {
+  Analytics,
+  getAnalytics,
+  initializeAnalytics,
+  logEvent,
+} from "firebase/analytics";
 import {
   Firestore,
   addDoc,
@@ -70,6 +75,11 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   });
   const db = getFirestore(app);
   const analytics = getAnalytics(app);
+  initializeAnalytics(app);
+  logEvent(analytics, "user", {
+    parameterName: "parameterUser",
+  });
+
   const [user, setUser] = useState<IUser>();
   const address = useAddress();
   const [users, setUsers] = useState<IUser[]>([]);
