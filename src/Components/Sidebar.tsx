@@ -4,7 +4,10 @@ const Sidebar = () => {
   return (
     <>
       <div className="top">
-        <span className="title">Games</span>
+        <a href="/">
+          <img src="/assets/images/logo.png" alt="Cosmic Exodus Logo" />
+        </a>
+        <span className="title mt-12">Games</span>
         <a
           href={links.withstand_kairos}
           className="thin"
