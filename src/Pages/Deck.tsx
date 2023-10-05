@@ -41,13 +41,16 @@ const Deck = () => {
   };
 
   const form = (
-    <>
-      <p>
-        Enter your email address to
-        <br />
-        Unlock access to our Cosmic Deck!
+    <div className="w-full items-center flex flex-col">
+      <img
+        src={"/assets/images/iWantYou.png"}
+        alt="iWantYou"
+        style={{ height: "270px" }}
+        className="mb-8"
+      />
+      <p className="mb-8 max-w-[88%] self-center">
+        Enter your email address to Unlock access to our Cosmic Deck!
       </p>
-
       <form className="flex flex-col items-center">
         <input
           type="text"
@@ -63,7 +66,7 @@ const Deck = () => {
           Open deck
         </button>
       </form>
-    </>
+    </div>
   );
 
   const pdfUrl =

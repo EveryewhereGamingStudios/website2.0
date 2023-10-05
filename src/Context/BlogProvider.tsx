@@ -10,12 +10,14 @@ import { collection, getDoc, getDocs, doc, addDoc } from "firebase/firestore";
 
 interface ContentItem {
   title: string;
+  subTitle?: string;
   description: string;
 }
 
 export interface ArticleData {
   uuid: string;
   articleTitle: string;
+  articleDescription?: string;
   bannerImage: string;
   coverImage: string;
   link: string;

@@ -54,6 +54,9 @@ export default function BlogArticle() {
               <h1 className="text-3xl font-semibold text-center">
                 {article?.articleTitle}
               </h1>
+              <h2 className="text-xl text-center text-gray-400">
+                {article?.articleDescription}
+              </h2>
               <span className="text-gray-500 text-center">
                 {article?.timeToRead}
               </span>
@@ -74,8 +77,11 @@ export default function BlogArticle() {
               article?.content.map((item, index) => {
                 return (
                   <div key={index} className="flex flex-col text-start">
-                    <span className="font-bold text-2xl mt-8 mb-2">
+                    <span className="font-bold text-2xl mt-8">
                       {item.title}
+                    </span>
+                    <span className="text-xl text-gray-400 mb-2">
+                      {item?.subTitle}
                     </span>
                     <span className="text-sm leading-6">
                       <EmojiTextWithLineBreak text={item.description} />
