@@ -345,7 +345,7 @@ const Home = () => {
             <ConnectWallet
               style={connectWalletStyles}
               theme={"dark"}
-              btnTitle={"Connect"}
+              btnTitle={"Login"}
               switchToActiveChain={true}
               modalSize={"wide"}
               welcomeScreen={connectWalletScreen}

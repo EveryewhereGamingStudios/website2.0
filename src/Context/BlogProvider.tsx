@@ -97,7 +97,7 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
       const updatedArticles = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
-      setArticles(updatedArticles as any);
+      setArticles(updatedArticles.reverse() as ArticleData[]);
     } catch (e) {
       setError(`${e}`);
     } finally {

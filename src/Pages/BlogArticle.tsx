@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
@@ -8,6 +8,7 @@ import { EmojiTextWithLineBreak } from "../utils/blog";
 export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
   const { articles, loading, error, getArticles } = useBlog();
+  const [qtd, setQtd] = useState(3);
 
   useEffect(() => {
     getArticles();
@@ -122,11 +123,18 @@ export default function BlogArticle() {
         </h1>
         <div className="mt-4 flex flex-wrap justify-center">
           {articles &&
-            articles?.map((article, index) => {
-              if (index > 2) return null;
+            articles?.slice(0, qtd).map((article, index) => {
               if (article) return <div key={index}>{CardBlog(article)}</div>;
               return null;
             })}
+        </div>
+        <div className="flex w-full items-center justify-center p-4">
+          <button
+            onClick={() => setQtd((x) => x + 3)}
+            className="text-md font-semibold"
+          >
+            See more
+          </button>
         </div>
       </div>
     </div>
