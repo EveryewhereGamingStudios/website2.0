@@ -20,7 +20,7 @@ export function CardBlog(article: ArticleData) {
           </h2>
 
           <p className="text-sm mb-2">
-            {removeLineBreaks(article.content[0].description.slice(0, 108))} ...
+            {removeLineBreaks(article.content[0].description.slice(0, 115))} ...
           </p>
           <div className="flex justify-between">
             <p className="text-xs text-[#30D1FF]">{article?.timeToRead}</p>
