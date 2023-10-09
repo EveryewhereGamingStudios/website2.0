@@ -128,14 +128,16 @@ export default function BlogArticle() {
               return null;
             })}
         </div>
-        <div className="flex w-full items-center justify-center p-4">
-          <button
-            onClick={() => setQtd((x) => x + 3)}
-            className="text-md font-semibold"
-          >
-            See more
-          </button>
-        </div>
+        {qtd < articles.length && (
+          <div className="flex w-full items-center justify-center p-4">
+            <button
+              onClick={() => setQtd((x) => x + 3)}
+              className="text-md font-semibold"
+            >
+              See more
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
