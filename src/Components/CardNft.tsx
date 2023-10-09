@@ -1,30 +1,39 @@
-import { ArticleData } from "../Context/BlogProvider";
+interface INft {
+  wallet: string;
+  title: string;
+  bidPrice: string;
+  buyoutPrice: string;
+  image: string;
+}
 
-export function CardBlog(article: ArticleData) {
-  function removeLineBreaks(text: string) {
-    const regex = /<br\s*\/?>/g;
-    return text.replace(regex, "");
-  }
+export function CardNft(nft: INft) {
   return (
-    <a href={`/article/${article.articleTitle}`}>
-      <div className="flex flex-col m-4 bg-opacity-10 rounded-lg w-[300px] border border-[#30D1FF]">
-        <img
-          src={article.coverImage || "/assets/images/space.png"}
-          alt={article.articleTitle}
-          style={{ height: "170px" }}
-          className="rounded-t-lg"
-        />
-        <div className="p-4 border-t border-[#30D1FF] justify-between h-[170px] flex flex-col">
-          <h2 className="title text-xl text-[#30D1FF] mb-2 truncate font-bold">
-            {article.articleTitle}
-          </h2>
+    <a href={`/article/${nft.title}`}>
+      <div className="flex flex-col m-4 rounded-md w-[300px] bg-[#0B1234]">
+        <img src={nft.image || "/assets/images/nft.png"} alt={nft.title} />
+        <div className="px-4 pb-4 justify-between h-[130px] flex flex-col">
+          <div>
+            <h2 className="title text-md text-sky-500 truncate font-bold">
+              {nft.wallet}
+            </h2>
+            <h2 className="title text-2xl text-[#E0EAF8] truncate font-bold">
+              {nft.title}
+            </h2>
+          </div>
 
-          <p className="text-sm mb-2">
-            {removeLineBreaks(article.content[0].description.slice(0, 108))} ...
-          </p>
           <div className="flex justify-between">
-            <p className="text-xs text-[#30D1FF]">{article?.timeToRead}</p>
-            <p className="text-xs text-[#30D1FF]">{article.date}</p>
+            <div>
+              <p className="text-xs text-[#FEE929] mb-2">Bid Price:</p>
+              <p className="text-md text-[#FEE929] font-bold">
+                $ {nft?.bidPrice}
+              </p>
+            </div>
+            <div className="text-end">
+              <p className="text-xs text-[#FEE929] mb-2">Buyout Price:</p>
+              <p className="text-md text-[#FEE929] font-bold">
+                $ {nft.buyoutPrice}
+              </p>
+            </div>
           </div>
         </div>
       </div>
