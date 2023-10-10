@@ -6,7 +6,7 @@ import {
   coinbaseWallet,
   embeddedWallet,
   localWallet,
-  magicLink,
+  // magicLink,
   metamaskWallet,
   phantomWallet,
   rainbowWallet,
@@ -51,12 +51,12 @@ const App = () => {
           smartWallet(zerionWallet(), smartWalletOptions),
           smartWallet(rainbowWallet(), smartWalletOptions),
           smartWallet(phantomWallet(), smartWalletOptions),
-          magicLink({
-            apiKey: "pk_live_056D523F9E58FD92",
-            oauthOptions: {
-              providers: ["google"],
-            },
-          }),
+          // magicLink({
+          //   apiKey: "pk_live_056D523F9E58FD92",
+          //   oauthOptions: {
+          //     providers: ["google"],
+          //   },
+          // }),
         ]}
         autoConnect
         activeChain="mumbai"
