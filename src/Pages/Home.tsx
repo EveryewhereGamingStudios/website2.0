@@ -407,7 +407,7 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <ul className="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0">
+          <ul className="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0 lg:-mt-28">
             {tabs?.map((item, i) => {
               return (
                 <li role="presentation">
@@ -445,10 +445,10 @@ const Home = () => {
                 <div className="flex flex-col items-center justify-between min-h-[80vh]">
                   <div />
 
-                  <div className="mt-4 items-center justify-center flex">
+                  <div className="items-center justify-center flex flex-col">
                     <a
                       href="/download"
-                      className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+                      className="hover:animate-pulse mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
                     >
                       Download
                     </a>
