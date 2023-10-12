@@ -446,15 +446,26 @@ const Home = () => {
                   <div />
 
                   <div className="items-center justify-center flex flex-col">
+                    <p className="text-start p-4">
+                      <p className="text-lg">"Warning: </p>
+                      As of today we do not have Microsoft Credentials. This
+                      will make our launcher flag Windows Defender.
+                      <br />
+                      We understand this causes trust issues and people are
+                      afraid of installing it, due to virus/malware concerns.
+                      <br />
+                      There is not much we can do about it right now, so please
+                      understand and have some patience with us."
+                    </p>
                     <img
                       src="/assets/images/download-avatar.png"
                       alt="Saga logo"
-                      className="md:h-[300px] h-[200px] mb-8"
+                      className="md:h-[300px] h-[200px] my-8"
                     />
 
                     <a
                       href="/download"
-                      className="hover:animate-pulse mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+                      className="animate-pulse hover:animate-pulse mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
                     >
                       Download
                     </a>
