@@ -186,7 +186,7 @@ export default function CreateArticle() {
     <div className="w-screen h-full min-h-screen mx-auto px-32 pt-8 p-4 bg-[#080b1c]">
       <h1 className="text-2xl font-bold mb-4">Create a New Article</h1>
       <form>
-        <div className="flex flex-row justify-between w-full flex-wrap">
+        <div className="flex flex-row justify-between w-full flex-wrap ">
           <div className="mb-4">
             <label
               htmlFor="articleTitle"
@@ -200,7 +200,7 @@ export default function CreateArticle() {
               name="articleTitle"
               value={articleData.articleTitle}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="border border-gray-300 p-2 w-full rounded text-gray-700"
             />
           </div>
 
@@ -214,7 +214,7 @@ export default function CreateArticle() {
               name="link"
               value={articleData.link}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="border border-gray-300 p-2 w-full rounded text-gray-700"
             />
           </div>
           <div className="mb-4">
@@ -227,7 +227,7 @@ export default function CreateArticle() {
               name="timeToRead"
               value={articleData.timeToRead}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="border border-gray-300 p-2 w-full rounded text-gray-700"
             />
           </div>
         </div>
@@ -275,8 +275,9 @@ export default function CreateArticle() {
               name="title"
               value={contentItem.title}
               onChange={(e) => handleContentChange(index, e)}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="border border-gray-300 p-2 w-full rounded text-gray-700"
             />
+
             <div className="w-full justify-between flex flex-row">
               <label
                 htmlFor={`contentDescription-${index}`}
@@ -297,7 +298,7 @@ export default function CreateArticle() {
               name="description"
               value={contentItem.description}
               onChange={(e) => handleContentChange(index, e)}
-              className="border-2 border-[#2ed2ff] p-2 w-full bg-[#080b1c] rounded-xl"
+              className="border-2 border-[#2ed2ff] p-2 w-full h-[200px] bg-[#080b1c] rounded-xl"
             />
           </div>
         ))}
