@@ -446,6 +446,12 @@ const Home = () => {
                   <div />
 
                   <div className="items-center justify-center flex flex-col">
+                    <img
+                      src="/assets/images/download-avatar.png"
+                      alt="Saga logo"
+                      className="md:h-[300px] h-[200px] mb-8"
+                    />
+
                     <a
                       href="/download"
                       className="hover:animate-pulse mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"

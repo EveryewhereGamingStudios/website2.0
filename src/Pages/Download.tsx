@@ -13,7 +13,7 @@ const Download = () => {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://drive.google.com/file/d/1B0H6hBiBeeKRA269HqPWY0CWLiWy4Zpd/view"
+            href="https://firebasestorage.googleapis.com/v0/b/cosmic-exodus.appspot.com/o/launcher%2FCosmic%20Launcher%20Installer.exe?alt=media&token=0737da76-40f8-452e-869c-b4f737be79ed"
             className="mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px] mt-6"
           >
             Download launcher
