@@ -447,7 +447,7 @@ const Home = () => {
 
                   <div className="items-center justify-center flex flex-col">
                     <p className="text-start p-4">
-                      <p className="text-lg">"Warning: </p>
+                      <p className="text-lg">Warning: </p>
                       As of today we do not have Microsoft Credentials. This
                       will make our launcher flag Windows Defender.
                       <br />
@@ -455,7 +455,7 @@ const Home = () => {
                       afraid of installing it, due to virus/malware concerns.
                       <br />
                       There is not much we can do about it right now, so please
-                      understand and have some patience with us."
+                      understand and have some patience with us.
                     </p>
                     <img
                       src="/assets/images/download-avatar.png"
