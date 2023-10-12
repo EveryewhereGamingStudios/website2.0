@@ -10,12 +10,14 @@ import { collection, getDoc, getDocs, doc, addDoc } from "firebase/firestore";
 
 interface ContentItem {
   title: string;
+  subTitle?: string;
   description: string;
 }
 
 export interface ArticleData {
   uuid: string;
   articleTitle: string;
+  articleDescription?: string;
   bannerImage: string;
   coverImage: string;
   link: string;
@@ -95,7 +97,7 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
       const updatedArticles = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
-      setArticles(updatedArticles as any);
+      setArticles(updatedArticles.reverse() as ArticleData[]);
     } catch (e) {
       setError(`${e}`);
     } finally {

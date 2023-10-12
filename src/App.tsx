@@ -6,7 +6,7 @@ import {
   coinbaseWallet,
   embeddedWallet,
   localWallet,
-  magicLink,
+  // magicLink,
   metamaskWallet,
   phantomWallet,
   rainbowWallet,
@@ -19,7 +19,7 @@ import {
 import "./Styles/styles.scss";
 
 const smartWalletOptions = {
-  factoryAddress: "0x13430b46a04861523c961D0031B58789EA3BA1d7",
+  factoryAddress: process.env.REACT_APP_FACTORY_ADDRESS!,
   gasless: true,
 };
 
@@ -27,7 +27,7 @@ const App = () => {
   return (
     <>
       <ThirdwebProvider
-        clientId="24d5562caeba0e6e3dad08b83bd4b3e3"
+        clientId={process.env.REACT_APP_CLIENT_ID}
         supportedWallets={[
           smartWallet(
             metamaskWallet({ recommended: true }),
@@ -51,12 +51,12 @@ const App = () => {
           smartWallet(zerionWallet(), smartWalletOptions),
           smartWallet(rainbowWallet(), smartWalletOptions),
           smartWallet(phantomWallet(), smartWalletOptions),
-          magicLink({
-            apiKey: "pk_live_056D523F9E58FD92",
-            oauthOptions: {
-              providers: ["google"],
-            },
-          }),
+          // magicLink({
+          //   apiKey: "pk_live_056D523F9E58FD92",
+          //   oauthOptions: {
+          //     providers: ["google"],
+          //   },
+          // }),
         ]}
         autoConnect
         activeChain="mumbai"

@@ -1,73 +1,14 @@
-import React from "react";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
-// import sanitizeHtml from "sanitize-html";
 import { CardBlog } from "../Components/CardBlog";
-
-export const EmojiTextWithLineBreak = ({ text }: any) => {
-  const urlRegex = /(https?:\/\/\S+|www\.\S+)/gi;
-  const textParts = text.split("<br />");
-
-  return (
-    <span>
-      {textParts.map(
-        (
-          part:
-            | string
-            | number
-            | boolean
-            | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-            | Iterable<React.ReactNode>
-            | React.ReactPortal
-            | null
-            | undefined,
-          index: any
-        ) => {
-          if (typeof part === "string") {
-            const segments = part.split(urlRegex);
-
-            const renderedSegments = segments.map((segment, i) => {
-              if (segment.match(urlRegex)) {
-                return (
-                  <a
-                    key={i}
-                    href={`https://${segment}`}
-                    target="_blank"
-                    className="text-sky-400 font-bold"
-                    rel="noreferrer"
-                  >
-                    {segment}
-                  </a>
-                );
-              } else {
-                return segment;
-              }
-            });
-
-            return (
-              <React.Fragment key={index}>
-                {index > 0 && <br />}
-                {renderedSegments}
-              </React.Fragment>
-            );
-          }
-
-          return (
-            <React.Fragment key={index}>
-              {index > 0 && <br />} {part}
-            </React.Fragment>
-          );
-        }
-      )}
-    </span>
-  );
-};
+import { EmojiTextWithLineBreak } from "../utils/blog";
 
 export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
   const { articles, loading, error, getArticles } = useBlog();
+  const [qtd, setQtd] = useState(3);
 
   useEffect(() => {
     getArticles();
@@ -114,6 +55,9 @@ export default function BlogArticle() {
               <h1 className="text-3xl font-semibold text-center">
                 {article?.articleTitle}
               </h1>
+              <h2 className="text-xl text-center text-gray-400">
+                {article?.articleDescription}
+              </h2>
               <span className="text-gray-500 text-center">
                 {article?.timeToRead}
               </span>
@@ -134,8 +78,11 @@ export default function BlogArticle() {
               article?.content.map((item, index) => {
                 return (
                   <div key={index} className="flex flex-col text-start">
-                    <span className="font-bold text-2xl mt-8 mb-2">
+                    <span className="font-bold text-2xl mt-8">
                       {item.title}
+                    </span>
+                    <span className="text-xl text-gray-400 mb-2">
+                      {item?.subTitle}
                     </span>
                     <span className="text-sm leading-6">
                       <EmojiTextWithLineBreak text={item.description} />
@@ -176,12 +123,21 @@ export default function BlogArticle() {
         </h1>
         <div className="mt-4 flex flex-wrap justify-center">
           {articles &&
-            articles?.map((article, index) => {
-              if (index > 2) return null;
+            articles?.slice(0, qtd).map((article, index) => {
               if (article) return <div key={index}>{CardBlog(article)}</div>;
               return null;
             })}
         </div>
+        {qtd < articles.length && (
+          <div className="flex w-full items-center justify-center p-4">
+            <button
+              onClick={() => setQtd((x) => x + 3)}
+              className="text-md font-semibold"
+            >
+              See more
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

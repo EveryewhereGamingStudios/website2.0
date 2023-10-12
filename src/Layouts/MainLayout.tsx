@@ -30,7 +30,7 @@ const MainLayout = () => {
         <div className="h-16 flex items-center justify-center px-4">
           <div className="w-full flex items-center justify-between">
             <div className="w-[170px]">
-              <a href="/">
+              <a href="/" className="lg:hidden">
                 <img src="/assets/images/logo.png" alt="Cosmic Exodus Logo" />
               </a>
             </div>
