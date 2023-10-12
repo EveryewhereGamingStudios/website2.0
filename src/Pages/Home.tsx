@@ -25,6 +25,17 @@ const Home = () => {
   const [file] = useState<File | null>(null);
   const gdprRef = useRef<HTMLInputElement | null>(null);
   const [selectedTab, setSelectedTab] = useState("accounts");
+  const [checked, setChecked] = useState(false);
+
+  const handleLinkHover = useCallback(() => {
+    if (!checked) {
+      alert("Please check the checkbox to download.");
+    }
+  }, [checked]);
+
+  const handleChange = useCallback(() => {
+    setChecked(!checked);
+  }, [checked]);
 
   const tabs = [
     {
@@ -457,6 +468,22 @@ const Home = () => {
                       There is not much we can do about it right now, so please
                       understand and have some patience with us.
                     </p>
+
+                    <div className="flex items-center w-full mb-4 px-4">
+                      <input
+                        id="default-checkbox"
+                        type="checkbox"
+                        checked={checked}
+                        onChange={handleChange}
+                      />
+                      <label
+                        htmlFor="default-checkbox"
+                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        I understand, download anyway
+                      </label>
+                    </div>
+
                     <img
                       src="/assets/images/download-avatar.png"
                       alt="Saga logo"
@@ -464,8 +491,11 @@ const Home = () => {
                     />
 
                     <a
-                      href="/download"
-                      className="animate-pulse hover:animate-pulse mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]"
+                      href={checked ? "/download" : "#/Download%20launcher"}
+                      onMouseOver={handleLinkHover}
+                      className={` ${
+                        checked ? "animate-pulse" : ""
+                      }  mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]`}
                     >
                       Download
                     </a>
