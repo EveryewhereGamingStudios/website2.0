@@ -114,10 +114,10 @@ export function Resources() {
           </dl>
         </div>
       ) : (
-        <div className="rounded-lg">
+        <div className="rounded-lg items-center justify-center flex">
           <div>
             {!isLoading ? (
-              <dl className="flex flex-wrap items-center justify-center">
+              <dl className="flex flex-wrap items-center md:justify-between justify-center max-w-[670px] w-full">
                 {data?.map((nft, i) => {
                   if (!nft) return null;
 
