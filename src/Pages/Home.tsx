@@ -89,7 +89,9 @@ const Home = () => {
                 <div className="flex flex-col items-center justify-between min-h-[80vh]">
                   <div />
 
-                  <div>{Profile()}</div>
+                  <div>
+                    <Profile />
+                  </div>
 
                   <div />
                 </div>
@@ -125,7 +127,7 @@ const Home = () => {
                         htmlFor="default-checkbox"
                         className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                       >
-                        I understand, download anyway
+                        I understand, download anyway.
                       </label>
                     </div>
 
@@ -136,7 +138,11 @@ const Home = () => {
                     />
 
                     <a
-                      href={checked ? "/download" : "#/Download%20launcher"}
+                      href={
+                        checked
+                          ? "https://firebasestorage.googleapis.com/v0/b/cosmic-exodus.appspot.com/o/launcher%2FCosmic%20Launcher%20Installer.exe?alt=media&token=0737da76-40f8-452e-869c-b4f737be79ed"
+                          : "#/Download%20launcher"
+                      }
                       onMouseOver={handleLinkHover}
                       className={` ${
                         checked ? "animate-pulse" : ""

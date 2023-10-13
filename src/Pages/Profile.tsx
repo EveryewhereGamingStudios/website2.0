@@ -4,20 +4,6 @@ import moment from "moment";
 import links from "../data/links.json";
 import { IUser, useFirebase } from "../Context/FirebaseProvider";
 
-const InputField = ({ name, placeholder, onChange }: any) => {
-  return (
-    <form>
-      <input
-        type="text"
-        name={name}
-        placeholder={placeholder}
-        onChange={onChange}
-        className="my-2 px-4 w-[270px] focus:outline-none py-[5px] font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
-      />
-    </form>
-  );
-};
-
 export const Profile = () => {
   const { user, app, updateUser } = useFirebase();
   const [isEditing, setIsEditing] = useState(false);
@@ -321,5 +307,19 @@ export const Profile = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const InputField = ({ name, placeholder, onChange }: any) => {
+  return (
+    <form>
+      <input
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
+        className="my-2 px-4 w-[270px] focus:outline-none py-[5px] font-semibold bg-transparent border-2 border-sky-500 rounded-xl"
+      />
+    </form>
   );
 };
