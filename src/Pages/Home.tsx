@@ -66,11 +66,11 @@ const Home = () => {
           <ul className="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0 lg:-mt-28">
             {tabs?.map((item, i) => {
               return (
-                <li role="presentation">
+                <li role="presentation" key={i} className="ml-2">
                   <a
                     href={`#/${item.label}`}
                     onClick={() => setSelectedTab(item.value)}
-                    className={`flex items-center text-sm text-gray-500 px-4 pb-2 md:text-lg font-bold ${
+                    className={`flex items-center text-sm text-gray-500 px-2 pb-2 md:text-lg font-bold ${
                       item.value === selectedTab
                         ? "border-b border-sky-500 text-sky-500"
                         : null
@@ -207,7 +207,7 @@ const tabs = [
     ),
   },
   {
-    label: "Download launcher",
+    label: "Download",
     value: "download",
     icon: (
       <svg
@@ -219,6 +219,22 @@ const tabs = [
         viewBox="0 0 16 16"
       >
         <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Referral",
+    value: "referral",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        className="bi bi-people-fill mr-2"
+        viewBox="0 0 16 16"
+      >
+        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
       </svg>
     ),
   },
