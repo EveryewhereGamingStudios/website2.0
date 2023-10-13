@@ -27,7 +27,6 @@ const App = () => {
   return (
     <>
       <ThirdwebProvider
-        clientId={process.env.REACT_APP_CLIENT_ID}
         supportedWallets={[
           smartWallet(
             metamaskWallet({ recommended: true }),
