@@ -1,18 +1,12 @@
 import { useCallback, useState } from "react";
 import { useFirebase } from "../Context/FirebaseProvider";
-import { MediaRenderer, useContract, useNFTs } from "@thirdweb-dev/react";
-// import { CardNft } from "../Components/CardNft";
+import { useContract, useNFTs } from "@thirdweb-dev/react";
 
 export function Resources() {
   const { users } = useFirebase();
   const [selectedTab, setSelectedTab] = useState("accounts");
-  const { contract } = useContract(
-    "0xD71B99e3E429FC6f7CE65fF00a82E51b317492d6"
-  );
+  const { contract } = useContract(process.env.REACT_APP_NFT_ADDRESS);
   const { data, isLoading } = useNFTs(contract);
-
-  // const { data: metadata, isLoading: loadingMetadata } =
-  //   useContractMetadata(contract);
 
   console.log(data && data[0].metadata);
 
