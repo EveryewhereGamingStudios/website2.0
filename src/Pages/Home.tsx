@@ -2,9 +2,11 @@ import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import links from "../data/links.json";
 import { useCallback, useState } from "react";
 import { Profile } from "./Profile";
+import { useFirebase } from "../Context/FirebaseProvider";
 
 const Home = () => {
   const address = useAddress();
+  const { users } = useFirebase();
   const [selectedTab, setSelectedTab] = useState("accounts");
   const [checked, setChecked] = useState(false);
 
@@ -97,66 +99,137 @@ const Home = () => {
                 </div>
               </dl>
             </div>
-          ) : (
-            <div className="rounded-lg">
-              <dl className="-my-3 divide-y divide-sky-900 text-sm">
-                <div className="flex flex-col items-center justify-between min-h-[80vh]">
-                  <div />
+          ) : selectedTab === "download" ? (
+            <dl className="-my-3 divide-y divide-sky-900 text-sm">
+              <div className="flex flex-col items-center justify-between min-h-[80vh]">
+                <div />
 
-                  <div className="items-center justify-center flex flex-col">
-                    <p className="text-start p-4">
-                      <p className="text-lg">Warning: </p>
-                      As of today we do not have Microsoft Credentials. This
-                      will make our launcher flag Windows Defender.
-                      <br />
-                      We understand this causes trust issues and people are
-                      afraid of installing it, due to virus/malware concerns.
-                      <br />
-                      There is not much we can do about it right now, so please
-                      understand and have some patience with us.
-                    </p>
+                <div className="items-center justify-center flex flex-col">
+                  <p className="text-start p-4">
+                    <p className="text-lg">Warning: </p>
+                    As of today we do not have Microsoft Credentials. This will
+                    make our launcher flag Windows Defender.
+                    <br />
+                    We understand this causes trust issues and people are afraid
+                    of installing it, due to virus/malware concerns.
+                    <br />
+                    There is not much we can do about it right now, so please
+                    understand and have some patience with us.
+                  </p>
 
-                    <div className="flex items-center w-full mb-4 px-4">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        checked={checked}
-                        onChange={handleChange}
-                      />
-                      <label
-                        htmlFor="default-checkbox"
-                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                        I understand, download anyway.
-                      </label>
-                    </div>
-
-                    <img
-                      src="/assets/images/download-avatar.png"
-                      alt="Saga logo"
-                      className="md:h-[300px] h-[200px] my-8"
+                  <div className="flex items-center w-full mb-4 px-4">
+                    <input
+                      id="default-checkbox"
+                      type="checkbox"
+                      checked={checked}
+                      onChange={handleChange}
                     />
-
-                    <a
-                      href={
-                        checked
-                          ? "https://firebasestorage.googleapis.com/v0/b/cosmic-exodus.appspot.com/o/launcher%2FCosmic%20Launcher%20Installer.exe?alt=media&token=0737da76-40f8-452e-869c-b4f737be79ed"
-                          : "#/Download%20launcher"
-                      }
-                      onMouseOver={handleLinkHover}
-                      className={` ${
-                        checked ? "animate-pulse" : ""
-                      }  mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]`}
+                    <label
+                      htmlFor="default-checkbox"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      Download
-                    </a>
+                      I understand, download anyway.
+                    </label>
                   </div>
 
-                  <div />
+                  <img
+                    src="/assets/images/download-avatar.png"
+                    alt="Saga logo"
+                    className="md:h-[300px] h-[200px] my-8"
+                  />
+
+                  <a
+                    href={
+                      checked
+                        ? "https://firebasestorage.googleapis.com/v0/b/cosmic-exodus.appspot.com/o/launcher%2FCosmic%20Launcher%20Installer.exe?alt=media&token=0737da76-40f8-452e-869c-b4f737be79ed"
+                        : "#/Download%20launcher"
+                    }
+                    onMouseOver={handleLinkHover}
+                    className={` ${
+                      checked ? "animate-pulse" : ""
+                    }  mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]`}
+                  >
+                    Download
+                  </a>
                 </div>
-              </dl>
-            </div>
-          )}
+
+                <div />
+              </div>
+            </dl>
+          ) : selectedTab === "referral" ? (
+            <dl className="-my-3 divide-y divide-sky-900 text-sm w-full justify-center flex flex-col max-w-5xl self-center">
+              <div className="flex flex-col items-center justify-between min-h-[80vh]">
+                <div className="w-full flex md:flex-row flex-col items-center justify-between my-12 md:my-40">
+                  <div className="w-[275px] text-start h-[250px] flex flex-col">
+                    <p className="text-3xl">Points</p> <br />
+                    <p className="max-w-[275px]">
+                      Your Points will be used in the near future for different
+                      utilites (E.g.: discounts on subscriptions (if applied),
+                      premium features, etc.)
+                    </p>{" "}
+                    <br /> <br />
+                    <div className="items-center flex">
+                      <p>Total of points: </p>
+                      <span className="text-3xl font-bold text-sky-500 ml-4">
+                        5
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="md:h-[200px] md:w-[0.3px] w-[200px] h-[0.3px] bg-gray-400 mx-20" />
+
+                  <div className="w-[275px] text-start h-[250px] flex flex-col">
+                    <p className="text-3xl">Referral Program</p> <br />
+                    <p>Refer us to your friends and earn points!</p> <br />
+                    <p> 5 Points for each new user that Signs Up</p>
+                    <p> 5 Points for each new user that Lists a Project</p>{" "}
+                    <br />
+                    <p> Get your unique Referral Link:</p>
+                    <p className="text-sky-500">
+                      {" "}
+                      https://cosmicexodus.xyz/50940214
+                    </p>
+                    <a
+                      href="https://"
+                      className={`self-center mt-4 w-[108px] animate-pulse mx-4 border-2 border-[#2ed2ff] text-[#2ed2ff] p-[5.5px] px-[20px] rounded-[10px]`}
+                    >
+                      Copy Link
+                    </a>
+                  </div>
+                </div>
+
+                <div className="self-center w-full flex flex-col h-40">
+                  <p className="text-3xl px-10 md:px-0">Referrals</p> <br />
+                  {users?.map((item, index) => {
+                    return (
+                      <div
+                        className="flex justify-between items-center p-2 w-full border-sky-500 border-b-[0.5px]"
+                        key={index}
+                      >
+                        <div className="flex items-center">
+                          <img
+                            src={
+                              item?.photo ||
+                              `https://api.dicebear.com/6.x/bottts/png?seed=${item?.publicAddress}`
+                            }
+                            alt=""
+                            className="w-8 h-8 mr-2 rounded-full aspect-square"
+                          />
+                          <dt
+                            className="font-medium text-gray-300 truncate hover:text-sky-500 w-[200px]"
+                            // onClick={() => openWallet(item?.publicAddress)}
+                          >
+                            {item?.publicAddress}
+                          </dt>
+                        </div>
+                        <span className="ml-2">01/01/2023</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </dl>
+          ) : null}
         </>
       )}
     </>
@@ -222,20 +295,20 @@ const tabs = [
       </svg>
     ),
   },
-  // {
-  //   label: "Referral",
-  //   value: "referral",
-  //   icon: (
-  //     <svg
-  //       xmlns="http://www.w3.org/2000/svg"
-  //       width="16"
-  //       height="16"
-  //       fill="currentColor"
-  //       className="bi bi-people-fill mr-2"
-  //       viewBox="0 0 16 16"
-  //     >
-  //       <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-  //     </svg>
-  //   ),
-  // },
+  {
+    label: "Referral",
+    value: "referral",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        className="bi bi-people-fill mr-2"
+        viewBox="0 0 16 16"
+      >
+        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+      </svg>
+    ),
+  },
 ];
