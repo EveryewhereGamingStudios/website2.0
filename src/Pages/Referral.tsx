@@ -35,6 +35,11 @@ const Referral = () => {
             />
           </div>
         </div>
+        <div className="p-4 w-full flex md:flex-row flex-col items-center justify-between mt-4">
+          <p>Cosmic friends 0x14EEF608A...</p>
+          <p>Collection: 5 </p>
+          <p>Cosmic mentee’s 3</p>
+        </div>
       </div>
     </dl>
   );
