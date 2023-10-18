@@ -55,9 +55,11 @@ const Download = () => {
           <a
             href={
               checked
-                ? "https://firebasestorage.googleapis.com/v0/b/cosmic-exodus.appspot.com/o/launcher%2FCosmic%20Launcher%20Installer.exe?alt=media&token=0737da76-40f8-452e-869c-b4f737be79ed"
+                ? "https://drive.google.com/u/0/uc?id=1B0H6hBiBeeKRA269HqPWY0CWLiWy4Zpd&export=download&confirm=t&uuid=70d8a9b9-674d-4b37-a4cc-f517da755a40&at=AB6BwCBOf9zqcSn7ej484ddPIEK5:1697663643491"
                 : "#/Download%20launcher"
             }
+            target="_blank"
+            rel="noreferrer"
             onMouseOver={handleLinkHover}
             className={` ${
               checked ? "animate-pulse" : ""
