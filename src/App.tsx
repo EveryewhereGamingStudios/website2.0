@@ -4,9 +4,9 @@ import Routes from "./Router";
 import {
   ThirdwebProvider,
   coinbaseWallet,
-  embeddedWallet,
+  // embeddedWallet,
   localWallet,
-  // magicLink,
+  magicLink,
   metamaskWallet,
   phantomWallet,
   rainbowWallet,
@@ -45,17 +45,17 @@ const App = () => {
             smartWalletOptions
           ),
           smartWallet(localWallet(), smartWalletOptions),
-          smartWallet(embeddedWallet(), smartWalletOptions),
+          // smartWallet(embeddedWallet(), smartWalletOptions),
           smartWallet(trustWallet(), smartWalletOptions),
           smartWallet(zerionWallet(), smartWalletOptions),
           smartWallet(rainbowWallet(), smartWalletOptions),
           smartWallet(phantomWallet(), smartWalletOptions),
-          // magicLink({
-          //   apiKey: "pk_live_056D523F9E58FD92",
-          //   oauthOptions: {
-          //     providers: ["google"],
-          //   },
-          // }),
+          magicLink({
+            apiKey: "pk_live_056D523F9E58FD92",
+            oauthOptions: {
+              providers: ["google"],
+            },
+          }),
         ]}
         autoConnect
         activeChain="mumbai"

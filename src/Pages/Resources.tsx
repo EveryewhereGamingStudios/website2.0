@@ -8,8 +8,6 @@ export function Resources() {
   const { contract } = useContract(process.env.REACT_APP_NFT_ADDRESS);
   const { data, isLoading } = useNFTs(contract);
 
-  console.log(data && data[0].metadata);
-
   const tabs = [
     {
       label: `Accounts created (${users.length})`,
