@@ -4,6 +4,9 @@ import { useFirebase } from "../Context/FirebaseProvider";
 import { ArticleData, useBlog } from "../Context/BlogProvider";
 import moment from "moment";
 
+// const date = new Date("September 7, 2023 12:10:52");
+//   console.log(date.getTime());
+
 function generateUUID() {
   var d = new Date().getTime();
   var d2 =
