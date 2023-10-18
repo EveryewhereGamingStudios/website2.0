@@ -21,11 +21,14 @@ const Referral = () => {
             <p>
               The further your mentee is able to achieve, the bigger the
               rewards.
-            </p>{" "}
+            </p>
             <br />
             <p>Click to copy and activate your link:</p>
-            <a href="https://" className="text-sky-500 animate-pulse">
-              {" "}
+            <a
+              href="https://"
+              onCopy={() => "https://"}
+              className="text-sky-500 animate-pulse hover:animate-none"
+            >
               https://cosmicexodus.xyz/50940214
             </a>
             <img
