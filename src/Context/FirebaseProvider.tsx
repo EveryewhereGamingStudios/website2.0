@@ -35,6 +35,16 @@ interface FirebaseContextProps {
   analytics: Analytics;
   user: IUser | undefined;
   users: IUser[];
+  referrals:
+    | {
+        refs: [
+          {
+            time: number;
+            address: string;
+          }
+        ];
+      }
+    | undefined;
   signWaitlist: (email: string) => Promise<boolean>;
   signToOpenDeck: (email: string) => Promise<boolean>;
   updateUser: (editedUser: IUser) => Promise<void>;
@@ -85,11 +95,14 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const address = useAddress();
   const [users, setUsers] = useState<IUser[]>([]);
   const [referralCode, setReferralCode] = useState<string>();
+  const [referrals, setReferrals] = useState<{
+    refs: [{ time: number; address: string }];
+  }>();
 
   const getUsers = useCallback(async () => {
-    const petsCollectionRef = collection(db, "users");
+    const usersCollectionRef = collection(db, "users");
 
-    const unsubscribe = onSnapshot(petsCollectionRef, (userss) => {
+    const unsubscribe = onSnapshot(usersCollectionRef, (userss) => {
       let usersList: any = [];
       userss.docs.map((item) => usersList.push(item.data()));
 
@@ -98,6 +111,21 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
 
     return unsubscribe;
   }, [db]);
+
+  const getReferralsList = useCallback(async () => {
+    const refCollectionRef = collection(db, "referrals");
+
+    const unsubscribe = onSnapshot(refCollectionRef, (refs) => {
+      let refsList: any = [];
+      refs.docs.map((item) => refsList.push(item.data()));
+
+      let yourRefs = refsList.find((item: any) => item.uid === address);
+
+      yourRefs && setReferrals(yourRefs);
+    });
+
+    return unsubscribe;
+  }, [address, db]);
 
   const verifyReferral = useCallback(async () => {
     const referralsRef = collection(db, "referrals");
@@ -208,8 +236,10 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
 
   useEffect(() => {
     getUsers();
+    getReferralsList();
     verifyUserDatabase();
-  }, [address, getUsers, verifyUserDatabase]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   const signWaitlist = useCallback(
     async (email: string) => {
@@ -269,6 +299,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       analytics,
       user,
       users,
+      referrals,
       signWaitlist,
       signToOpenDeck,
       updateUser,
@@ -280,6 +311,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     analytics,
     user,
     users,
+    referrals,
     signWaitlist,
     signToOpenDeck,
     updateUser,
