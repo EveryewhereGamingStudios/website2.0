@@ -166,13 +166,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
           time: new Date().getTime(),
         };
 
-        const updatedSet = new Set([
-          ...existingData.referralArray,
-          newReferralEntry,
-        ]);
-
         await updateDoc(doc(referralsRef, existingReferralDoc.id), {
-          refs: updatedSet,
+          refs: [...existingData.refs, newReferralEntry],
         });
 
         console.log("New element added to the referral array.");
