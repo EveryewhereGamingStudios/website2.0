@@ -38,6 +38,7 @@ interface FirebaseContextProps {
   signWaitlist: (email: string) => Promise<boolean>;
   signToOpenDeck: (email: string) => Promise<boolean>;
   updateUser: (editedUser: IUser) => Promise<void>;
+  setReferralCode: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 interface Props {
@@ -83,6 +84,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const [user, setUser] = useState<IUser>();
   const address = useAddress();
   const [users, setUsers] = useState<IUser[]>([]);
+  const [referralCode, setReferralCode] = useState<string>();
 
   const getUsers = useCallback(async () => {
     const petsCollectionRef = collection(db, "users");
@@ -96,6 +98,64 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
 
     return unsubscribe;
   }, [db]);
+
+  const verifyReferral = useCallback(async () => {
+    const referralsRef = collection(db, "referrals");
+    const q = query(
+      collection(db, "referrals"),
+      where("uid", "==", referralCode)
+    );
+    const docs = await getDocs(q);
+
+    if (docs.docs.length === 0) {
+      try {
+        const newReferralEntry = {
+          refs: [{ address: address, time: new Date().getTime() }],
+          uid: referralCode,
+        };
+
+        await setDoc(doc(referralsRef, referralCode), newReferralEntry);
+        console.log("Entrada de referência adicionada com sucesso.");
+      } catch (error) {
+        console.error("Erro ao adicionar a entrada de referência:", error);
+      }
+    } else {
+      try {
+        const existingReferralDoc = docs.docs[0];
+        const existingData = existingReferralDoc.data();
+
+        const verifyMyAddress = existingData?.refs.find(
+          (item: any) => item.address === address
+        );
+
+        if (verifyMyAddress) {
+          console.log("Error: Address registred in the past!");
+          return;
+        }
+
+        const newReferralEntry = {
+          address: address,
+          time: new Date().getTime(),
+        };
+
+        const updatedSet = new Set([
+          ...existingData.referralArray,
+          newReferralEntry,
+        ]);
+
+        await updateDoc(doc(referralsRef, existingReferralDoc.id), {
+          refs: updatedSet,
+        });
+
+        console.log("New element added to the referral array.");
+      } catch (error) {
+        console.error(
+          "Erro ao adicionar o novo elemento à matriz de referência:",
+          error
+        );
+      }
+    }
+  }, [address, db, referralCode]);
 
   const verifyUserDatabase = useCallback(async () => {
     if (!address) {
@@ -122,15 +182,19 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
         docs.forEach((doc) => {
           setUser(doc.data() as IUser);
         });
+
+        referralCode && verifyReferral();
       } else {
         const docs = await getDocs(q);
 
         docs.forEach((doc) => {
           setUser(doc.data() as IUser);
         });
+
+        referralCode && verifyReferral();
       }
     } catch {}
-  }, [address, db]);
+  }, [address, db, referralCode, verifyReferral]);
 
   useEffect(() => {
     verifyUserDatabase();
@@ -198,6 +262,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       signWaitlist,
       signToOpenDeck,
       updateUser,
+      setReferralCode,
     };
   }, [
     app,
@@ -208,6 +273,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     signWaitlist,
     signToOpenDeck,
     updateUser,
+    setReferralCode,
   ]);
 
   return (

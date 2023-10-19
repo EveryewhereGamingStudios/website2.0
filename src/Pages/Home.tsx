@@ -1,13 +1,25 @@
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import links from "../data/links.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Profile } from "./Profile";
 import Referral from "./Referral";
 import Download from "./Download";
+import { useFirebase } from "../Context/FirebaseProvider";
 
 const Home = () => {
   const address = useAddress();
   const [selectedTab, setSelectedTab] = useState("accounts");
+  const { setReferralCode } = useFirebase();
+  function extractLastPartOfUrl(url: string) {
+    const parts = url.split("/");
+    return parts[parts.length - 1];
+  }
+  const refPart = extractLastPartOfUrl(window.location.href);
+
+  useEffect(() => {
+    if (!refPart) return;
+    setReferralCode(refPart);
+  }, [refPart, setReferralCode]);
 
   return (
     <>
