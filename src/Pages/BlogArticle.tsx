@@ -15,9 +15,11 @@ export default function BlogArticle() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const formattedId = decodeURIComponent(id!).replace(/-/g, " ");
+
   const article = useMemo(() => {
-    return articles.find((item) => item.articleTitle === id);
-  }, [articles, id]);
+    return articles.find((item) => item.articleTitle === formattedId);
+  }, [articles, formattedId]);
 
   return (
     <div>
