@@ -95,6 +95,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const address = useAddress();
   const [users, setUsers] = useState<IUser[]>([]);
   const [referralCode, setReferralCode] = useState<string>();
+  const [refered, setRefered] = useState(false);
   const [referrals, setReferrals] = useState<{
     refs: [{ time: number; address: string }];
   }>();
@@ -122,6 +123,12 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
       let yourRefs = refsList.find((item: any) => item.uid === address);
 
       yourRefs && setReferrals(yourRefs);
+
+      refsList.map((item: any) =>
+        item.refs.map(
+          (item: any) => item.address === address && setRefered(true)
+        )
+      );
     });
 
     return unsubscribe;
@@ -206,7 +213,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
           setUser(doc.data() as IUser);
         });
 
-        if (referralCode) {
+        if (referralCode && !refered) {
           const verifyUser = users.find(
             (item) => item.publicAddress === referralCode
           );
@@ -219,7 +226,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
           setUser(doc.data() as IUser);
         });
 
-        if (referralCode) {
+        if (referralCode && !refered) {
           const verifyUser = users.find(
             (item) => item.publicAddress === referralCode
           );
