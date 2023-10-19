@@ -183,7 +183,12 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
           setUser(doc.data() as IUser);
         });
 
-        referralCode && verifyReferral();
+        if (referralCode) {
+          const verifyUser = users.find(
+            (item) => item.publicAddress === referralCode
+          );
+          verifyUser && verifyReferral();
+        }
       } else {
         const docs = await getDocs(q);
 
@@ -191,14 +196,19 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
           setUser(doc.data() as IUser);
         });
 
-        referralCode && verifyReferral();
+        if (referralCode) {
+          const verifyUser = users.find(
+            (item) => item.publicAddress === referralCode
+          );
+          verifyUser && verifyReferral();
+        }
       }
     } catch {}
-  }, [address, db, referralCode, verifyReferral]);
+  }, [address, db, referralCode, users, verifyReferral]);
 
   useEffect(() => {
-    verifyUserDatabase();
     getUsers();
+    verifyUserDatabase();
   }, [address, getUsers, verifyUserDatabase]);
 
   const signWaitlist = useCallback(
