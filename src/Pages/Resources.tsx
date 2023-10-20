@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useFirebase } from "../Context/FirebaseProvider";
 import { useContract, useNFTs } from "@thirdweb-dev/react";
 
@@ -7,6 +7,13 @@ export function Resources() {
   const [selectedTab, setSelectedTab] = useState("accounts");
   const { contract } = useContract(process.env.REACT_APP_NFT_ADDRESS);
   const { data, isLoading } = useNFTs(contract);
+
+  const totalSupply = useMemo(() => {
+    if (!data) return 0;
+    let count: number = 0;
+    data?.map((item) => (count += Number(item.supply)));
+    return count;
+  }, [data]);
 
   const tabs = [
     {
@@ -26,7 +33,7 @@ export function Resources() {
       ),
     },
     {
-      label: "NFTs minted",
+      label: `NFTs minted (${totalSupply})`,
       value: "nfts",
       icon: (
         <svg
