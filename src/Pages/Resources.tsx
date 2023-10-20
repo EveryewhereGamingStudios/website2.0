@@ -190,7 +190,7 @@ const imgs = [
   },
   {
     name: "Chain Tower",
-    url: "/nfts/Damage-Tower.png",
+    url: "/nfts/Chain-Tower.png",
   },
   {
     name: "Mage Unit",
