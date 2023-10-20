@@ -119,6 +119,9 @@ export function Resources() {
               <dl className="flex flex-wrap items-center md:justify-between justify-center max-w-[670px] w-full">
                 {data?.map((nft, i) => {
                   if (!nft) return null;
+                  const img = imgs.find(
+                    (img) => nft.metadata.name === img.name
+                  )?.url;
 
                   return (
                     <div
@@ -126,7 +129,7 @@ export function Resources() {
                       className="border-2 border-sky-500 w-[280px] p-4 m-4 flex items-center justify-between"
                     >
                       <img
-                        src={`${nft.metadata.image}`}
+                        src={`${img}`}
                         alt={`${nft.metadata.name}`}
                         className="h-24"
                       />
@@ -159,3 +162,46 @@ export interface NFT {
   price: number;
   minted?: boolean;
 }
+
+const imgs = [
+  {
+    name: "Damage Tower",
+    url: "/nfts/Damage-Tower.png",
+  },
+  {
+    name: "Melee Unit",
+    url: "/nfts/Melee-Unit.png",
+  },
+  {
+    name: "Slow Tower",
+    url: "/nfts/Slow-Tower.png",
+  },
+  {
+    name: "Range Unit",
+    url: "/nfts/Range-Unit.png",
+  },
+  {
+    name: "Stun Tower",
+    url: "/nfts/Stun-Tower.png",
+  },
+  {
+    name: "Healer Unit",
+    url: "/nfts/Healer-Unit.png",
+  },
+  {
+    name: "Chain Tower",
+    url: "/nfts/Damage-Tower.png",
+  },
+  {
+    name: "Mage Unit",
+    url: "/nfts/Mage-Unit.png",
+  },
+  {
+    name: "Critical Tower",
+    url: "/nfts/Critical-Tower.png",
+  },
+  {
+    name: "Tank Unit",
+    url: "/nfts/Tank-Unit.png",
+  },
+];
