@@ -178,6 +178,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
         });
 
         console.log("New element added to the referral array.");
+
+        // return navigate("/");
       } catch (error) {
         console.error(
           "Erro ao adicionar o novo elemento à matriz de referência:",
@@ -190,6 +192,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
   const verifyUserDatabase = useCallback(async () => {
     if (!address) {
       setUser(undefined);
+
       return;
     }
 
@@ -234,7 +237,8 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
         }
       }
     } catch {}
-  }, [address, db, referralCode, users, verifyReferral]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, db, refered, referralCode, users]);
 
   useEffect(() => {
     getUsers();
