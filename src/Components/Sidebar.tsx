@@ -90,7 +90,7 @@ interface ISocialNetworks {
 const socialNetworks: ISocialNetworks[] = [
   {
     title: "X",
-    link: "https://twitter.com/Cosmic_Exodus",
+    link: "https://twitter.com/intent/follow?screen_name=Cosmic_Exodus",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
