@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -77,6 +78,11 @@ const BlogProvider: React.FC<Props> = ({ children, ...rest }) => {
 
     return [];
   }, [blogRef]);
+
+  useEffect(() => {
+    getArticles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const value = useMemo(() => {
     return {

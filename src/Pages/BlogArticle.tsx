@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../Context/BlogProvider";
@@ -7,13 +7,8 @@ import { EmojiTextWithLineBreak } from "../utils/blog";
 
 export default function BlogArticle() {
   const { id } = useParams<{ id: string }>();
-  const { articles, loading, error, getArticles } = useBlog();
+  const { articles, loading, error } = useBlog();
   const [qtd, setQtd] = useState(3);
-
-  useEffect(() => {
-    getArticles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const formattedId = decodeURIComponent(id!).replace(/-/g, " ");
 
