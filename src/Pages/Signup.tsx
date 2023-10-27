@@ -1,9 +1,10 @@
 import React, { useState, useRef, useCallback } from "react";
-import { IUser, useFirebase } from "../Context/FirebaseProvider";
+import { useFirebase } from "../Context/FirebaseProvider";
 import links from "../data/links.json";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import moment from "moment";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import { IUser } from "../Context/types";
 
 const UserProfile = () => {
   const { user, app, updateUser } = useFirebase();

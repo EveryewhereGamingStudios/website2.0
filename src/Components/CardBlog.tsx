@@ -1,4 +1,4 @@
-import { ArticleData } from "../Context/BlogProvider";
+import { ArticleData } from "../Context/types";
 
 export function CardBlog(article: ArticleData) {
   function removeLineBreaks(text: string) {

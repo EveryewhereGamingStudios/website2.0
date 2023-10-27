@@ -6,15 +6,13 @@ import {
   useMemo,
   useState,
 } from "react";
-import { FirebaseApp, initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import {
-  Analytics,
   getAnalytics,
   initializeAnalytics,
   logEvent,
 } from "firebase/analytics";
 import {
-  Firestore,
   addDoc,
   collection,
   doc,
@@ -28,47 +26,7 @@ import {
   where,
 } from "firebase/firestore";
 import { useAddress } from "@thirdweb-dev/react";
-
-interface FirebaseContextProps {
-  app: FirebaseApp;
-  db: Firestore;
-  analytics: Analytics;
-  user: IUser | undefined;
-  users: IUser[];
-  referrals:
-    | {
-        refs: [
-          {
-            time: number;
-            address: string;
-          }
-        ];
-      }
-    | undefined;
-  signWaitlist: (email: string) => Promise<boolean>;
-  signToOpenDeck: (email: string) => Promise<boolean>;
-  updateUser: (editedUser: IUser) => Promise<void>;
-  setReferralCode: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
-
-interface Props {
-  children: JSX.Element;
-}
-
-interface ISocialItems {
-  title: string;
-  link: string;
-}
-
-export interface IUser {
-  email: string;
-  name: string;
-  publicAddress?: string;
-  uid: string;
-  photo: string | undefined;
-  socialNetworks: ISocialItems[];
-  gdpr: boolean;
-}
+import { FirebaseContextProps, IUser, Props } from "./types";
 
 export const FirebaseContext = createContext<FirebaseContextProps | undefined>(
   undefined

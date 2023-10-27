@@ -2,7 +2,8 @@ import React, { useCallback, useRef, useState } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import moment from "moment";
 import links from "../data/links.json";
-import { IUser, useFirebase } from "../Context/FirebaseProvider";
+import { useFirebase } from "../Context/FirebaseProvider";
+import { IUser } from "../Context/types";
 
 export const Profile = () => {
   const { user, app, updateUser } = useFirebase();

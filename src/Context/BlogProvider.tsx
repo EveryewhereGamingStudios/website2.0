@@ -7,39 +7,7 @@ import {
 } from "react";
 import { useFirebase } from "./FirebaseProvider";
 import { collection, getDoc, getDocs, doc, addDoc } from "firebase/firestore";
-
-interface ContentItem {
-  title: string;
-  subTitle?: string;
-  description: string;
-}
-
-export interface ArticleData {
-  uuid: string;
-  articleTitle: string;
-  articleDescription?: string;
-  bannerImage: string;
-  coverImage: string;
-  link: string;
-  date: string;
-  timeToRead: string;
-  content: ContentItem[];
-}
-
-interface BlogContextProps {
-  articles: ArticleData[];
-  article: ArticleData | undefined;
-  loading: boolean;
-  error: string;
-  loadingPost: boolean;
-  getArticleById: (id: string) => Promise<ArticleData | undefined>;
-  getArticles: () => Promise<ArticleData[]>;
-  postArticle: (data: ArticleData) => Promise<void>;
-}
-
-interface Props {
-  children: JSX.Element;
-}
+import { ArticleData, BlogContextProps, Props } from "./types";
 
 export const BlogContext = createContext<BlogContextProps | undefined>(
   undefined
