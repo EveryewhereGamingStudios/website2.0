@@ -25,9 +25,6 @@ const Deck = () => {
         .then((res) => {
           if (res === true) {
             setRegistered(true);
-            // window.open(
-            //   "https://drive.google.com/file/d/1h1HENakcd5-ViSZnVAwpZs_FU3ncyCHQ/view"
-            // );
           } else {
             setError("Error, try again!");
           }
@@ -35,8 +32,6 @@ const Deck = () => {
         .catch((err) => {
           setError(err.message);
         });
-    } else {
-      // add class to gdpr label .error
     }
   };
 
@@ -70,7 +65,7 @@ const Deck = () => {
   );
 
   const pdfUrl =
-    "https://drive.google.com/file/d/1q77ZJUxoZnPvzzv0S2VOyf8jOm9M-PJV/preview";
+    "https://drive.google.com/file/d/1NzF0_LuN1saz_iPcmbwdlu3VusOqe39J/preview";
 
   const success = (
     <div className="flex flex-col items-center justify-center w-full">
