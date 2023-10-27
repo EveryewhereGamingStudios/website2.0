@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { ref, uploadBytes, getDownloadURL, getStorage } from "firebase/storage";
 import { useFirebase } from "../Context/FirebaseProvider";
-import { ArticleData, useBlog } from "../Context/BlogProvider";
+import { useBlog } from "../Context/BlogProvider";
 import moment from "moment";
+import { ArticleData } from "../Context/types";
 
 // const date = new Date("September 7, 2023 12:10:52");
 //   console.log(date.getTime());

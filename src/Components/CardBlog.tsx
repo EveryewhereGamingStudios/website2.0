@@ -1,12 +1,18 @@
-import { ArticleData } from "../Context/BlogProvider";
+import { ArticleData } from "../Context/types";
 
 export function CardBlog(article: ArticleData) {
   function removeLineBreaks(text: string) {
     const regex = /<br\s*\/?>/g;
     return text.replace(regex, "");
   }
+
+  const formattedId = decodeURIComponent(article.articleTitle).replace(
+    / /g,
+    "-"
+  );
+
   return (
-    <a href={`/article/${article.articleTitle}`}>
+    <a href={`/article/${formattedId}`}>
       <div className="flex flex-col m-4 bg-opacity-10 rounded-lg w-[300px] border border-[#30D1FF]">
         <img
           src={article.coverImage || "/assets/images/space.png"}

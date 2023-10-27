@@ -1,14 +1,8 @@
-import { useEffect, useMemo } from "react";
 import { useBlog } from "../Context/BlogProvider";
 import { CardBlog } from "../Components/CardBlog";
 
 function Blog() {
-  const { articles, loading, error, getArticles } = useBlog();
-
-  useEffect(() => {
-    getArticles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { articles, loading, error } = useBlog();
 
   return (
     <div className="flex flex-wrap justify-center">
