@@ -113,6 +113,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
     return unsubscribe;
   }, [db]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getReferralsList = useCallback(async () => {
     const refCollectionRef = collection(db, "referrals");
 
@@ -242,7 +243,7 @@ const FirebaseProvider: React.FC<Props> = ({ children, ...rest }) => {
 
   useEffect(() => {
     getUsers();
-    getReferralsList();
+    // getReferralsList();
     verifyUserDatabase();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);

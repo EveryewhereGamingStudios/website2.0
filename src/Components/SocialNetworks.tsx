@@ -3,7 +3,7 @@ export function SocialNetworks() {
     {
       title: "X",
       img: "/logos/mdi_x.png",
-      action: "https://x.com/Cosmic_Exodus",
+      action: "https://twitter.com/intent/follow?screen_name=Cosmic_Exodus",
     },
     {
       title: "LinkdIn",
