@@ -39,7 +39,7 @@ const MainLayout = () => {
               <div className="w-[250px] items-center justify-center flex">
                 <ConnectWallet
                   theme="dark"
-                  modalTitle="Enter the metaverse of web3 gaming"
+                  modalTitle="Enter the digital cosmos of immersive experiences."
                 />
               </div>
             )}

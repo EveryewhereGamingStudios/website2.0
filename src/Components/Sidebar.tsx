@@ -21,10 +21,10 @@ const Sidebar = () => {
 
         <a href={links.blog}>Blog</a>
         <a href={links.whitepaper} target="_blank" rel="noreferrer">
-          Whitepaper
+          Wiki
         </a>
         <a href={links.deck}>Cosmic Deck</a>
-        <a href="/resources">Resources</a>
+        <a href="/resources" className="disabled">Resources</a>
         <span className="disabled">Shop</span>
 
         <img src="/assets/images/line.png" alt="Line" className="hr" />

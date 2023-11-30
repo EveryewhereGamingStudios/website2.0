@@ -128,7 +128,7 @@ const connectWalletStyles = {
 };
 
 const connectWalletScreen = {
-  title: "Enter the metaverse of web3 gaming!",
+  title: "Enter the digital cosmos of immersive experiences.",
   subtitle: "Choose an option to get started.",
   img: {
     src: "/assets/images/logo.png",
